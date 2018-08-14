@@ -22,7 +22,7 @@ class Chip8:
         self.stack_pointer = uint16(0)
 
         self.keys = [byte(0)] * 16
-        
+
 
     def load_rom(self, rom_bytes):
 
@@ -40,7 +40,7 @@ class Chip8:
     def fetch_opcode(self):
 
         #load the next two bytes of memory into one 16 bit value - the current opcode.
-        pc = int(self.program_counter)
+        pc = int(self.program_counter) #indexes must be ints!
         opcode = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
 
         return opcode
