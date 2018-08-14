@@ -7,10 +7,12 @@ class Chip8:
 
     def __init__(self):
 
+        self.should_draw = False
+
         self.PROGRAM_START_ADDRESS = 512 #game memory begins at address 0x200 / 512
 
         self.memory = [byte(0)] * 4096
-        self.program_counter = byte(self.PROGRAM_START_ADDRESS) 
+        self.program_counter = uint16(self.PROGRAM_START_ADDRESS) 
 
         self.index_register = byte(0)
         self.main_registers = [byte(0)] * 16
@@ -23,6 +25,7 @@ class Chip8:
 
         self.keys = [byte(0)] * 16
 
+        self.frame_buffer = [byte(0)] * (64 * 32)
 
     def load_rom(self, rom_bytes):
 
@@ -32,6 +35,9 @@ class Chip8:
 
     def emulate_cycle(self):
         #Fetch Opcode
+
+        opcode = self.fetch_opcode()
+
         #Decode Opcode
         #Execute Opcode
         #Update timers
@@ -44,3 +50,10 @@ class Chip8:
         opcode = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
 
         return opcode
+
+    def draw_graphics(self):
+        if(self.should_draw):
+            pass
+
+    def set_keys(self):
+        pass
