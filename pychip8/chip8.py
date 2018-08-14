@@ -1,6 +1,8 @@
 from numpy import uint8 as byte
 from numpy import uint16
 
+from opcode import Opcode
+
 
 class Chip8:
     """This class represents the CHIP 8 cpu"""
@@ -35,21 +37,23 @@ class Chip8:
 
     def emulate_cycle(self):
         #Fetch Opcode
-
-        opcode = self.fetch_opcode()
+        word = self.fetch_word()
+        opcode = Opcode(word)
 
         #Decode Opcode
         #Execute Opcode
-        #Update timers
+        update_timers()
         pass
 
-    def fetch_opcode(self):
+    def fetch_word(self):
 
         #load the next two bytes of memory into one 16 bit value - the current opcode.
         pc = int(self.program_counter) #indexes must be ints!
-        opcode = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
+        word = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
 
-        return opcode
+        return word
+    
+
 
     def draw_graphics(self):
         if(self.should_draw):
@@ -57,3 +61,7 @@ class Chip8:
 
     def set_keys(self):
         pass
+
+    def update_timers(self):
+        if(self.delay_timer > 0) self.delay_timer--
+        if(self.sound_timer > 0) self.sound_timer--
