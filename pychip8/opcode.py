@@ -8,10 +8,10 @@ class Opcode:
         # We use bitwise-and with a mask to extract specific nibbles.
 
         self.word = word
-        self.A = byte(opcode & 0xF000)
+        self.a = byte((word & 0xF000) >> 12)
 
-        self.NNN = uint16(opcode & 0x0FFF),
-        self.NN = byte(opCode & 0x00FF),
-        self.N = byte(opCode & 0x000F),
-        self.X = byte((opCode & 0x0F00) >> 8), # Where don't use the lower nibbles, bitshift right to get just the raw value
-        self.Y = byte((opCode & 0x00F0) >> 4), # Eg. we want 0x4 not 0x40
+        self.nnn = uint16(word & 0x0FFF)
+        self.nn = byte(word & 0x00FF)
+        self.n = byte(word & 0x000F)
+        self.x = byte((word & 0x0F00) >> 8) # Where don't use the lower nibbles, bitshift right to get just the raw value
+        self.y = byte((word & 0x00F0) >> 4) # Eg. we want 0x4 not 0x40
