@@ -1,4 +1,4 @@
-from opcode import Opcode
+from ..opcode import Opcode
 
 import unittest
  
