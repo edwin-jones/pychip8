@@ -36,11 +36,9 @@ class Chip8:
 
 
     def emulate_cycle(self):
-        #Fetch Opcode
         word = self.fetch_word()
         opcode = Opcode(word)
 
-        #Decode Opcode
         #Execute Opcode
         update_timers()
         pass
@@ -51,9 +49,7 @@ class Chip8:
         pc = int(self.program_counter) #indexes must be ints!
         word = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
 
-        return word
-    
-
+        return word   
 
     def draw_graphics(self):
         if(self.should_draw):
