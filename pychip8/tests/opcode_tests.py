@@ -1,4 +1,4 @@
-from ..opcode import Opcode
+from pychip8.opcode import Opcode
 
 import unittest
  
