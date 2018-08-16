@@ -1,18 +1,16 @@
 from numpy import uint8 as byte
 from numpy import uint16
 
-from opcode import Opcode
+from pychip8.opcode import Opcode
 
 
 class Cpu:
     """This class represents the CHIP 8 cpu"""
+    PROGRAM_START_ADDRESS = 512 #game memory begins at address 0x200 / 512
 
     def __init__(self):
 
         self.should_draw = False
-
-        self.PROGRAM_START_ADDRESS = 512 #game memory begins at address 0x200 / 512
-
         self.memory = [byte(0)] * 4096
         self.program_counter = uint16(self.PROGRAM_START_ADDRESS) 
 
@@ -32,7 +30,7 @@ class Cpu:
     def load_rom(self, rom_bytes):
 
         for i, byte in enumerate(rom_bytes):
-           self.memory[self.PROGRAM_START_ADDRESS + i] = byte 
+           self.memory[Cpu.PROGRAM_START_ADDRESS + i] = byte 
 
 
     def emulate_cycle(self):
