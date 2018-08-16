@@ -4,7 +4,7 @@ from numpy import uint16
 from opcode import Opcode
 
 
-class Chip8:
+class Cpu:
     """This class represents the CHIP 8 cpu"""
 
     def __init__(self):
@@ -40,7 +40,7 @@ class Chip8:
         opcode = Opcode(word)
 
         #Execute Opcode
-        update_timers()
+        self.update_timers()
         pass
 
     def fetch_word(self):
@@ -59,5 +59,5 @@ class Chip8:
         pass
 
     def update_timers(self):
-        if(self.delay_timer > 0) self.delay_timer--
-        if(self.sound_timer > 0) self.sound_timer--
+        if(self.delay_timer > 0): self.delay_timer -= 1
+        if(self.sound_timer > 0): self.sound_timer -= 1
