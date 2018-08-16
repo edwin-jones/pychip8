@@ -17,7 +17,6 @@ class TestOperationMapper(unittest.TestCase):
         self.assertRaises(KeyError, mapper.find_operation, opcode)
 
     def test_operation_mapper_set_register(self):
-
         opcode = Opcode(0x61CD)
         mapper = OperationMapper()
         operation = mapper.find_operation(opcode)
