@@ -15,3 +15,6 @@ class Opcode:
         self.n = byte(word & 0x000F)
         self.x = byte((word & 0x0F00) >> 8) # Where don't use the lower nibbles, bitshift right to get just the raw value
         self.y = byte((word & 0x00F0) >> 4) # Eg. we want 0x4 not 0x40
+
+    def __str__(self):
+        return hex(word)
