@@ -12,6 +12,6 @@ class OperationMapper():
             mask = key | opcode.word
 
             if mask not in self.operations:
-                raise KeyError(f"Opcode {opcode.word} not present in list of valid operations")
+                raise KeyError(f"Opcode {opcode.word:#06x} not present in list of valid operations")
 
             return self.operations[mask]
