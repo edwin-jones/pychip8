@@ -1,6 +1,5 @@
 from pychip8.opcode import Opcode
-from pychip8.operations.operation_mapper import OperationMapper
-from pychip8.operations.set_register import SetRegister
+from pychip8.operations import *
 
 import unittest
 
@@ -22,6 +21,13 @@ class TestOperationMapper(unittest.TestCase):
         operation = mapper.find_operation(opcode)
 
         self.assertTrue(isinstance(operation, SetRegister))
+
+    def test_operation_mapper_copy_register(self):
+        opcode = Opcode(0x8120)
+        mapper = OperationMapper()
+        operation = mapper.find_operation(opcode)
+
+        self.assertTrue(isinstance(operation, CopyRegister))
 
 
 if __name__ == '__main__':
