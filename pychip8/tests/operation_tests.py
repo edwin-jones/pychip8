@@ -18,13 +18,13 @@ class TestOperation(unittest.TestCase):
 
     def test_set_register(self):
         opcode = Opcode(0x61CD)
-        operation = SetRegister()
+        operation = SetGeneralPurposeRegister()
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.main_registers[1], 0xCD)
 
     def test_copy_register(self):
         opcode = Opcode(0x8120)
-        operation = CopyRegister()
+        operation = CopyGeneralPurposeRegister()
         self.cpu.main_registers[int(opcode.y)] = 4
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.main_registers[int(opcode.x)], self.cpu.main_registers[int(opcode.y)])

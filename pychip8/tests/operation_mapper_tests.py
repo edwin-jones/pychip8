@@ -21,12 +21,12 @@ class TestOperationMapper(unittest.TestCase):
     def test_operation_mapper_set_register(self):
         mapper = OperationMapper()
         operation = mapper.find_operation(0x61CD)
-        self.assertTrue(isinstance(operation, SetRegister))
+        self.assertTrue(isinstance(operation, SetGeneralPurposeRegister))
 
     def test_operation_mapper_copy_register(self):
         mapper = OperationMapper()
         operation = mapper.find_operation(0x8120)
-        self.assertTrue(isinstance(operation, CopyRegister))
+        self.assertTrue(isinstance(operation, CopyGeneralPurposeRegister))
 
 
 if __name__ == '__main__':

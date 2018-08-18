@@ -5,8 +5,8 @@ class OperationMapper():
 
     def __init__(self):
         self.operations = {}
-        self.operations[0x6FFF] = SetRegister()
-        self.operations[0x8FF0] = CopyRegister()
+        self.operations[0x6FFF] = SetGeneralPurposeRegister()
+        self.operations[0x8FF0] = CopyGeneralPurposeRegister()
         self.operations[0xAFFF] = SetIndexRegister()
 
     def find_operation(self, word):
