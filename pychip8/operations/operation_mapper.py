@@ -1,4 +1,5 @@
 from pychip8.operations import *
+from pychip8.opcode import Opcode
 
 class OperationMapper():
 
@@ -7,14 +8,21 @@ class OperationMapper():
         self.operations[0x6FFF] = SetRegister()
         self.operations[0x8FF0] = CopyRegister()
 
-    def find_operation(self, opcode):
+    def find_operation(self, word):
 
         for key in self.operations:
-            mask = key | opcode.word
+
+            key_as_opcode = Opcode(key)
+            word_as_opcode = Opcode(word)
+
+            if key_as_opcode.a != word_as_opcode.a:
+                continue
+
+            mask = key | word
 
             if mask in self.operations:
                 return self.operations[mask]
 
-        raise KeyError(f"Opcode {opcode.word:#06x} not present in list of valid operations")
+        raise KeyError(f"Opcode {word:#06x} not present in list of valid operations")
 
             
