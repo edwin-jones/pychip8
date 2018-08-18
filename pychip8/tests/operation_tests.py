@@ -10,6 +10,12 @@ class TestOperation(unittest.TestCase):
     def setUp(self):
         self.cpu = Cpu()
 
+    def test_set_index_register(self):
+        opcode = Opcode(0xA123)
+        operation = SetIndexRegister()
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.index_register, 0x123)
+
     def test_set_register(self):
         opcode = Opcode(0x61CD)
         operation = SetRegister()
