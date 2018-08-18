@@ -13,6 +13,11 @@ class TestOperationMapper(unittest.TestCase):
         mapper = OperationMapper()
         self.assertRaises(KeyError, mapper.find_operation, 0x2FFF)
 
+    def test_operation_mapper_set_index_register(self):
+        mapper = OperationMapper()
+        operation = mapper.find_operation(0xA123)
+        self.assertTrue(isinstance(operation, SetIndexRegister))
+
     def test_operation_mapper_set_register(self):
         mapper = OperationMapper()
         operation = mapper.find_operation(0x61CD)
