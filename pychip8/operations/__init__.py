@@ -1,4 +1,7 @@
 from pychip8.operations.copy_general_purpose_register import CopyGeneralPurposeRegister
 from pychip8.operations.set_general_purpose_register import SetGeneralPurposeRegister
 from pychip8.operations.set_index_register import SetIndexRegister
+from pychip8.operations.set_sound_timer import SetSoundTimer
+from pychip8.operations.set_delay_timer import SetDelayTimer
+
 from pychip8.operations.operation_mapper import OperationMapper
