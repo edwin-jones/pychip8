@@ -5,3 +5,4 @@ from pychip8.operations.set_sound_timer import SetSoundTimer
 from pychip8.operations.set_delay_timer import SetDelayTimer
 from pychip8.operations.clear_display import ClearDisplay
 from pychip8.operations.goto import Goto
+from pychip8.operations.skip_if_equal import SkipIfEqual

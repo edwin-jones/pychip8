@@ -1,3 +1,3 @@
 class SetGeneralPurposeRegister():
     def execute(self, opcode, cpu):
-        cpu.main_registers[int(opcode.x)] = opcode.nn
+        cpu.general_purpose_registers[int(opcode.x)] = opcode.nn

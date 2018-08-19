@@ -15,7 +15,7 @@ class Cpu:
         self.program_counter = uint16(self.PROGRAM_START_ADDRESS) 
 
         self.index_register = byte(0)
-        self.main_registers = [byte(0)] * 16
+        self.general_purpose_registers = [byte(0)] * 16
 
         self.delay_timer = byte(0)
         self.sound_timer = byte(0)

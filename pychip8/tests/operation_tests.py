@@ -46,20 +46,29 @@ class TestOperation(unittest.TestCase):
         opcode = Opcode(0x61CD)
         operation = SetGeneralPurposeRegister()
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.main_registers[1], 0xCD)
+        self.assertEqual(self.cpu.general_purpose_registers[1], 0xCD)
 
     def test_copy_general_purpose_register(self):
         opcode = Opcode(0x8120)
         operation = CopyGeneralPurposeRegister()
-        self.cpu.main_registers[int(opcode.y)] = 4
+        self.cpu.general_purpose_registers[int(opcode.y)] = 4
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.main_registers[int(opcode.x)], self.cpu.main_registers[int(opcode.y)])
+        self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], self.cpu.general_purpose_registers[int(opcode.y)])
 
     def test_set_program_counter(self):
         opcode = Opcode(0x1123)
         operation = Goto()
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.program_counter, 0x123)
+
+    def test_skip_if_equal(self):
+        opcode = Opcode(0x3122)
+        operation = SkipIfEqual()
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.program_counter, Cpu.PROGRAM_START_ADDRESS)
+        self.cpu.general_purpose_registers[1] = uint16(0x22)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 1)
 
 
 if __name__ == '__main__':
