@@ -1,10 +1,13 @@
 from pychip8.operations import *
 from pychip8.opcode import Opcode
 
+from collections import OrderedDict
+
 class OperationMapper():
 
     def __init__(self):
-        self.operations = {}
+        self.operations = OrderedDict()
+        self.operations[0x00E0] = ClearDisplay()
         self.operations[0x6FFF] = SetGeneralPurposeRegister()
         self.operations[0x8FF0] = CopyGeneralPurposeRegister()
         self.operations[0xAFFF] = SetIndexRegister()
