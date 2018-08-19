@@ -4,3 +4,4 @@ from pychip8.operations.set_index_register import SetIndexRegister
 from pychip8.operations.set_sound_timer import SetSoundTimer
 from pychip8.operations.set_delay_timer import SetDelayTimer
 from pychip8.operations.clear_display import ClearDisplay
+from pychip8.operations.goto import Goto

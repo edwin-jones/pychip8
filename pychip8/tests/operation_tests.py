@@ -55,6 +55,12 @@ class TestOperation(unittest.TestCase):
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.main_registers[int(opcode.x)], self.cpu.main_registers[int(opcode.y)])
 
+    def test_set_program_counter(self):
+        opcode = Opcode(0x1123)
+        operation = Goto()
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.program_counter, 0x123)
+
 
 if __name__ == '__main__':
     unittest.main()
