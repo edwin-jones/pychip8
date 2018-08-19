@@ -2,6 +2,9 @@ from pychip8.opcode import Opcode
 from pychip8.cpu import Cpu
 from pychip8.operations import * 
 
+from numpy import uint8 as byte
+from numpy import uint16
+
 import unittest
 
  
@@ -9,6 +12,17 @@ class TestOperation(unittest.TestCase):
 
     def setUp(self):
         self.cpu = Cpu()
+
+    def test_clear_display(self):
+        opcode = Opcode(0x00E0)
+
+        self.cpu.frame_buffer = [byte(255)] * (64 * 32)
+
+        operation = ClearDisplay()
+        operation.execute(opcode, self.cpu)
+        
+        for pixel in self.cpu.frame_buffer:
+            self.assertEqual(pixel, 0)
 
     def test_set_delay_timer(self):
         opcode = Opcode(0xF615)

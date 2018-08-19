@@ -3,3 +3,4 @@ from pychip8.operations.set_general_purpose_register import SetGeneralPurposeReg
 from pychip8.operations.set_index_register import SetIndexRegister
 from pychip8.operations.set_sound_timer import SetSoundTimer
 from pychip8.operations.set_delay_timer import SetDelayTimer
+from pychip8.operations.clear_display import ClearDisplay
