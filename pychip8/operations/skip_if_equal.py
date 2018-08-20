@@ -1,4 +1,4 @@
 class SkipIfEqual():
     def execute(self, opcode, cpu):
-        if(True):
-            cpu.index_register = cpu.index_register + 1
+        if(cpu.general_purpose_registers[opcode.x] == opcode.nn):
+            cpu.program_counter += 1
