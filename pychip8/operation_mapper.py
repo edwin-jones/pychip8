@@ -7,10 +7,13 @@ class OperationMapper():
 
     def __init__(self):
         self.operations = OrderedDict()
+
         self.operations[0x00E0] = ClearDisplay()
         self.operations[0x1FFF] = Goto()
+        self.operations[0x3FFF] = SkipIfEqual()
         self.operations[0x6FFF] = SetGeneralPurposeRegister()
         self.operations[0x8FF0] = CopyGeneralPurposeRegister()
+        
         self.operations[0xAFFF] = SetIndexRegister()
         self.operations[0xFF15] = SetDelayTimer()
         self.operations[0xFF18] = SetSoundTimer()

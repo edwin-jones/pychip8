@@ -36,8 +36,11 @@ class TestOperationMapper(unittest.TestCase):
     def test_clear_display_mapping(self):
         self._test_mapping(0x00E0, ClearDisplay)
     
-    def test_clear_goto(self):
+    def test_goto(self):
         self._test_mapping(0x1000, Goto)
+
+    def test_skip_if_equal_mapping(self):
+        self._test_mapping(0x3122, SkipIfEqual)
 
 
 if __name__ == '__main__':
