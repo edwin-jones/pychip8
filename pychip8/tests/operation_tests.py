@@ -18,6 +18,12 @@ class TestOperation(unittest.TestCase):
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 1)
 
+    def _test_values_are_equal_after_execution(self, word, operation, cpu_attribute_name, value):
+        opcode = Opcode(word)
+        operation.execute(opcode, self.cpu)
+        cpu_attribute = getattr(self.cpu, cpu_attribute_name)
+        self.assertEqual(cpu_attribute, value)
+
     def setUp(self):
         self.cpu = Cpu()
 
@@ -33,10 +39,7 @@ class TestOperation(unittest.TestCase):
             self.assertEqual(pixel, 0)
 
     def test_set_delay_timer(self):
-        opcode = Opcode(0xF615)
-        operation = SetDelayTimer()
-        operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.delay_timer, 0x6)
+        self._test_values_are_equal_after_execution(0xF615, SetDelayTimer(), 'delay_timer', 0x6)
     
     def test_set_sound_timer(self):
         opcode = Opcode(0xF618)
