@@ -27,17 +27,6 @@ class TestOperation(unittest.TestCase):
     def setUp(self):
         self.cpu = Cpu()
 
-    def test_clear_display(self):
-        opcode = Opcode(0x00E0)
-
-        self.cpu.frame_buffer = [byte(255)] * (64 * 32)
-
-        operation = ClearDisplay()
-        operation.execute(opcode, self.cpu)
-        
-        for pixel in self.cpu.frame_buffer:
-            self.assertEqual(pixel, 0)
-
     def test_set_delay_timer(self):
         self._test_cpu_attribute_equals_value_after_execution(0xF615, SetDelayTimer(), 'delay_timer', 0x6)
     
@@ -59,6 +48,17 @@ class TestOperation(unittest.TestCase):
     def test_skip_if_equal(self):
         self.cpu.general_purpose_registers[2] = byte(1)
         self._test_skip(0x5120, SkipIfXyEqual())
+
+    def test_clear_display(self):
+        opcode = Opcode(0x00E0)
+
+        self.cpu.frame_buffer = [byte(255)] * (64 * 32)
+
+        operation = ClearDisplay()
+        operation.execute(opcode, self.cpu)
+        
+        for pixel in self.cpu.frame_buffer:
+            self.assertEqual(pixel, 0)
 
     def test_set_general_purpose_register(self):
         opcode = Opcode(0x61CD)
