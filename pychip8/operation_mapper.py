@@ -11,9 +11,10 @@ class OperationMapper():
         self._operations[0x00E0] = ClearDisplay()
         self._operations[0x1FFF] = Goto()
         self._operations[0x3FFF] = SkipIfEqual()
+        self._operations[0x4FFF] = SkipIfNotEqual()
+
         self._operations[0x6FFF] = SetGeneralPurposeRegister()
         self._operations[0x8FF0] = CopyGeneralPurposeRegister()
-
         self._operations[0xAFFF] = SetIndexRegister()
         self._operations[0xFF15] = SetDelayTimer()
         self._operations[0xFF18] = SetSoundTimer()
