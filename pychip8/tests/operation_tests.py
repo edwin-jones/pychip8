@@ -10,6 +10,14 @@ import unittest
  
 class TestOperation(unittest.TestCase):
 
+    def _test_skip(self, word, operation):
+        opcode = Opcode(word)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.program_counter, Cpu.PROGRAM_START_ADDRESS)
+        self.cpu.general_purpose_registers[1] = uint16(0x01)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 1)
+
     def setUp(self):
         self.cpu = Cpu()
 
@@ -61,14 +69,11 @@ class TestOperation(unittest.TestCase):
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.program_counter, 0x123)
 
+    def test_skip_if_not_equal(self):
+        self._test_skip(0x3100, SkipIfNotEqual())
+
     def test_skip_if_equal(self):
-        opcode = Opcode(0x3122)
-        operation = SkipIfEqual()
-        operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.program_counter, Cpu.PROGRAM_START_ADDRESS)
-        self.cpu.general_purpose_registers[1] = uint16(0x22)
-        operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 1)
+        self._test_skip(0x4101, SkipIfEqual())
 
 
 if __name__ == '__main__':
