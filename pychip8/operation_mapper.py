@@ -12,6 +12,7 @@ class OperationMapper():
         self._operations[0x1FFF] = Goto()
         self._operations[0x3FFF] = SkipIfEqual()
         self._operations[0x4FFF] = SkipIfNotEqual()
+        self._operations[0x5FF0] = SkipIfXyEqual()
 
         self._operations[0x6FFF] = SetGeneralPurposeRegister()
         self._operations[0x8FF0] = CopyGeneralPurposeRegister()

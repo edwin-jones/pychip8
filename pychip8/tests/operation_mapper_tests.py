@@ -45,6 +45,9 @@ class TestOperationMapper(unittest.TestCase):
     def test_skip_if_not_equal_mapping(self):
         self._test_mapping(0x4122, SkipIfNotEqual)
 
+    def test_skip_x_y_equal_mapping(self):
+        self._test_mapping(0x5120, SkipIfXyEqual)
+
 
 if __name__ == '__main__':
     unittest.main()
