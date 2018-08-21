@@ -16,7 +16,7 @@ class TestOperation(unittest.TestCase):
         self.assertEqual(self.cpu.program_counter, Cpu.PROGRAM_START_ADDRESS)
         self.cpu.general_purpose_registers[1] = byte(1)
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 1)
+        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 2)
 
     def _test_cpu_attribute_equals_value_after_execution(self, word, operation, cpu_attribute_name, value):
         opcode = Opcode(word)
@@ -45,7 +45,7 @@ class TestOperation(unittest.TestCase):
     def test_skip_if_equal(self):
         self._test_skip(0x4101, SkipIfEqual())
 
-    def test_skip_if_equal(self):
+    def test_skip_if_x_y_equal(self):
         self.cpu.general_purpose_registers[2] = byte(1)
         self._test_skip(0x5120, SkipIfXyEqual())
 
