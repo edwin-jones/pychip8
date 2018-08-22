@@ -92,9 +92,9 @@ class TestOperation(unittest.TestCase):
     def test_copy_general_purpose_register(self):
         opcode = Opcode(0x8120)
         operation = CopyGeneralPurposeRegister()
-        self.cpu.general_purpose_registers[int(opcode.y)] = 4
+        self.cpu.general_purpose_registers[opcode.y] = 4
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], self.cpu.general_purpose_registers[opcode.y])
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], self.cpu.general_purpose_registers[opcode.y])
 
     def test_or(self):
         self.cpu.general_purpose_registers[1] = byte(4)
