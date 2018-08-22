@@ -13,7 +13,7 @@ class Cpu:
 
         self.should_draw = False
         self.memory = [byte(0)] * 4096
-        self.program_counter = uint16(self.PROGRAM_START_ADDRESS) 
+        self._program_counter = uint16(self.PROGRAM_START_ADDRESS) 
 
         self.index_register = byte(0)
         self.general_purpose_registers = [byte(0)] * 16
@@ -29,7 +29,7 @@ class Cpu:
         self.frame_buffer = [byte(0)] * (64 * 32)
 
     def move_to_next_instruction(self):
-        self.program_counter += Cpu.WORD_SIZE_IN_BYTES
+        self._program_counter += Cpu.WORD_SIZE_IN_BYTES
 
     def load_rom(self, rom_bytes):
         for i, byte in enumerate(rom_bytes):
@@ -46,7 +46,7 @@ class Cpu:
     def fetch_word(self):
 
         #load the next two bytes of memory into one 16 bit value - the current opcode.
-        pc = int(self.program_counter) #indexes must be ints!
+        pc = int(self._program_counter) #indexes must be ints!
         word = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
 
         return word   
