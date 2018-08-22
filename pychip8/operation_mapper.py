@@ -15,9 +15,11 @@ class OperationMapper():
         self._operations[0x5FF0] = SkipIfXyEqual()
 
         self._operations[0x6FFF] = SetGeneralPurposeRegister()
+        self._operations[0x7FFF] = IncrementGeneralPurposeRegister()
         self._operations[0x8FF0] = CopyGeneralPurposeRegister()
         self._operations[0xAFFF] = SetIndexRegister()
         self._operations[0xFF15] = SetDelayTimer()
+        
         self._operations[0xFF18] = SetSoundTimer()
 
     def find_operation(self, word):

@@ -24,6 +24,9 @@ class TestOperationMapper(unittest.TestCase):
     def test_set_general_purpose_register_mapping(self):
         self._test_mapping(0x61CD, SetGeneralPurposeRegister)
 
+    def test_incremement_general_purpose_register_mapping(self):
+        self._test_mapping(0x71CD, IncrementGeneralPurposeRegister)
+
     def test_copy_general_purpose_register_mapping(self):
         self._test_mapping(0x8120, CopyGeneralPurposeRegister)
 
@@ -47,7 +50,6 @@ class TestOperationMapper(unittest.TestCase):
 
     def test_skip_x_y_equal_mapping(self):
         self._test_mapping(0x5120, SkipIfXyEqual)
-
 
 if __name__ == '__main__':
     unittest.main()
