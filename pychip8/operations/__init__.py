@@ -8,3 +8,4 @@ from pychip8.operations.goto import Goto
 from pychip8.operations.skip_if_equal import SkipIfEqual
 from pychip8.operations.skip_if_not_equal import SkipIfNotEqual
 from pychip8.operations.skip_if_x_y_equal import SkipIfXyEqual
+from pychip8.operations.increment_general_purpose_register import IncrementGeneralPurposeRegister
