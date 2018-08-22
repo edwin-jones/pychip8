@@ -9,6 +9,6 @@ class AddXtoY():
             result = cpu.general_purpose_registers[int(opcode.x)] + cpu.general_purpose_registers[int(opcode.y)]
             
             if result < original_value:
-                cpu.general_purpose_registers[cpu.MATH_FLAG_REGISTER_ADDRESS] = byte(1)
+                cpu.general_purpose_registers[cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(1)
 
             cpu.general_purpose_registers[opcode.x] = result

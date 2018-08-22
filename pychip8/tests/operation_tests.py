@@ -100,17 +100,19 @@ class TestOperation(unittest.TestCase):
         self.cpu.general_purpose_registers[2] = byte(2)
         self._test_bitwise_operation(0x8123, BitwiseXor(), 1)
 
+    def _test_arithmetic(self, word, operation, x, y, expected_result, expected_flag_value):
+        opcode = Opcode(word)
+
+        self.cpu.general_purpose_registers[opcode.x] = byte(x)
+        self.cpu.general_purpose_registers[opcode.y] = byte(y)
+
+        operation.execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], expected_result)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], expected_flag_value)
+
     def test_add_x_to_y_overflow(self):
-        
-        opcode = Opcode(0x8124)
-
-        self.cpu.general_purpose_registers[opcode.x] = byte(255)
-        self.cpu.general_purpose_registers[opcode.y] = byte(2)
-
-        AddXtoY().execute(opcode, self.cpu)
-
-        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 1)
-        self.assertEqual(self.cpu.general_purpose_registers[Cpu.MATH_FLAG_REGISTER_ADDRESS], 1)
+        self._test_arithmetic(0x8124, AddXtoY(), 255, 2, 1, 1)
 
     def test_add_x_to_y_no_overflow(self):
         
@@ -122,7 +124,7 @@ class TestOperation(unittest.TestCase):
         AddXtoY().execute(opcode, self.cpu)
 
         self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 5)
-        self.assertEqual(self.cpu.general_purpose_registers[Cpu.MATH_FLAG_REGISTER_ADDRESS], 0)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 0)
 
 if __name__ == '__main__':
     unittest.main()
