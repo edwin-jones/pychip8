@@ -1,7 +1,7 @@
 from numpy import uint8 as byte
 import numpy
 
-class AddXtoY():
+class AddYToX():
     def execute(self, opcode, cpu):
 
         with numpy.errstate(over='ignore'): #ignore overflows just for this code block!

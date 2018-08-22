@@ -12,4 +12,4 @@ from pychip8.operations.increment_general_purpose_register import IncrementGener
 from pychip8.operations.bitwise_and import BitwiseAnd
 from pychip8.operations.bitwise_or import BitwiseOr
 from pychip8.operations.bitwise_xor import BitwiseXor
-from pychip8.operations.add_x_to_y import AddXtoY
+from pychip8.operations.add_y_to_x import AddYToX

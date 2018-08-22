@@ -60,5 +60,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_bitwise_xor_mapping(self):
         self._test_mapping(0x8123, BitwiseXor)
 
+    def test_add_y_to_x_mapping(self):
+        self._test_mapping(0x8124, AddYToX)
+
 if __name__ == '__main__':
     unittest.main()

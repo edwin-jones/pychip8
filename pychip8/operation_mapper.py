@@ -22,6 +22,8 @@ class OperationMapper():
         self._operations[0x8FF2] = BitwiseAnd()
         self._operations[0x8FF3] = BitwiseXor()
 
+        self._operations[0x8FF4] = AddYToX()
+
         self._operations[0xAFFF] = SetIndexRegister()
         self._operations[0xFF15] = SetDelayTimer()      
         self._operations[0xFF18] = SetSoundTimer()

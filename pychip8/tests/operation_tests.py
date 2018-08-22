@@ -27,7 +27,18 @@ class TestOperation(unittest.TestCase):
     def _test_bitwise_operation(self, word, operation, expected_value):
         opcode = Opcode(word)
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], expected_value)
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], expected_value)
+
+    def _test_arithmetic(self, word, operation, x, y, expected_result, expected_flag_value):
+        opcode = Opcode(word)
+
+        self.cpu.general_purpose_registers[opcode.x] = byte(x)
+        self.cpu.general_purpose_registers[opcode.y] = byte(y)
+
+        operation.execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], expected_result)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], expected_flag_value)
 
     def setUp(self):
         self.cpu = Cpu()
@@ -83,7 +94,7 @@ class TestOperation(unittest.TestCase):
         operation = CopyGeneralPurposeRegister()
         self.cpu.general_purpose_registers[int(opcode.y)] = 4
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], self.cpu.general_purpose_registers[int(opcode.y)])
+        self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], self.cpu.general_purpose_registers[opcode.y])
 
     def test_or(self):
         self.cpu.general_purpose_registers[1] = byte(4)
@@ -100,31 +111,11 @@ class TestOperation(unittest.TestCase):
         self.cpu.general_purpose_registers[2] = byte(2)
         self._test_bitwise_operation(0x8123, BitwiseXor(), 1)
 
-    def _test_arithmetic(self, word, operation, x, y, expected_result, expected_flag_value):
-        opcode = Opcode(word)
-
-        self.cpu.general_purpose_registers[opcode.x] = byte(x)
-        self.cpu.general_purpose_registers[opcode.y] = byte(y)
-
-        operation.execute(opcode, self.cpu)
-
-        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], expected_result)
-        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], expected_flag_value)
-
     def test_add_x_to_y_overflow(self):
-        self._test_arithmetic(0x8124, AddXtoY(), 255, 2, 1, 1)
+        self._test_arithmetic(0x8124, AddYToX(), 255, 2, 1, 1)
 
     def test_add_x_to_y_no_overflow(self):
-        
-        opcode = Opcode(0x8124)
-
-        self.cpu.general_purpose_registers[opcode.x] = byte(2)
-        self.cpu.general_purpose_registers[opcode.y] = byte(3)
-
-        AddXtoY().execute(opcode, self.cpu)
-
-        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 5)
-        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 0)
+        self._test_arithmetic(0x8124, AddYToX(), 2, 3, 5, 0)
 
 if __name__ == '__main__':
     unittest.main()
