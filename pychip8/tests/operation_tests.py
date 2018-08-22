@@ -29,7 +29,6 @@ class TestOperation(unittest.TestCase):
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], expected_value)
 
-
     def setUp(self):
         self.cpu = Cpu()
 

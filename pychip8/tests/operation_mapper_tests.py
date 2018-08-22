@@ -51,5 +51,14 @@ class TestOperationMapper(unittest.TestCase):
     def test_skip_x_y_equal_mapping(self):
         self._test_mapping(0x5120, SkipIfXyEqual)
 
+    def test_bitwise_or_mapping(self):
+        self._test_mapping(0x8121, BitwiseOr)
+    
+    def test_bitwise_and_mapping(self):
+        self._test_mapping(0x8122, BitwiseAnd)
+
+    def test_bitwise_xor_mapping(self):
+        self._test_mapping(0x8123, BitwiseXor)
+
 if __name__ == '__main__':
     unittest.main()
