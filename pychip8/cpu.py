@@ -1,13 +1,16 @@
+# see https://en.wikipedia.org/wiki/CHIP-8 for the chip 8 spec
+
 from numpy import uint8 as byte
 from numpy import uint16
+import numpy
 
 from pychip8.opcode import Opcode
-
 
 class Cpu:
     """This class represents the CHIP 8 cpu"""
     PROGRAM_START_ADDRESS = 512 # game memory begins at address 0x200 / 512
     WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
+    MATH_FLAG_REGISTER_ADDRESS = 14 #V[15] is used as a carry/no borrow flag for certain ops
 
     def __init__(self):
 

@@ -98,7 +98,31 @@ class TestOperation(unittest.TestCase):
     def test_xor(self):
         self.cpu.general_purpose_registers[1] = byte(3)
         self.cpu.general_purpose_registers[2] = byte(2)
-        self._test_bitwise_operation(0x8123, BitwiseXor(), 1)  
+        self._test_bitwise_operation(0x8123, BitwiseXor(), 1)
+
+    def test_add_x_to_y_overflow(self):
+        
+        opcode = Opcode(0x8124)
+
+        self.cpu.general_purpose_registers[opcode.x] = byte(255)
+        self.cpu.general_purpose_registers[opcode.y] = byte(2)
+
+        AddXtoY().execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 1)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.MATH_FLAG_REGISTER_ADDRESS], 1)
+
+    def test_add_x_to_y_no_overflow(self):
+        
+        opcode = Opcode(0x8124)
+
+        self.cpu.general_purpose_registers[opcode.x] = byte(2)
+        self.cpu.general_purpose_registers[opcode.y] = byte(3)
+
+        AddXtoY().execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 5)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.MATH_FLAG_REGISTER_ADDRESS], 0)
 
 if __name__ == '__main__':
     unittest.main()
