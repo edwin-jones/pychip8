@@ -24,6 +24,12 @@ class TestOperation(unittest.TestCase):
         cpu_attribute = getattr(self.cpu, cpu_attribute_name)
         self.assertEqual(cpu_attribute, value)
 
+    def _test_bitwise_operation(self, word, operation, expected_value):
+        opcode = Opcode(word)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], expected_value)
+
+
     def setUp(self):
         self.cpu = Cpu()
 
@@ -79,6 +85,21 @@ class TestOperation(unittest.TestCase):
         self.cpu.general_purpose_registers[int(opcode.y)] = 4
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.general_purpose_registers[int(opcode.x)], self.cpu.general_purpose_registers[int(opcode.y)])
+
+    def test_or(self):
+        self.cpu.general_purpose_registers[1] = byte(4)
+        self.cpu.general_purpose_registers[2] = byte(2)
+        self._test_bitwise_operation(0x8121, BitwiseOr(), 6)
+
+    def test_and(self):
+        self.cpu.general_purpose_registers[1] = byte(0xF)
+        self.cpu.general_purpose_registers[2] = byte(0xF)
+        self._test_bitwise_operation(0x8122, BitwiseAnd(), 0xF)
+
+    def test_xor(self):
+        self.cpu.general_purpose_registers[1] = byte(3)
+        self.cpu.general_purpose_registers[2] = byte(2)
+        self._test_bitwise_operation(0x8123, BitwiseXor(), 1)  
 
 if __name__ == '__main__':
     unittest.main()

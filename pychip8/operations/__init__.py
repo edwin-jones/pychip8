@@ -9,3 +9,6 @@ from pychip8.operations.skip_if_equal import SkipIfEqual
 from pychip8.operations.skip_if_not_equal import SkipIfNotEqual
 from pychip8.operations.skip_if_x_y_equal import SkipIfXyEqual
 from pychip8.operations.increment_general_purpose_register import IncrementGeneralPurposeRegister
+from pychip8.operations.bitwise_and import BitwiseAnd
+from pychip8.operations.bitwise_or import BitwiseOr
+from pychip8.operations.bitwise_xor import BitwiseXor
