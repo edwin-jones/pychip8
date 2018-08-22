@@ -63,5 +63,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_add_y_to_x_mapping(self):
         self._test_mapping(0x8124, AddYToX)
 
+    def test_take_y_from_x_mapping(self):
+        self._test_mapping(0x8125, TakeYFromX)
+
 if __name__ == '__main__':
     unittest.main()
