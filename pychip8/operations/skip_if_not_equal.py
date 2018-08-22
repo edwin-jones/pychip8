@@ -1,4 +1,4 @@
 class SkipIfNotEqual():
     def execute(self, opcode, cpu):
         if(cpu.general_purpose_registers[opcode.x] != opcode.nn):
-            cpu.program_counter += 2
+            cpu.move_to_next_instruction()

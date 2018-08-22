@@ -6,7 +6,8 @@ from pychip8.opcode import Opcode
 
 class Cpu:
     """This class represents the CHIP 8 cpu"""
-    PROGRAM_START_ADDRESS = 512 #game memory begins at address 0x200 / 512
+    PROGRAM_START_ADDRESS = 512 # game memory begins at address 0x200 / 512
+    WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
 
     def __init__(self):
 
@@ -27,11 +28,12 @@ class Cpu:
 
         self.frame_buffer = [byte(0)] * (64 * 32)
 
-    def load_rom(self, rom_bytes):
+    def move_to_next_instruction(self):
+        self.program_counter += Cpu.WORD_SIZE_IN_BYTES
 
+    def load_rom(self, rom_bytes):
         for i, byte in enumerate(rom_bytes):
            self.memory[Cpu.PROGRAM_START_ADDRESS + i] = byte 
-
 
     def emulate_cycle(self):
         word = self.fetch_word()

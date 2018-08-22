@@ -16,7 +16,7 @@ class TestOperation(unittest.TestCase):
         self.assertEqual(self.cpu.program_counter, Cpu.PROGRAM_START_ADDRESS)
         self.cpu.general_purpose_registers[1] = byte(1)
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + 2)
+        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + Cpu.WORD_SIZE_IN_BYTES)
 
     def _test_cpu_attribute_equals_value_after_execution(self, word, operation, cpu_attribute_name, value):
         opcode = Opcode(word)
