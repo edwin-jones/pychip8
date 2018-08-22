@@ -13,3 +13,4 @@ from pychip8.operations.bitwise_and import BitwiseAnd
 from pychip8.operations.bitwise_or import BitwiseOr
 from pychip8.operations.bitwise_xor import BitwiseXor
 from pychip8.operations.add_y_to_x import AddYToX
+from pychip8.operations.take_y_from_x import TakeYFromX

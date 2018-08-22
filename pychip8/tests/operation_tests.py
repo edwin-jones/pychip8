@@ -111,11 +111,17 @@ class TestOperation(unittest.TestCase):
         self.cpu.general_purpose_registers[2] = byte(2)
         self._test_bitwise_operation(0x8123, BitwiseXor(), 1)
 
-    def test_add_x_to_y_overflow(self):
+    def test_add_y_to_x_overflow(self):
         self._test_arithmetic(0x8124, AddYToX(), 255, 2, 1, 1)
 
-    def test_add_x_to_y_no_overflow(self):
+    def test_add_y_to_x_no_overflow(self):
         self._test_arithmetic(0x8124, AddYToX(), 2, 3, 5, 0)
+
+    def test_take_y_from_x_underflow(self):
+        self._test_arithmetic(0x8124, TakeYFromX(), 1, 2, 255, 1)
+
+    def test_take_y_from_x_no_underflow(self):
+        self._test_arithmetic(0x8124, TakeYFromX(), 6, 4, 2, 0)
 
 if __name__ == '__main__':
     unittest.main()
