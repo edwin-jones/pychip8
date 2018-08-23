@@ -25,8 +25,11 @@ class OperationMapper():
         self._operations[0x8FF4] = AddYToX()
         self._operations[0x8FF5] = TakeYFromX()
 
+        self._operations[0x8FF6] = ShiftXRight()
+        self._operations[0x8FFE] = ShiftXLeft()
+
         self._operations[0xAFFF] = SetIndexRegister()
-        self._operations[0xFF15] = SetDelayTimer()      
+        self._operations[0xFF15] = SetDelayTimer()
         self._operations[0xFF18] = SetSoundTimer()
 
     def find_operation(self, word):
