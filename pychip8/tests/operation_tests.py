@@ -123,5 +123,13 @@ class TestOperation(unittest.TestCase):
     def test_take_y_from_x_no_underflow(self):
         self._test_arithmetic(0x8124, TakeYFromX(), 6, 4, 2, 0)
 
+    def test_shift_x_left(self):
+        opcode = Opcode(0x8106)
+        operation = ShiftXLeft()
+        self.cpu.general_purpose_registers[opcode.x] = 0xFF
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], byte(254))
+
 if __name__ == '__main__':
     unittest.main()
