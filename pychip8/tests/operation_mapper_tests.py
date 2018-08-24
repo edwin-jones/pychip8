@@ -19,13 +19,13 @@ class TestOperationMapper(unittest.TestCase):
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0x2FFF)
 
     def test_set_index_register_mapping(self):
-        self._test_mapping(0xA123, SetItoNnn)
+        self._test_mapping(0xA123, SetI)
 
     def test_set_general_purpose_register_mapping(self):
-        self._test_mapping(0x61CD, SetXToNn)
+        self._test_mapping(0x61CD, SetX)
 
     def test_incremement_general_purpose_register_mapping(self):
-        self._test_mapping(0x71CD, AddNnToX)
+        self._test_mapping(0x71CD, AddToX)
 
     def test_copy_general_purpose_register_mapping(self):
         self._test_mapping(0x8120, SetXToY)
