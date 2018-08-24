@@ -13,7 +13,7 @@ class TestOperationMapper(unittest.TestCase):
 
     def _test_mapping(self, word, operation_type):
         operation = self.operation_mapper.find_operation(word)
-        self.assertTrue(isinstance(operation, operation_type))
+        self.assertIsInstance(operation, operation_type)
 
     def test_thows_if_no_mapping(self):
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0x2FFF)
@@ -71,6 +71,9 @@ class TestOperationMapper(unittest.TestCase):
 
     def test_shift_x_left_mapping(self):
         self._test_mapping(0x812E, ShiftXLeft)
+
+    def test_add_x_to_i_mapping(self):
+        self._test_mapping(0xF81E, AddXToI)
 
 if __name__ == '__main__':
     unittest.main()

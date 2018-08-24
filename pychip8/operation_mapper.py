@@ -31,6 +31,7 @@ class OperationMapper():
         self._operations[0xAFFF] = SetItoNnn()
         self._operations[0xFF15] = SetDelayTimer()
         self._operations[0xFF18] = SetSoundTimer()
+        self._operations[0xFF1E] = AddXToI()
 
     def find_operation(self, word):
 
