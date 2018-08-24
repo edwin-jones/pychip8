@@ -75,5 +75,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_add_x_to_i_mapping(self):
         self._test_mapping(0xF81E, AddXToI)
 
+    def test_set_x_to_delay_timer_mapping(self):
+        self._test_mapping(0xF307, SetXToDelayTimer)
+
 if __name__ == '__main__':
     unittest.main()

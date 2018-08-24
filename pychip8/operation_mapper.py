@@ -17,21 +17,21 @@ class OperationMapper():
         self._operations[0x6FFF] = SetXToNn()
         self._operations[0x7FFF] = AddNnToX()
         self._operations[0x8FF0] = SetXToY()
-        
         self._operations[0x8FF1] = BitwiseOr()
         self._operations[0x8FF2] = BitwiseAnd()
-        self._operations[0x8FF3] = BitwiseXor()
 
+        self._operations[0x8FF3] = BitwiseXor()
         self._operations[0x8FF4] = AddYToX()
         self._operations[0x8FF5] = TakeYFromX()
-
         self._operations[0x8FF6] = ShiftXRight()
         self._operations[0x8FFE] = ShiftXLeft()
 
         self._operations[0xAFFF] = SetItoNnn()
+        self._operations[0xFF07] = SetXToDelayTimer()
         self._operations[0xFF15] = SetDelayTimer()
         self._operations[0xFF18] = SetSoundTimer()
         self._operations[0xFF1E] = AddXToI()
+
 
     def find_operation(self, word):
 

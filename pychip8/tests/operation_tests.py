@@ -148,5 +148,12 @@ class TestOperation(unittest.TestCase):
         self.assertEqual(self.cpu.index_register, 1)
         self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
 
+    def test_set_x_to_delay_timer(self):
+        opcode = Opcode(0xF207)
+        operation = SetXToDelayTimer()
+        self.cpu.delay_timer = byte(0xA)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], self.cpu.delay_timer)
+
 if __name__ == '__main__':
     unittest.main()

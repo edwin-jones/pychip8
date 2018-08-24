@@ -20,5 +20,6 @@ from pychip8.operations.bitwise.bitwise_and import BitwiseAnd
 from pychip8.operations.bitwise.bitwise_or import BitwiseOr
 from pychip8.operations.bitwise.bitwise_xor import BitwiseXor
 
+from pychip8.operations.timers.set_x_to_delay_timer import SetXToDelayTimer
 from pychip8.operations.timers.set_sound_timer import SetSoundTimer
 from pychip8.operations.timers.set_delay_timer import SetDelayTimer
