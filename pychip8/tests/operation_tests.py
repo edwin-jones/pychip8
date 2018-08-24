@@ -84,7 +84,7 @@ class TestOperation(unittest.TestCase):
 
     def test_incremement_general_purpose_register(self):
         opcode = Opcode(0x71CD)
-        operation = IncrementGeneralPurposeRegister()
+        operation = AddNnToX()
         self.cpu.general_purpose_registers[1] = byte(1)
         operation.execute(opcode, self.cpu)     
         self.assertEqual(self.cpu.general_purpose_registers[1], 0xCD + 1)

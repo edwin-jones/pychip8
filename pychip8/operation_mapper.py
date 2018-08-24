@@ -15,7 +15,7 @@ class OperationMapper():
         self._operations[0x5FF0] = SkipIfXyEqual()
 
         self._operations[0x6FFF] = SetGeneralPurposeRegister()
-        self._operations[0x7FFF] = IncrementGeneralPurposeRegister()
+        self._operations[0x7FFF] = AddNnToX()
         self._operations[0x8FF0] = CopyGeneralPurposeRegister()
         
         self._operations[0x8FF1] = BitwiseOr()

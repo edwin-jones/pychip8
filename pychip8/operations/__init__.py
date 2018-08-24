@@ -1,7 +1,6 @@
 from pychip8.operations.copy_general_purpose_register import CopyGeneralPurposeRegister
 from pychip8.operations.set_general_purpose_register import SetGeneralPurposeRegister
 from pychip8.operations.set_index_register import SetIndexRegister
-from pychip8.operations.increment_general_purpose_register import IncrementGeneralPurposeRegister
 
 from pychip8.operations.graphics.clear_display import ClearDisplay
 
@@ -10,8 +9,10 @@ from pychip8.operations.jumps.skip_if_equal import SkipIfEqual
 from pychip8.operations.jumps.skip_if_not_equal import SkipIfNotEqual
 from pychip8.operations.jumps.skip_if_x_y_equal import SkipIfXyEqual
 
+from pychip8.operations.arithmetic.add_nn_to_x import AddNnToX
 from pychip8.operations.arithmetic.add_y_to_x import AddYToX
 from pychip8.operations.arithmetic.take_y_from_x import TakeYFromX
+from pychip8.operations.arithmetic.add_x_to_index_register import AddXToIndexRegister
 
 from pychip8.operations.bitwise.shift_x_left import ShiftXLeft
 from pychip8.operations.bitwise.shift_x_right import ShiftXRight

@@ -36,7 +36,13 @@ class Cpu:
 
     def load_rom(self, rom_bytes):
         for i, byte in enumerate(rom_bytes):
-           self.memory[Cpu.PROGRAM_START_ADDRESS + i] = byte 
+           self.memory[Cpu.PROGRAM_START_ADDRESS + i] = byte
+
+    def set_arithmetic_flag(self):
+        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 1
+
+    def clear_arithmetic_flag(self):
+        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 0
 
     def emulate_cycle(self):
         word = self.fetch_word()

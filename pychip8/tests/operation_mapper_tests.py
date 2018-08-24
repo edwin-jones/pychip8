@@ -25,7 +25,7 @@ class TestOperationMapper(unittest.TestCase):
         self._test_mapping(0x61CD, SetGeneralPurposeRegister)
 
     def test_incremement_general_purpose_register_mapping(self):
-        self._test_mapping(0x71CD, IncrementGeneralPurposeRegister)
+        self._test_mapping(0x71CD, AddNnToX)
 
     def test_copy_general_purpose_register_mapping(self):
         self._test_mapping(0x8120, CopyGeneralPurposeRegister)
