@@ -139,5 +139,14 @@ class TestOperation(unittest.TestCase):
         self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
         self.assertEqual(self.cpu.general_purpose_registers[opcode.x], byte(0))
 
+    def test_add_x_to_i(self):
+        opcode = Opcode(0xF11E)
+        operation = AddXToI()
+        self.cpu.index_register = byte(128)
+        self.cpu.general_purpose_registers[opcode.x] = byte(129)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.index_register, 1)
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
+
 if __name__ == '__main__':
     unittest.main()
