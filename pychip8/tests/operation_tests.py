@@ -50,7 +50,7 @@ class TestOperation(unittest.TestCase):
         self._test_cpu_attribute_equals_value_after_execution(0xF618, SetSoundTimer(), 'sound_timer', 0x6)
 
     def test_set_index_register(self):
-        self._test_cpu_attribute_equals_value_after_execution(0xA123, SetIndexRegister(), 'index_register', 0x123)
+        self._test_cpu_attribute_equals_value_after_execution(0xA123, SetItoNnn(), 'index_register', 0x123)
 
     def test_goto(self):
         self._test_cpu_attribute_equals_value_after_execution(0x1123, Goto(), '_program_counter', 0x123)
@@ -78,7 +78,7 @@ class TestOperation(unittest.TestCase):
 
     def test_set_general_purpose_register(self):
         opcode = Opcode(0x61CD)
-        operation = SetGeneralPurposeRegister()
+        operation = SetXToNn()
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.general_purpose_registers[1], 0xCD)
 
@@ -91,7 +91,7 @@ class TestOperation(unittest.TestCase):
 
     def test_copy_general_purpose_register(self):
         opcode = Opcode(0x8120)
-        operation = CopyGeneralPurposeRegister()
+        operation = SetXToY()
         self.cpu.general_purpose_registers[opcode.y] = 4
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.general_purpose_registers[opcode.x], self.cpu.general_purpose_registers[opcode.y])

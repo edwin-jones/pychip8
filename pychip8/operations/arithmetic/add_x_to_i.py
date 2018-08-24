@@ -1,7 +1,7 @@
 from numpy import uint8 as byte
 import numpy
 
-class AddXToIndexRegister():
+class AddXToI():
 
     def execute(self, opcode, cpu):
 
