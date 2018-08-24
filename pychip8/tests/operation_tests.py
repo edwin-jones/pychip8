@@ -41,7 +41,7 @@ class TestOperation(unittest.TestCase):
         self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], expected_flag_value)
 
     def setUp(self):
-        self.cpu = Cpu()
+        self.cpu = Cpu(None)
 
     def test_set_delay_timer(self):
         self._test_cpu_attribute_equals_value_after_execution(0xF615, SetDelayTimer(), 'delay_timer', 0x6)

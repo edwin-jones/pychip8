@@ -12,7 +12,9 @@ class Cpu:
     WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
     ARITHMETIC_FLAG_REGISTER_ADDRESS = 0xF #V[15] is used as a carry/no borrow flag for certain ops
 
-    def __init__(self):
+    def __init__(self, operation_mapper):
+
+        self.operation_mapper = operation_mapper
 
         self.should_draw = False
         self.memory = [byte(0)] * 4096
@@ -47,11 +49,11 @@ class Cpu:
     def emulate_cycle(self):
         word = self.fetch_word()
         opcode = Opcode(word)
+        operation = self.operation_mapper.find_operation(word)
 
-        #Execute Opcode
+        operation.execute(opcode, self)
         self.update_timers()
-        pass
-
+        
     def fetch_word(self):
 
         #load the next two bytes of memory into one 16 bit value - the current opcode.
