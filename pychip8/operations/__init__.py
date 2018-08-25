@@ -8,6 +8,7 @@ from pychip8.operations.jumps.goto import Goto
 from pychip8.operations.jumps.skip_if_equal import SkipIfEqual
 from pychip8.operations.jumps.skip_if_not_equal import SkipIfNotEqual
 from pychip8.operations.jumps.skip_if_x_y_equal import SkipIfXyEqual
+from pychip8.operations.jumps.skip_if_x_y_not_equal import SkipIfXyNotEqual
 
 from pychip8.operations.arithmetic.add_to_x import AddToX
 from pychip8.operations.arithmetic.add_y_to_x import AddYToX

@@ -13,7 +13,7 @@ class OperationMapper():
         self._operations[0x3FFF] = SkipIfEqual()
         self._operations[0x4FFF] = SkipIfNotEqual()
         self._operations[0x5FF0] = SkipIfXyEqual()
-
+        
         self._operations[0x6FFF] = SetX()
         self._operations[0x7FFF] = AddToX()
         self._operations[0x8FF0] = SetXToY()
@@ -25,11 +25,13 @@ class OperationMapper():
         self._operations[0x8FF5] = TakeYFromX()
         self._operations[0x8FF6] = ShiftXRight()
         self._operations[0x8FF7] = TakeXFromY()
-        self._operations[0x8FFE] = ShiftXLeft()
 
+        self._operations[0x8FFE] = ShiftXLeft()
+        self._operations[0x9FF0] = SkipIfXyNotEqual()
         self._operations[0xAFFF] = SetI()
         self._operations[0xFF07] = SetXToDelayTimer()
         self._operations[0xFF15] = SetDelayTimer()
+        
         self._operations[0xFF18] = SetSoundTimer()
         self._operations[0xFF1E] = AddXToI()
 

@@ -65,6 +65,9 @@ class TestOperation(unittest.TestCase):
         self.cpu.general_purpose_registers[2] = byte(1)
         self._test_skip(0x5120, SkipIfXyEqual())
 
+    def test_skip_if_x_y_not_equal(self):
+        self._test_skip(0x9120, SkipIfXyNotEqual())
+
     def test_clear_display(self):
         opcode = Opcode(0x00E0)
 
@@ -128,7 +131,6 @@ class TestOperation(unittest.TestCase):
 
     def test_take_x_from_y_no_underflow(self):
         self._test_arithmetic(0x8127, TakeXFromY(), 3, 1, 254, 1)
-
 
     def test_shift_x_right(self):
         opcode = Opcode(0x8106)

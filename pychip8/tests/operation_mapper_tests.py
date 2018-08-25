@@ -81,5 +81,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_take_x_from_y_mapping(self):
         self._test_mapping(0x8337, TakeXFromY)
 
+    def test_skip_if_x_y_not_equal_mapping(self):
+        self._test_mapping(0x9430, SkipIfXyNotEqual)
+
 if __name__ == '__main__':
     unittest.main()
