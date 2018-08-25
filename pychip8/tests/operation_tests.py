@@ -55,6 +55,10 @@ class TestOperation(unittest.TestCase):
     def test_goto(self):
         self._test_cpu_attribute_equals_value_after_execution(0x1123, Goto(), '_program_counter', 0x123)
 
+    def test_goto_plus(self):
+        self.cpu.general_purpose_registers[0] = byte(4)
+        self._test_cpu_attribute_equals_value_after_execution(0xB123, GotoPlus(), '_program_counter', 295)
+
     def test_skip_if_not_equal(self):
         self._test_skip(0x3100, SkipIfNotEqual())
 
