@@ -78,5 +78,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_set_x_to_delay_timer_mapping(self):
         self._test_mapping(0xF307, SetXToDelayTimer)
 
+    def test_take_x_from_y_mapping(self):
+        self._test_mapping(0x8337, TakeXFromY)
+
 if __name__ == '__main__':
     unittest.main()

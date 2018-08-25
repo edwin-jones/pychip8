@@ -24,6 +24,7 @@ class OperationMapper():
         self._operations[0x8FF4] = AddYToX()
         self._operations[0x8FF5] = TakeYFromX()
         self._operations[0x8FF6] = ShiftXRight()
+        self._operations[0x8FF7] = TakeXFromY()
         self._operations[0x8FFE] = ShiftXLeft()
 
         self._operations[0xAFFF] = SetI()
