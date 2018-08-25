@@ -1,6 +1,7 @@
 from pychip8.operations.set_x_to_y import SetXToY
 from pychip8.operations.set_x import SetX
 from pychip8.operations.set_i import SetI
+from pychip8.operations.random import Random
 
 from pychip8.operations.graphics.clear_display import ClearDisplay
 
