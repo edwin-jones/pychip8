@@ -4,6 +4,7 @@ from pychip8.tests.operation_tests.arithmetic_tests import ArithmeticTests
 from pychip8.tests.operation_tests.core_tests import CoreTests
 from pychip8.tests.operation_tests.jump_tests import JumpTests
 from pychip8.tests.operation_tests.bitwise_tests import BitwiseTests
+from pychip8.tests.operation_tests.timer_tests import TimerTests
 from pychip8.tests.operation_mapper_tests import TestOperationMapper
 
 if __name__ == '__main__':
@@ -14,6 +15,7 @@ if __name__ == '__main__':
     suite.addTests(unittest.makeSuite(BitwiseTests))
     suite.addTests(unittest.makeSuite(CoreTests))
     suite.addTests(unittest.makeSuite(JumpTests))
+    suite.addTests(unittest.makeSuite(TimerTests))
     suite.addTests(unittest.makeSuite(TestOperationMapper))
 
     runner=unittest.TextTestRunner()

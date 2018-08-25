@@ -6,16 +6,8 @@ from pychip8.operations import *
 from numpy import uint8 as byte
 from numpy import uint16
 
-import unittest
-
  
 class CoreTests(OperationTestCase):
-
-    def test_set_delay_timer(self):
-        self._test_cpu_attribute_equals_value_after_execution(0xF615, SetDelayTimer(), 'delay_timer', 0x6)
-    
-    def test_set_sound_timer(self):
-        self._test_cpu_attribute_equals_value_after_execution(0xF618, SetSoundTimer(), 'sound_timer', 0x6)
 
     def test_set_index_register(self):
         self._test_cpu_attribute_equals_value_after_execution(0xA123, SetI(), 'index_register', 0x123)
@@ -60,12 +52,19 @@ class CoreTests(OperationTestCase):
         self.assertEqual(self.cpu.index_register, 1)
         self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
 
-    def test_set_x_to_delay_timer(self):
-        opcode = Opcode(0xF207)
-        operation = SetXToDelayTimer()
-        self.cpu.delay_timer = byte(0xA)
-        operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], self.cpu.delay_timer)
+    def test_random(self):
+        opcode = Opcode(0xC10F)
 
-if __name__ == '__main__':
-    unittest.main()
+        operation = Random()
+        operation.execute(opcode, self.cpu)
+
+        value = self.cpu.general_purpose_registers[opcode.x]
+
+        self.assertGreaterEqual(value, 0)
+        self.assertLessEqual(value, 0xF)
+
+        operation.execute(opcode, self.cpu)
+
+        new_value = self.cpu.general_purpose_registers[opcode.x]
+
+        self.assertNotEqual(value, new_value)

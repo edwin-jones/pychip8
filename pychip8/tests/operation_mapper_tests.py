@@ -87,5 +87,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_goto_plus_mapping(self):
         self._test_mapping(0xB123, GotoPlus)
 
+    def test_random_mapping(self):
+        self._test_mapping(0xC123, Random)
+
 if __name__ == '__main__':
     unittest.main()
