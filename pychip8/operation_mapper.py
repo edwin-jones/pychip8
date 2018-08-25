@@ -29,9 +29,10 @@ class OperationMapper():
         self._operations[0x8FFE] = ShiftXLeft()
         self._operations[0x9FF0] = SkipIfXyNotEqual()
         self._operations[0xAFFF] = SetI()
+        self._operations[0xBFFF] = GotoPlus()
         self._operations[0xFF07] = SetXToDelayTimer()
+
         self._operations[0xFF15] = SetDelayTimer()
-        
         self._operations[0xFF18] = SetSoundTimer()
         self._operations[0xFF1E] = AddXToI()
 
