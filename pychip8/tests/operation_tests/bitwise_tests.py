@@ -8,6 +8,12 @@ from numpy import uint16
 
 class BitwiseTests(OperationTestCase):
 
+    def _test_bitwise_operation(self, word, operation, expected_value):
+        opcode = Opcode(word)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], expected_value)
+
+
     def test_or(self):
         self.cpu.general_purpose_registers[1] = byte(4)
         self.cpu.general_purpose_registers[2] = byte(2)

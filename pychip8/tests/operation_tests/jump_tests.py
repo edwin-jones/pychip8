@@ -8,6 +8,14 @@ from numpy import uint16
 
 class JumpTests(OperationTestCase):
 
+    def _test_skip(self, word, operation):
+        opcode = Opcode(word)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu._program_counter, Cpu.PROGRAM_START_ADDRESS)
+        self.cpu.general_purpose_registers[1] = byte(1)
+        operation.execute(opcode, self.cpu)
+        self.assertEqual(self.cpu._program_counter,  Cpu.PROGRAM_START_ADDRESS + Cpu.WORD_SIZE_IN_BYTES)
+
     def test_goto(self):
         self._test_cpu_attribute_equals_value_after_execution(0x1123, Goto(), '_program_counter', 0x123)
 
