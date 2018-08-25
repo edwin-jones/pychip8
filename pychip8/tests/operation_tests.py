@@ -123,6 +123,13 @@ class TestOperation(unittest.TestCase):
     def test_take_y_from_x_no_underflow(self):
         self._test_arithmetic(0x8124, TakeYFromX(), 6, 4, 2, 0)
 
+    def test_take_x_from_y_underflow(self):
+        self._test_arithmetic(0x8127, TakeXFromY(), 5, 10, 5, 0)
+
+    def test_take_x_from_y_no_underflow(self):
+        self._test_arithmetic(0x8127, TakeXFromY(), 3, 1, 254, 1)
+
+
     def test_shift_x_right(self):
         opcode = Opcode(0x8106)
         operation = ShiftXLeft()

@@ -12,6 +12,7 @@ from pychip8.operations.jumps.skip_if_x_y_equal import SkipIfXyEqual
 from pychip8.operations.arithmetic.add_to_x import AddToX
 from pychip8.operations.arithmetic.add_y_to_x import AddYToX
 from pychip8.operations.arithmetic.take_y_from_x import TakeYFromX
+from pychip8.operations.arithmetic.take_x_from_y import TakeXFromY
 from pychip8.operations.arithmetic.add_x_to_i import AddXToI
 
 from pychip8.operations.bitwise.shift_x_left import ShiftXLeft
