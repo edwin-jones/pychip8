@@ -64,7 +64,3 @@ class CoreTests(OperationTestCase):
         self.assertLessEqual(value, 0xF)
 
         operation.execute(opcode, self.cpu)
-
-        new_value = self.cpu.general_purpose_registers[opcode.x]
-
-        self.assertNotEqual(value, new_value)
