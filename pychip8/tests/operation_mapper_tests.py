@@ -18,10 +18,7 @@ class TestOperationMapper(unittest.TestCase):
     def test_thows_if_no_mapping(self):
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0x0000)
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0xFFFF)
-
-        #TODO FIX THIS this assertion fails as we have a bug in the mapper where it will
-        #map codes that are inbetween valid codes.
-        #self.assertRaises(KeyError, self.operation_mapper.find_operation, 0xFF16)
+        self.assertRaises(KeyError, self.operation_mapper.find_operation, 0xFF16)
 
     def test_set_index_register_mapping(self):
         self._test_mapping(0xA123, SetI)
@@ -94,6 +91,8 @@ class TestOperationMapper(unittest.TestCase):
 
     def test_random_mapping(self):
         self._test_mapping(0xC123, Random)
+        self._test_mapping(0xC000, Random)
+        self._test_mapping(0xCFFF, Random)
 
     def test_call_function_mapping(self):
         self._test_mapping(0x2ABC, CallFunction)
