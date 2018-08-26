@@ -11,17 +11,17 @@ class JumpTests(OperationTestCase):
     def _test_skip(self, word, operation):
         opcode = Opcode(word)
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu._program_counter, Cpu.PROGRAM_START_ADDRESS)
+        self.assertEqual(self.cpu.program_counter, Cpu.PROGRAM_START_ADDRESS)
         self.cpu.general_purpose_registers[1] = byte(1)
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu._program_counter,  Cpu.PROGRAM_START_ADDRESS + Cpu.WORD_SIZE_IN_BYTES)
+        self.assertEqual(self.cpu.program_counter,  Cpu.PROGRAM_START_ADDRESS + Cpu.WORD_SIZE_IN_BYTES)
 
     def test_goto(self):
-        self._test_cpu_attribute_equals_value_after_execution(0x1123, Goto(), '_program_counter', 0x123)
+        self._test_cpu_attribute_equals_value_after_execution(0x1123, Goto(), 'program_counter', 0x123)
 
     def test_goto_plus(self):
         self.cpu.general_purpose_registers[0] = byte(4)
-        self._test_cpu_attribute_equals_value_after_execution(0xB123, GotoPlus(), '_program_counter', 295)
+        self._test_cpu_attribute_equals_value_after_execution(0xB123, GotoPlus(), 'program_counter', 295)
 
     def test_skip_if_not_equal(self):
         self._test_skip(0x3100, SkipIfNotEqual())
@@ -35,3 +35,13 @@ class JumpTests(OperationTestCase):
 
     def test_skip_if_x_y_not_equal(self):
         self._test_skip(0x9120, SkipIfXyNotEqual())
+
+    def test_return_from_function(self):
+        self.cpu.stack.append(uint16(513))
+
+        opcode = ReturnFromFunction()
+        opcode.execute(opcode, self.cpu)
+        
+        self.assertEqual(self.cpu.program_counter, 513)
+        self.assertEqual(len(self.cpu.stack), 0)
+        

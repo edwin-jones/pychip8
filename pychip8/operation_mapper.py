@@ -9,6 +9,7 @@ class OperationMapper():
         self._operations = OrderedDict()
 
         self._operations[0x00E0] = ClearDisplay()
+        self._operations[0x00EE] = ReturnFromFunction()
         self._operations[0x1FFF] = Goto()
         self._operations[0x3FFF] = SkipIfEqual()
         self._operations[0x4FFF] = SkipIfNotEqual()

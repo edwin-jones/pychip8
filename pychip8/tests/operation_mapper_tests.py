@@ -90,5 +90,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_random_mapping(self):
         self._test_mapping(0xC123, Random)
 
+    def test_return_from_function_mapping(self):
+        self._test_mapping(0x00EE, ReturnFromFunction)
+
 if __name__ == '__main__':
     unittest.main()
