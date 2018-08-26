@@ -36,12 +36,23 @@ class JumpTests(OperationTestCase):
     def test_skip_if_x_y_not_equal(self):
         self._test_skip(0x9120, SkipIfXyNotEqual())
 
+    def test_call_function(self):
+
+        opcode = Opcode(0x2ABC)
+
+        operation = CallFunction()
+        operation.execute(opcode, self.cpu)
+        
+        self.assertEqual(self.cpu.program_counter, 0xABC)
+        self.assertEqual(len(self.cpu.stack), 1)
+        self.assertEqual(self.cpu.stack[0], 512)
+
     def test_return_from_function(self):
         self.cpu.stack.append(uint16(513))
 
-        opcode = ReturnFromFunction()
-        opcode.execute(opcode, self.cpu)
-        
+        operation = ReturnFromFunction()
+        operation.execute(None, self.cpu)
+
         self.assertEqual(self.cpu.program_counter, 513)
         self.assertEqual(len(self.cpu.stack), 0)
         
