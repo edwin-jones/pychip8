@@ -16,9 +16,12 @@ class TestOperationMapper(unittest.TestCase):
         self.assertIsInstance(operation, operation_type)
 
     def test_thows_if_no_mapping(self):
+        self.assertRaises(KeyError, self.operation_mapper.find_operation, -1)
+        self.assertRaises(KeyError, self.operation_mapper.find_operation, 0xFFFFF)
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0x0000)
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0xFFFF)
         self.assertRaises(KeyError, self.operation_mapper.find_operation, 0xFF16)
+        self.assertRaises(KeyError, self.operation_mapper.find_operation, 0x5019)
 
     def test_set_index_register_mapping(self):
         self._test_mapping(0xA123, SetI)
