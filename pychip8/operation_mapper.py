@@ -10,7 +10,6 @@ class OperationMapper():
         self._operations[0x00E0] = ClearDisplay()
         self._operations[0x00EE] = ReturnFromFunction()
 
-        # add 1 to the known final value so we don't omit the final part of the range
         self._operations[0x1] = Goto()
         self._operations[0x2] = CallFunction()
         self._operations[0x3] = SkipIfEqual()
@@ -43,6 +42,7 @@ class OperationMapper():
 
     def find_operation(self, word):
         "This method takes a 16 bit value representing an opcode and returns the related operation"
+
         opcode = Opcode(word)
 
         four_bit_code = opcode.a
@@ -60,4 +60,3 @@ class OperationMapper():
             return self._operations[twelve_bit_code]
 
         raise KeyError(f"Opcode {word:#06x} not present in list of valid operations")
-
