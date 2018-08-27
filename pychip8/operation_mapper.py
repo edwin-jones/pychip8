@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from pychip8.operations import *
 from pychip8.opcode import Opcode
 
@@ -13,37 +11,53 @@ class OperationMapper():
         self._operations[0x00EE] = ReturnFromFunction()
 
         # add 1 to the known final value so we don't omit the final part of the range
-        self._operations.update(dict.fromkeys(range(0x1000, 0x1FFF + 1), Goto()))
-        self._operations.update(dict.fromkeys(range(0x2000, 0x2FFF + 1), CallFunction()))
-        self._operations.update(dict.fromkeys(range(0x3000, 0x3FFF + 1), SkipIfEqual()))
-        self._operations.update(dict.fromkeys(range(0x4000, 0x4FFF + 1), SkipIfNotEqual()))
-        self._operations.update(dict.fromkeys(range(0x6000, 0x6FFF + 1), SetX()))
+        self._operations[0x1] = Goto()
+        self._operations[0x2] = CallFunction()
+        self._operations[0x3] = SkipIfEqual()
+        self._operations[0x4] = SkipIfNotEqual()
+        self._operations[0x6] = SetX()
 
-        self._operations.update(dict.fromkeys(range(0x7000, 0x7FFF + 1), AddToX()))
-        self._operations.update(dict.fromkeys(range(0xA000, 0xAFFF + 1), SetI()))
-        self._operations.update(dict.fromkeys(range(0xB000, 0xBFFF + 1), GotoPlus()))
-        self._operations.update(dict.fromkeys(range(0xC000, 0xCFFF + 1), Random()))
+        self._operations[0x7] = AddToX()
+        self._operations[0xA] = SetI()
+        self._operations[0xB] = GotoPlus()
+        self._operations[0xC] = Random()
 
-        # use a step of 16 so we don't add values we don't mean to the list of known opcodes
-        self._operations.update(dict.fromkeys(range(0x8010, 0x8FF0 + 1, 0x0010), SetXToY()))
-        self._operations.update(dict.fromkeys(range(0x8011, 0x8FF1 + 1, 0x0010), BitwiseOr()))
-        self._operations.update(dict.fromkeys(range(0x8012, 0x8FF2 + 1, 0x0010), BitwiseAnd()))
-        self._operations.update(dict.fromkeys(range(0x8013, 0x8FF3 + 1, 0x0010), BitwiseXor()))
-        self._operations.update(dict.fromkeys(range(0x8014, 0x8FF4 + 1, 0x0010), AddYToX()))
-        self._operations.update(dict.fromkeys(range(0x8015, 0x8FF5 + 1, 0x0010), TakeYFromX()))
-        self._operations.update(dict.fromkeys(range(0x8016, 0x8FF6 + 1, 0x0010), ShiftXRight()))
-        self._operations.update(dict.fromkeys(range(0x8017, 0x8FF7 + 1, 0x0010), TakeXFromY()))
-        self._operations.update(dict.fromkeys(range(0x801E, 0x8FFE + 1, 0x0010), ShiftXLeft()))
+        self._operations[0x80] = SetXToY()
+        self._operations[0x81] = BitwiseOr()
+        self._operations[0x82] = BitwiseAnd()
+        self._operations[0x83] = BitwiseXor()
+        self._operations[0x84] = AddYToX()
 
-        self._operations.update(dict.fromkeys(range(0x5010, 0x5FF0 + 1, 0x0010), SkipIfXyEqual()))
-        self._operations.update(dict.fromkeys(range(0x9010, 0x9FF0 + 1, 0x0010), SkipIfXyNotEqual()))
+        self._operations[0x85] = TakeYFromX()
+        self._operations[0x86] = ShiftXRight()
+        self._operations[0x87] = TakeXFromY()
+        self._operations[0x8E] = ShiftXLeft()
 
-        # use a step of 256 so we don't add values we don't mean to the list of known opcodes
-        self._operations.update(dict.fromkeys(range(0xF007, 0xFF07 + 1, 0x0100), SetXToDelayTimer()))
-        self._operations.update(dict.fromkeys(range(0xF015, 0xFF15 + 1, 0x0100), SetDelayTimer()))
-        self._operations.update(dict.fromkeys(range(0xF018, 0xFF18 + 1, 0x0100), SetSoundTimer()))
-        self._operations.update(dict.fromkeys(range(0xF01E, 0xFF1E + 1, 0x0100), AddXToI()))
+        self._operations[0x50] = SkipIfXyEqual()
+        self._operations[0x90] = SkipIfXyNotEqual()
+
+        self._operations[0xF07] = SetXToDelayTimer()
+        self._operations[0xF15] = SetDelayTimer()
+        self._operations[0xF18] = SetSoundTimer()
+        self._operations[0xF1E] = AddXToI()
 
     def find_operation(self, word):
         "This method takes a 16 bit value representing an opcode and returns the related operation"
-        return self._operations[word]
+        opcode = Opcode(word)
+
+        four_bit_code = opcode.a
+        if four_bit_code in self._operations:
+            return self._operations[four_bit_code]
+
+        # make a key of a + n so that 0xA123 becomes 0xA3
+        eight_bit_code = int((opcode.a << 4) + opcode.n)
+        if eight_bit_code in self._operations:
+            return self._operations[eight_bit_code]
+
+        # make a key of a + n + n so that 0xA123 becomes 0xA23
+        twelve_bit_code = int((opcode.a << 8) + opcode.nn)
+        if twelve_bit_code in self._operations:
+            return self._operations[twelve_bit_code]
+
+        raise KeyError(f"Opcode {word:#06x} not present in list of valid operations")
+
