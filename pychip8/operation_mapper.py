@@ -21,18 +21,18 @@ class OperationMapper():
         self._operations[0xB] = GotoPlus()
         self._operations[0xC] = Random()
 
+        self._operations[0x50] = SkipIfXyEqual()   
         self._operations[0x80] = SetXToY()
         self._operations[0x81] = BitwiseOr()
         self._operations[0x82] = BitwiseAnd()
         self._operations[0x83] = BitwiseXor()
-        self._operations[0x84] = AddYToX()
 
+        self._operations[0x84] = AddYToX()
         self._operations[0x85] = TakeYFromX()
         self._operations[0x86] = ShiftXRight()
         self._operations[0x87] = TakeXFromY()
         self._operations[0x8E] = ShiftXLeft()
-
-        self._operations[0x50] = SkipIfXyEqual()
+        
         self._operations[0x90] = SkipIfXyNotEqual()
 
         self._operations[0xF07] = SetXToDelayTimer()
