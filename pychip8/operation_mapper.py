@@ -40,6 +40,7 @@ class OperationMapper():
         self._operations[0xF18] = SetSoundTimer()
         self._operations[0xF1E] = AddXToI()
         self._operations[0xF55] = SaveRegistersZeroToX()
+        self._operations[0xF65] = LoadRegistersZeroToX()
 
     def find_operation(self, word):
         "This method takes a 16 bit value representing an opcode and returns the related operation"

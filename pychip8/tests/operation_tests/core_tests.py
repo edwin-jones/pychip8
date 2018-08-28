@@ -74,8 +74,21 @@ class CoreTests(OperationTestCase):
         self.cpu.general_purpose_registers[2] = 3
 
         operation.execute(opcode, self.cpu)
-        index = int(self.cpu.index_register)
 
-        self.assertEqual(self.cpu.ram[index], 1)
-        self.assertEqual(self.cpu.ram[index + 1], 2)
-        self.assertEqual(self.cpu.ram[index + 2], 3)
+        self.assertEqual(self.cpu.ram[self.cpu.index_register], 1)
+        self.assertEqual(self.cpu.ram[self.cpu.index_register + 1], 2)
+        self.assertEqual(self.cpu.ram[self.cpu.index_register + 2], 3)
+
+    def test_load_registers_zero_to_x(self):
+        opcode = Opcode(0xF265)
+        operation = LoadRegistersZeroToX()
+
+        self.cpu.ram[self.cpu.index_register] = 1
+        self.cpu.ram[self.cpu.index_register + 1] = 2
+        self.cpu.ram[self.cpu.index_register + 2] = 3
+
+        operation.execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.general_purpose_registers[0], 1)
+        self.assertEqual(self.cpu.general_purpose_registers[1], 2)
+        self.assertEqual(self.cpu.general_purpose_registers[2], 3)
