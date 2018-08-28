@@ -12,17 +12,6 @@ class CoreTests(OperationTestCase):
     def test_set_index_register(self):
         self._test_cpu_attribute_equals_value_after_execution(0xA123, SetI(), 'index_register', 0x123)
 
-    def test_clear_display(self):
-        opcode = Opcode(0x00E0)
-
-        self.cpu.frame_buffer = [byte(255)] * (64 * 32)
-
-        operation = ClearDisplay()
-        operation.execute(opcode, self.cpu)
-        
-        for pixel in self.cpu.frame_buffer:
-            self.assertEqual(pixel, 0)
-
     def test_set_general_purpose_register(self):
         opcode = Opcode(0x61CD)
         operation = SetX()

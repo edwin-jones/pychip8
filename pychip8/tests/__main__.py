@@ -10,6 +10,7 @@ from pychip8.tests.operation_tests.jump_tests import JumpTests
 from pychip8.tests.operation_tests.bitwise_tests import BitwiseTests
 from pychip8.tests.operation_tests.timer_tests import TimerTests
 from pychip8.tests.operation_tests.font_tests import FontTests
+from pychip8.tests.operation_tests.graphics_tests import GraphicsTests
 
 
 if __name__ == '__main__':
@@ -25,6 +26,7 @@ if __name__ == '__main__':
     suite.addTests(unittest.makeSuite(JumpTests))
     suite.addTests(unittest.makeSuite(TimerTests))
     suite.addTests(unittest.makeSuite(FontTests))
+    suite.addTests(unittest.makeSuite(GraphicsTests))
 
     runner=unittest.TextTestRunner()
     runner.run(suite)

@@ -8,6 +8,7 @@ from pychip8.operations.save_x_as_bcd import SaveXAsBcd
 from pychip8.operations.load_character_address import LoadCharacterAddress
 
 from pychip8.operations.graphics.clear_display import ClearDisplay
+from pychip8.operations.graphics.draw_sprite import DrawSprite
 
 from pychip8.operations.jumps.goto import Goto
 from pychip8.operations.jumps.goto_plus import GotoPlus
