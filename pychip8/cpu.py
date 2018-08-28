@@ -60,10 +60,12 @@ class Cpu:
 
     def emulate_cycle(self):
         word = self.fetch_word()
+
         opcode = Opcode(word)
         operation = self.operation_mapper.find_operation(word)
 
         operation.execute(opcode, self)
+        self.move_to_next_instruction()
         self.update_timers()
         
     def fetch_word(self):

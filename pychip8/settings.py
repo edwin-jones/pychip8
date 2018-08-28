@@ -4,8 +4,8 @@ import math
 
 from pygame.math import Vector2
 
-import colors
-import constants
+from pychip8 import colors
+from pychip8 import constants
 
 TARGET_FPS = 60
 

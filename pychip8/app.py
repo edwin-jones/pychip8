@@ -7,15 +7,19 @@ import math
 import pygame
 from pygame.math import Vector2
 
-import settings
+from pychip8 import settings
+
+from pychip8.cpu import Cpu
+from pychip8.rom_loader import RomLoader
+from pychip8.operation_mapper import OperationMapper
+
 
 class App:
     """primary application class"""
 
-    def __init__(self, renderer, input_handler):
-        self._renderer = renderer
-        #self._player = player
-        self._input_handler = input_handler
+    def __init__(self, cpu, rom_loader):
+        self.rom_loader = rom_loader
+        self.cpu = cpu
         self._running = True
 
     def run(self):
@@ -26,10 +30,11 @@ class App:
 
         fps = 0
 
+        self.cpu.load_rom(self.rom_loader.get_rom())
+
         while self._running:
 
-            self._running = self._input_handler.handle_input()
-            self._renderer.render()
+            self.cpu.emulate_cycle()
 
             # delay until next frame.
             clock.tick(settings.TARGET_FPS)
