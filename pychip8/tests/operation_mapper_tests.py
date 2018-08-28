@@ -112,5 +112,11 @@ class OperationMapperTests(unittest.TestCase):
     def test_save_x_as_bcd_mapping(self):
         self._test_mapping(0xF333, SaveXAsBcd)
 
+    def test_skip_if_key_pressed_mapping(self):
+        self._test_mapping(0xE39E, SkipIfKeyPressed)
+
+    def test_skip_if_key_not_pressed_mapping(self):
+        self._test_mapping(0xE3A1, SkipIfKeyNotPressed)
+
 if __name__ == '__main__':
     unittest.main()

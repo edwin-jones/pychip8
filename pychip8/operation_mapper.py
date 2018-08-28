@@ -35,6 +35,8 @@ class OperationMapper():
         
         self._operations[0x90] = SkipIfXyNotEqual()
 
+        self._operations[0xE9E] = SkipIfKeyPressed()
+        self._operations[0xEA1] = SkipIfKeyNotPressed()
         self._operations[0xF07] = SetXToDelayTimer()
         self._operations[0xF15] = SetDelayTimer()
         self._operations[0xF18] = SetSoundTimer()
@@ -49,18 +51,18 @@ class OperationMapper():
 
         opcode = Opcode(word)
 
-        four_bit_key = opcode.a
-        if four_bit_key in self._operations:
-            return self._operations[four_bit_key]
+        # make a key of a + n + n so that 0xA123 becomes 0xA23
+        twelve_bit_key = int((opcode.a << 8) + opcode.nn)
+        if twelve_bit_key in self._operations:
+            return self._operations[twelve_bit_key]
 
         # make a key of a + n so that 0xA123 becomes 0xA3
         eight_bit_key = int((opcode.a << 4) + opcode.n)
         if eight_bit_key in self._operations:
             return self._operations[eight_bit_key]
 
-        # make a key of a + n + n so that 0xA123 becomes 0xA23
-        twelve_bit_key = int((opcode.a << 8) + opcode.nn)
-        if twelve_bit_key in self._operations:
-            return self._operations[twelve_bit_key]
+        four_bit_key = opcode.a
+        if four_bit_key in self._operations:
+            return self._operations[four_bit_key]
 
         raise KeyError(f"Opcode {word:#06x} not present in list of valid operations")
