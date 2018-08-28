@@ -16,11 +16,8 @@ class DrawSprite:
         
             if bit_value:
                 result |= mask
-
-            else:
-                result ^= mask
                 self._check_collision_flag(cpu, mask, current_pixels)
-
+                
         return result
 
     def execute(self, opcode, cpu):

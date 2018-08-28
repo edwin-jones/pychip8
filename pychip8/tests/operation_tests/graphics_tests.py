@@ -20,7 +20,15 @@ class GraphicsTests(OperationTestCase):
             self.assertEqual(pixel, 0)
 
     def test_draw_sprite(self):
-        opcode = Opcode(0xD111)
+        opcode = Opcode(0xD113)
+
+        self.cpu.ram[self.cpu.index_register] = 0b1
+        self.cpu.ram[self.cpu.index_register + 1] = 0b11
+        self.cpu.ram[self.cpu.index_register + 2] = 0b111
 
         operation = DrawSprite()
         operation.execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.frame_buffer[opcode.x + opcode.y], 0b1)
+        self.assertEqual(self.cpu.frame_buffer[opcode.x + (opcode.y + 1)], 0b11)
+        self.assertEqual(self.cpu.frame_buffer[opcode.x + (opcode.y + 2)], 0b111)
