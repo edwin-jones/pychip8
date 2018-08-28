@@ -39,6 +39,8 @@ class OperationMapper():
         self._operations[0xF15] = SetDelayTimer()
         self._operations[0xF18] = SetSoundTimer()
         self._operations[0xF1E] = AddXToI()
+
+        self._operations[0xF33] = SaveXAsBcd()
         self._operations[0xF55] = SaveRegistersZeroToX()
         self._operations[0xF65] = LoadRegistersZeroToX()
 

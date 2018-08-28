@@ -109,5 +109,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_load_registers_zero_to_x_mapping(self):
         self._test_mapping(0xF465, LoadRegistersZeroToX)
 
+    def test_save_x_as_bcd_mapping(self):
+        self._test_mapping(0xF333, SaveXAsBcd)
+
 if __name__ == '__main__':
     unittest.main()
