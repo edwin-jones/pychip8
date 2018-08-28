@@ -64,3 +64,18 @@ class CoreTests(OperationTestCase):
         self.assertLessEqual(value, 0xF)
 
         operation.execute(opcode, self.cpu)
+
+    def test_save_x(self):
+        opcode = Opcode(0xF255)
+        operation = SaveX()
+
+        self.cpu.general_purpose_registers[0] = 1
+        self.cpu.general_purpose_registers[1] = 2
+        self.cpu.general_purpose_registers[2] = 3
+
+        operation.execute(opcode, self.cpu)
+        index = int(self.cpu.index_register)
+
+        self.assertEqual(self.cpu.ram[index], 1)
+        self.assertEqual(self.cpu.ram[index + 1], 2)
+        self.assertEqual(self.cpu.ram[index + 2], 3)

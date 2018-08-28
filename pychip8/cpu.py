@@ -8,7 +8,7 @@ from pychip8.opcode import Opcode
 
 class Cpu:
     """This class represents the CHIP 8 cpu"""
-    PROGRAM_START_ADDRESS = 512 # game memory begins at address 0x200 / 512
+    PROGRAM_START_ADDRESS = 512 # game ram begins at address 0x200 / 512
     WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
     ARITHMETIC_FLAG_REGISTER_ADDRESS = 0xF #V[15] is used as a carry/no borrow flag for certain ops
 
@@ -17,10 +17,10 @@ class Cpu:
         self.operation_mapper = operation_mapper
 
         self.should_draw = False
-        self.memory = [byte(0)] * 4096
+        self.ram = [byte(0)] * 4096 # 4k of RAM
         self.program_counter = uint16(self.PROGRAM_START_ADDRESS)
 
-        self.index_register = byte(0)
+        self.index_register = uint16(0)
         self.general_purpose_registers = [byte(0)] * 16
 
         self.delay_timer = byte(0)
@@ -37,8 +37,8 @@ class Cpu:
         self.program_counter += Cpu.WORD_SIZE_IN_BYTES
 
     def load_rom(self, rom_bytes):
-        for i, byte in enumerate(rom_bytes):
-           self.memory[Cpu.PROGRAM_START_ADDRESS + i] = byte
+        for i, byte_value in enumerate(rom_bytes):
+           self.ram[Cpu.PROGRAM_START_ADDRESS + i] = byte_value
 
     def set_arithmetic_flag(self):
         self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 1
@@ -56,9 +56,9 @@ class Cpu:
         
     def fetch_word(self):
 
-        #load the next two bytes of memory into one 16 bit value - the current opcode.
+        # load the next two bytes of ram into one 16 bit value - the current opcode.
         pc = int(self.program_counter) #indexes must be ints!
-        word = uint16(self.memory[pc] << 8 | self.memory[pc + 1])
+        word = uint16(self.ram[pc] << 8 | self.ram[pc + 1])
 
         return word   
 

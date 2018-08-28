@@ -21,7 +21,7 @@ class OperationMapper():
         self._operations[0xB] = GotoPlus()
         self._operations[0xC] = Random()
 
-        self._operations[0x50] = SkipIfXyEqual()   
+        self._operations[0x50] = SkipIfXyEqual()
         self._operations[0x80] = SetXToY()
         self._operations[0x81] = BitwiseOr()
         self._operations[0x82] = BitwiseAnd()
