@@ -5,6 +5,7 @@ from numpy import uint16
 import numpy
 
 from pychip8.opcode import Opcode
+import pychip8.font as Font
 
 class Cpu:
     """This class represents the CHIP 8 cpu"""
@@ -32,6 +33,8 @@ class Cpu:
         self.keys = set()
 
         self.frame_buffer = [byte(0)] * (64 * 32)
+
+        self._load_font()
 
     def key_down(self, key):
         self.keys.add(key)
@@ -79,5 +82,14 @@ class Cpu:
         pass
 
     def update_timers(self):
-        if(self.delay_timer > 0): self.delay_timer -= 1
-        if(self.sound_timer > 0): self.sound_timer -= 1
+        if(self.delay_timer > 0):
+            self.delay_timer -= 1
+
+        if(self.sound_timer > 0):
+            self.sound_timer -= 1
+
+    def _load_font(self):
+        offset = 0x0
+        for item in Font.DATA:
+             self.ram[offset] = byte(item)
+             offset += 1

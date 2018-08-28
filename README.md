@@ -18,5 +18,5 @@ If you wish to modify the code, remember you can run all the unit tests with:
 python -m pychip8.tests
 ```
 
-# credits
+## Credits
 Inspired by tutorials from [Danny Tuppeny](https://blog.dantup.com/2016/06/building-a-chip-8-interpreter-in-csharp/) and [Laurence Muller](http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/).
