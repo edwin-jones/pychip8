@@ -32,3 +32,6 @@ from pychip8.operations.bitwise.bitwise_xor import BitwiseXor
 from pychip8.operations.timers.set_x_to_delay_timer import SetXToDelayTimer
 from pychip8.operations.timers.set_sound_timer import SetSoundTimer
 from pychip8.operations.timers.set_delay_timer import SetDelayTimer
+
+from pychip8.operations.input.skip_if_key_pressed import SkipIfKeyPressed
+from pychip8.operations.input.skip_if_key_not_pressed import SkipIfKeyNotPressed

@@ -2,7 +2,7 @@ from pychip8.opcode import Opcode
 
 import unittest
  
-class TestOpcode(unittest.TestCase):
+class OpcodeTests(unittest.TestCase):
 
     def setUp(self):
         self.opcode = Opcode(0xABCD)

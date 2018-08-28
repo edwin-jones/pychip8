@@ -29,9 +29,15 @@ class Cpu:
         self.stack = []
         self.stack_pointer = uint16(0)
 
-        self.keys = [byte(0)] * 16
+        self.keys = set()
 
         self.frame_buffer = [byte(0)] * (64 * 32)
+
+    def key_down(self, key):
+        self.keys.add(key)
+    
+    def key_up(self, key):
+        self.keys.remove(key)
 
     def move_to_next_instruction(self):
         self.program_counter += Cpu.WORD_SIZE_IN_BYTES

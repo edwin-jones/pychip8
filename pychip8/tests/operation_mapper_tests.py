@@ -5,7 +5,7 @@ from pychip8.operations import *
 import unittest
 
  
-class TestOperationMapper(unittest.TestCase):
+class OperationMapperTests(unittest.TestCase):
 
     def setUp(self):
         self.opcode = Opcode(0xABCD)
