@@ -2,3 +2,4 @@
 **/*.pyc
 .vscode/*
 pychip8/rom/*
+!pychip8/rom/README.md
