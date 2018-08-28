@@ -21,7 +21,7 @@ class Cpu:
         self.ram = [byte(0)] * 4096 # 4k of RAM
         self.program_counter = uint16(self.PROGRAM_START_ADDRESS)
 
-        self.index_register = uint16(self.PROGRAM_START_ADDRESS)
+        self.index_register = 0
         self.general_purpose_registers = [byte(0)] * 16
 
         self.delay_timer = byte(0)
