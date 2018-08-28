@@ -65,9 +65,9 @@ class CoreTests(OperationTestCase):
 
         operation.execute(opcode, self.cpu)
 
-    def test_save_x(self):
+    def test_save_registers_zero_to_x(self):
         opcode = Opcode(0xF255)
-        operation = SaveX()
+        operation = SaveRegistersZeroToX()
 
         self.cpu.general_purpose_registers[0] = 1
         self.cpu.general_purpose_registers[1] = 2

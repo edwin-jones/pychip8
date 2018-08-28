@@ -103,5 +103,8 @@ class TestOperationMapper(unittest.TestCase):
     def test_return_from_function_mapping(self):
         self._test_mapping(0x00EE, ReturnFromFunction)
 
+    def test_save_registers_zero_to_x_mapping(self):
+        self._test_mapping(0xF455, SaveRegistersZeroToX)
+
 if __name__ == '__main__':
     unittest.main()
