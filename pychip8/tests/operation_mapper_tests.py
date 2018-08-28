@@ -121,5 +121,8 @@ class OperationMapperTests(unittest.TestCase):
     def test_wait_for_key_press_mapping(self):
         self._test_mapping(0xF30A, WaitForKeyPress)
 
+    def test_load_character_address_mapping(self):
+        self._test_mapping(0xF329, LoadCharacterAddress)
+
 if __name__ == '__main__':
     unittest.main()
