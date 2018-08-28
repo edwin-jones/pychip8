@@ -7,16 +7,18 @@ class DrawSprite:
         if(current_bit_value):
             cpu.set_arithmetic_flag()
 
-    def _get_framebuffer_byte(self, cpu, current_pixels, new_pixels):
+    def _get_new_framebuffer_byte(self, cpu, current_pixels, new_pixels):
         result = 0
 
         for shift in range(0, 8):
             mask = (1 << shift)
             bit_value = mask & new_pixels
-        
+
             if bit_value:
                 result |= mask
                 self._check_collision_flag(cpu, mask, current_pixels)
+
+        result ^= current_pixels
                 
         return result
 
@@ -33,5 +35,5 @@ class DrawSprite:
             current_pixels = cpu.frame_buffer[x + y_line]
             new_pixels = cpu.ram[cpu.index_register + current_row_offset]
 
-            result = self._get_framebuffer_byte(cpu, current_pixels, new_pixels)
+            result = self._get_new_framebuffer_byte(cpu, current_pixels, new_pixels)
             cpu.frame_buffer[x + y_line] = result
