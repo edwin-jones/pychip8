@@ -9,40 +9,40 @@ class OperationMapper():
 
         self._operations[0x00E0] = ClearDisplay()
         self._operations[0x00EE] = ReturnFromFunction()
-
         self._operations[0x1] = Goto()
         self._operations[0x2] = CallFunction()
         self._operations[0x3] = SkipIfEqual()
+
         self._operations[0x4] = SkipIfNotEqual()
         self._operations[0x6] = SetX()
-
         self._operations[0x7] = AddToX()
         self._operations[0xA] = SetI()
         self._operations[0xB] = GotoPlus()
-        self._operations[0xC] = Random()
 
+        self._operations[0xC] = Random()
         self._operations[0x50] = SkipIfXyEqual()
         self._operations[0x80] = SetXToY()
         self._operations[0x81] = BitwiseOr()
         self._operations[0x82] = BitwiseAnd()
-        self._operations[0x83] = BitwiseXor()
 
+        self._operations[0x83] = BitwiseXor()
         self._operations[0x84] = AddYToX()
         self._operations[0x85] = TakeYFromX()
         self._operations[0x86] = ShiftXRight()
         self._operations[0x87] = TakeXFromY()
-        self._operations[0x8E] = ShiftXLeft()
-        
-        self._operations[0x90] = SkipIfXyNotEqual()
 
+        self._operations[0x8E] = ShiftXLeft()
+        self._operations[0x90] = SkipIfXyNotEqual()
         self._operations[0xE9E] = SkipIfKeyPressed()
         self._operations[0xEA1] = SkipIfKeyNotPressed()
         self._operations[0xF07] = SetXToDelayTimer()
+
+        self._operations[0xF0A] = WaitForKeyPress()
         self._operations[0xF15] = SetDelayTimer()
         self._operations[0xF18] = SetSoundTimer()
         self._operations[0xF1E] = AddXToI()
-
         self._operations[0xF33] = SaveXAsBcd()
+        
         self._operations[0xF55] = SaveRegistersZeroToX()
         self._operations[0xF65] = LoadRegistersZeroToX()
 

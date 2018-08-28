@@ -118,5 +118,8 @@ class OperationMapperTests(unittest.TestCase):
     def test_skip_if_key_not_pressed_mapping(self):
         self._test_mapping(0xE3A1, SkipIfKeyNotPressed)
 
+    def test_wait_for_key_press_mapping(self):
+        self._test_mapping(0xF30A, WaitForKeyPress)
+
 if __name__ == '__main__':
     unittest.main()
