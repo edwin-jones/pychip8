@@ -4,7 +4,7 @@ from pychip8.operations import *
 
 import unittest
 
- 
+
 class OperationMapperTests(unittest.TestCase):
 
     def setUp(self):
@@ -123,6 +123,9 @@ class OperationMapperTests(unittest.TestCase):
 
     def test_load_character_address_mapping(self):
         self._test_mapping(0xF329, LoadCharacterAddress)
+
+    def test_draw_sprite_mapping(self):
+        self._test_mapping(0xD329, DrawSprite)
 
 if __name__ == '__main__':
     unittest.main()
