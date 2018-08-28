@@ -92,3 +92,16 @@ class CoreTests(OperationTestCase):
         self.assertEqual(self.cpu.general_purpose_registers[0], 1)
         self.assertEqual(self.cpu.general_purpose_registers[1], 2)
         self.assertEqual(self.cpu.general_purpose_registers[2], 3)
+
+    def test_save_x_as_bcd(self):
+        opcode = Opcode(0xF133)
+
+        self.cpu.general_purpose_registers[opcode.x] = 123
+
+        operation = SaveXAsBcd()
+
+        operation.execute(opcode, self.cpu)
+
+        self.assertEqual(self.cpu.ram[self.cpu.index_register], 1)
+        self.assertEqual(self.cpu.ram[self.cpu.index_register + 1], 2)
+        self.assertEqual(self.cpu.ram[self.cpu.index_register + 2], 3)

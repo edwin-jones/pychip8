@@ -4,6 +4,7 @@ from pychip8.operations.set_i import SetI
 from pychip8.operations.random import Random
 from pychip8.operations.save_registers_zero_to_x import SaveRegistersZeroToX
 from pychip8.operations.load_registers_zero_to_x import LoadRegistersZeroToX
+from pychip8.operations.save_x_as_bcd import SaveXAsBcd
 
 from pychip8.operations.graphics.clear_display import ClearDisplay
 
