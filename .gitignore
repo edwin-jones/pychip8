@@ -1,3 +1,4 @@
 
 **/*.pyc
 .vscode/*
+pychip8/rom/*
