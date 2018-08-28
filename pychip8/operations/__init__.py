@@ -35,3 +35,4 @@ from pychip8.operations.timers.set_delay_timer import SetDelayTimer
 
 from pychip8.operations.input.skip_if_key_pressed import SkipIfKeyPressed
 from pychip8.operations.input.skip_if_key_not_pressed import SkipIfKeyNotPressed
+from pychip8.operations.input.wait_for_key_press import WaitForKeyPress

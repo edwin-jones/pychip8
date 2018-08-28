@@ -42,6 +42,9 @@ class Cpu:
     def move_to_next_instruction(self):
         self.program_counter += Cpu.WORD_SIZE_IN_BYTES
 
+    def move_to_previous_instruction(self):
+        self.program_counter -= Cpu.WORD_SIZE_IN_BYTES
+
     def load_rom(self, rom_bytes):
         for i, byte_value in enumerate(rom_bytes):
            self.ram[Cpu.PROGRAM_START_ADDRESS + i] = byte_value
