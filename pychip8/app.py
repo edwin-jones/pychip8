@@ -38,8 +38,7 @@ class App:
         self.cpu.load_rom(self.rom_loader.get_rom())
 
         # temp test pattern
-        test_buffer = numpy.empty((64, 32))
-        test_buffer.fill(byte(0))
+        test_buffer = [[byte(0)] * 32 for i in range(64)]
 
         test_buffer[0][0] = byte(1)
         test_buffer[2][1] = byte(1)
