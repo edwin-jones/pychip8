@@ -52,11 +52,14 @@ class GraphicsTests(OperationTestCase):
         operation = DrawSprite()
         operation.execute(opcode, self.cpu)
 
+        self.assertEqual(self.cpu.general_purpose_registers[self.cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 0)
+
         self.cpu.ram[self.cpu.index_register] = 0b0
         self.cpu.ram[self.cpu.index_register + 1] = 0b00
         self.cpu.ram[self.cpu.index_register + 2] = 0b010
-        
+
         operation.execute(opcode, self.cpu)
+
 
         self.assertEqual(self.cpu.frame_buffer[opcode.x + 7][opcode.y], True)
 
