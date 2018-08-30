@@ -16,7 +16,7 @@ class GraphicsTests(OperationTestCase):
         
         for x in range(64):
             for y in range(32):
-                self.assertEqual(self.cpu.frame_buffer[x][y], 0)
+                self.assertEqual(self.cpu.frame_buffer[x][y], False)
 
     def test_draw_sprite(self):
         opcode = Opcode(0xD113)
