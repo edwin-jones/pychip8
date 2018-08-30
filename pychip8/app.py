@@ -38,11 +38,20 @@ class App:
         self.cpu.load_rom(self.rom_loader.get_rom())
 
         # temp test pattern
-        test_buffer = [[bool()] * 32 for i in range(64)]
+        # should draw an x with a 1 px thick
+        # border that has 1 pixel of padding from the edges
+        # there should be a square dot near the top left edge
+        test_buffer = [[bool()] * 32 for x in range(64)]
 
-        test_buffer[0][0] = byte(1)
-        test_buffer[2][1] = byte(1)
-        test_buffer[4][2] = byte(1)
+        test_buffer[3][5] = True
+        for x in range(64):
+            y = int(x/2)
+            test_buffer[1][y] = True
+            test_buffer[62][y] = True
+            test_buffer[x][1] = True
+            test_buffer[x][30] = True
+            test_buffer[x][y] = True
+            test_buffer[x][31 - y]= True
 
         while self._running:
 
