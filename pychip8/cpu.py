@@ -32,7 +32,7 @@ class Cpu:
 
         self.keys = set()
 
-        self.frame_buffer = [byte(0)] * (8 * 32)
+        self.frame_buffer = [[bool()] * 32 for i in range(64)]
 
         self._load_font()
 
