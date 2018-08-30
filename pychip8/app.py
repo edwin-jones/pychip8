@@ -13,13 +13,17 @@ from pychip8.cpu import Cpu
 from pychip8.rom_loader import RomLoader
 from pychip8.operation_mapper import OperationMapper
 
+from numpy import uint8 as byte
+
 
 class App:
     """primary application class"""
 
-    def __init__(self, cpu, rom_loader):
+    def __init__(self, cpu, rom_loader, renderer, input_handler):
         self.rom_loader = rom_loader
         self.cpu = cpu
+        self.renderer = renderer
+        self.input_handler = input_handler
         self._running = True
 
     def run(self):
@@ -32,9 +36,16 @@ class App:
 
         self.cpu.load_rom(self.rom_loader.get_rom())
 
+        test_buffer = [byte(0)] * (8 * 32)
+
+        for i in range(32):
+            test_buffer[i] = byte(0xF)
+
         while self._running:
 
+            self.input_handler.handle_input()
             self.cpu.emulate_cycle()
+            self.renderer.render(test_buffer)
 
             # delay until next frame.
             clock.tick(settings.TARGET_FPS)

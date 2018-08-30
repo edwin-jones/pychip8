@@ -2,7 +2,8 @@
 
 import math
 import pygame
-import settings
+import pychip8.settings
+import sys
 
 
 class KeyboardInputHandler:
@@ -14,11 +15,9 @@ class KeyboardInputHandler:
         for event in pygame.event.get():
             # quit if user presses exit
             if event.type == pygame.QUIT:
-                return False
+                sys.exit()
 
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_ESCAPE]:
-            return False
-
-        return True
+            sys.exit()

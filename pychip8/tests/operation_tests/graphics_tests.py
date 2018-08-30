@@ -11,8 +11,6 @@ class GraphicsTests(OperationTestCase):
     def test_clear_display(self):
         opcode = Opcode(0x00E0)
 
-        self.cpu.frame_buffer = [byte(255)] * (64 * 32)
-
         operation = ClearDisplay()
         operation.execute(opcode, self.cpu)
         
