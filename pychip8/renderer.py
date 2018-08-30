@@ -31,18 +31,11 @@ class Renderer:
     def render(self, frame_buffer):
         """This method draws everything to the screen"""
         self.SCREEN.fill(colors.BLACK)
-        
-        for index in range(8 * 32):
-            col = index % 8
-            row = int(index / 8)       
-            current_byte = frame_buffer[index]
-            for bit in range(8):
-                mask = byte(128 >> bit)
-                bit_set = current_byte & mask
-               
-                if(bit_set):
-                    self.SCREEN.set_at((col * 8 + bit, row), colors.WHITE)
 
+        for x in range(64):
+            for y in range(32):
+                if frame_buffer[x][y]:
+                    self.SCREEN.set_at((x,y), colors.WHITE)
 
         #self._draw_debug_text("testing", Vector2(10, 10))
 

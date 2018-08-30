@@ -14,6 +14,7 @@ from pychip8.rom_loader import RomLoader
 from pychip8.operation_mapper import OperationMapper
 
 from numpy import uint8 as byte
+import numpy
 
 
 class App:
@@ -37,18 +38,12 @@ class App:
         self.cpu.load_rom(self.rom_loader.get_rom())
 
         # temp test pattern
-        test_buffer = [byte(0)] * (8 * 32)
+        test_buffer = numpy.empty((64, 32))
+        test_buffer.fill(byte(0))
 
-        test_buffer[0] = byte(0b00000010)
-        test_buffer[8] = byte(0b00000010)
-
-        test_buffer[16] = byte(0b01000000)
-        test_buffer[24] = byte(0b01000000)
-
-        test_buffer[204] = byte(0xFF)
-        test_buffer[221] = byte(0xFF)
-        test_buffer[238] = byte(0xFF)
-        test_buffer[255] = byte(0xFF)
+        test_buffer[0][0] = byte(1)
+        test_buffer[2][1] = byte(1)
+        test_buffer[4][2] = byte(1)
 
         while self._running:
 
