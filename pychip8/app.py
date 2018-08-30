@@ -39,11 +39,16 @@ class App:
         # temp test pattern
         test_buffer = [byte(0)] * (8 * 32)
 
-        for i in range(8 * 32):
-            test_buffer[0] = byte(0xFF)
-            test_buffer[9] = byte(0xFF)
-            test_buffer[18] = byte(0xFF)
-            test_buffer[27] = byte(0b11100111)
+        test_buffer[0] = byte(0b00000010)
+        test_buffer[8] = byte(0b00000010)
+
+        test_buffer[16] = byte(0b01000000)
+        test_buffer[24] = byte(0b01000000)
+
+        test_buffer[204] = byte(0xFF)
+        test_buffer[221] = byte(0xFF)
+        test_buffer[238] = byte(0xFF)
+        test_buffer[255] = byte(0xFF)
 
         while self._running:
 

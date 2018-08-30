@@ -37,7 +37,7 @@ class Renderer:
             row = int(index / 8)       
             current_byte = frame_buffer[index]
             for bit in range(8):
-                mask = byte(1 << bit)
+                mask = byte(128 >> bit)
                 bit_set = current_byte & mask
                
                 if(bit_set):
