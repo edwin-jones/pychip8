@@ -36,7 +36,10 @@ class Renderer:
         for x in range(64):
             for y in range(32):
                 if frame_buffer[x][y]:
-                    pygame.draw.rect(self.SCREEN, colors.WHITE, (x * scale, y * scale, scale, scale))
+                    pygame.draw.rect(
+                        self.SCREEN, 
+                        colors.WHITE, 
+                        (x * scale, y * scale, scale, scale))
 
         #self._draw_debug_text("testing", Vector2(10, 10))
 
