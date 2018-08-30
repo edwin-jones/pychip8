@@ -38,8 +38,10 @@ class App:
 
         test_buffer = [byte(0)] * (8 * 32)
 
-        for i in range(32):
-            test_buffer[i] = byte(0xF)
+        for i in range(8 * 32):
+            test_buffer[0] = byte(0xFF)
+            test_buffer[9] = byte(0xFF)
+            test_buffer[18] = byte(0xFF)
 
         while self._running:
 
