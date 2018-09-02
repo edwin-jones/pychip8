@@ -30,7 +30,7 @@ class App:
         self.input_handler = input_handler
         self._running = True
         self._parser = argparse.ArgumentParser()
-        self._parser.add_argument('--goto', dest='goto', help='this is a address for the program counter to run to in hex (debug mode only)')
+        self._parser.add_argument('--runto', dest='runto', help='this is a address for the program counter to run to in hex (debug mode only)')
 
     def run(self):
         """Run the game with this method"""
@@ -48,9 +48,9 @@ class App:
 
         # allow us to run to line n while debugging
         if __debug__:
-            goto = self._parser.parse_args().goto
-            if goto is not None:
-                target_address = int(goto, 0)
+            runto = self._parser.parse_args().runto
+            if runto is not None:
+                target_address = int(runto, 0)
                 while self.cpu.program_counter < target_address:
                     self.cpu.emulate_cycle()
 
