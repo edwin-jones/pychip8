@@ -17,6 +17,8 @@ from pychip8.operation_mapper import OperationMapper
 from numpy import uint8 as byte
 import numpy
 
+import argparse
+
 
 class App:
     """primary application class"""
@@ -27,6 +29,8 @@ class App:
         self.renderer = renderer
         self.input_handler = input_handler
         self._running = True
+        self._parser = argparse.ArgumentParser()
+        self._parser.add_argument('--goto', dest='goto', help='this is a address for the program counter to run to in hex (debug mode only)')
 
     def run(self):
         """Run the game with this method"""
@@ -41,6 +45,14 @@ class App:
         pygame.font.init()
 
         font = pygame.font.SysFont("Arial", 24)
+
+        # allow us to run to line n while debugging
+        if __debug__:
+            goto = self._parser.parse_args().goto
+            if goto is not None:
+                target_address = int(goto, 0)
+                while self.cpu.program_counter < target_address:
+                    self.cpu.emulate_cycle()
 
         while self._running:
 

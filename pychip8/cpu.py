@@ -97,8 +97,8 @@ class Cpu:
         debug_strings = []
         debug_strings.append(f"program counter: {self.program_counter:#06x}")
         debug_strings.append(f"index register: {self.index_register:#06x}")
-        debug_strings.append(f"current opcode: {self._current_word:#06x}")
-        debug_strings.append(f"current operation: {self._current_operation.__class__.__name__}")
+        debug_strings.append(f"word: {self._current_word:#06x}")
+        debug_strings.append(f"op: {self._current_operation.__class__.__name__}")
         
         for i in range(16):
             debug_strings.append(f"register V{i}: {self.general_purpose_registers[i]:#06x}")
