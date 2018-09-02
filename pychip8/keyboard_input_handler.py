@@ -20,4 +20,5 @@ class KeyboardInputHandler:
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_ESCAPE]:
+            pygame.exit()
             sys.exit()

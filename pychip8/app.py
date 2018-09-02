@@ -37,27 +37,11 @@ class App:
 
         self.cpu.load_rom(self.rom_loader.get_rom())
 
-        # temp test pattern
-        # should draw an x with a 1 px thick
-        # border that has 1 pixel of padding from the edges
-        # there should be a square dot near the top left edge
-        test_buffer = [[bool()] * 32 for x in range(64)]
-
-        test_buffer[3][5] = True
-        for x in range(64):
-            y = int(x/2)
-            test_buffer[1][y] = True
-            test_buffer[62][y] = True
-            test_buffer[x][1] = True
-            test_buffer[x][30] = True
-            test_buffer[x][y] = True
-            test_buffer[x][31 - y]= True
-
         while self._running:
 
             self.input_handler.handle_input()
             self.cpu.emulate_cycle()
-            self.renderer.render(test_buffer)
+            self.renderer.render(self.cpu.frame_buffer)
 
             # delay until next frame.
             clock.tick(settings.TARGET_FPS)
