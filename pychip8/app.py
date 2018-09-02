@@ -3,6 +3,7 @@
 # and here https://github.com/Mekire/pygame-raycasting-experiment
 
 import math
+import time
 
 import pygame
 from pygame.math import Vector2
@@ -43,12 +44,27 @@ class App:
 
         while self._running:
 
-            self.input_handler.handle_input()
-            self.cpu.emulate_cycle()
+            input = self.input_handler.handle_input()
+
+            run_cycle = True
+
+            # allow super basic debugging by holding down return
+            # to advance cycles (FPS will be dropped to 1 in debug mode)
+            if __debug__:
+                run_cycle = False
+                if input[pygame.K_RETURN]:
+                    run_cycle = True
+
+            if run_cycle: 
+                self.cpu.emulate_cycle()
+
             self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font)
 
             # delay until next frame.
             clock.tick(settings.TARGET_FPS)
             fps = math.floor(clock.get_fps())
+
+            # allow a rudimentary step by step debugger
+           
 
         pygame.quit()

@@ -37,6 +37,7 @@ class Cpu:
         self._load_font()
 
         self._current_word = 0
+        self._current_operation = None
 
     def key_down(self, key):
         self.keys.add(key)
@@ -64,9 +65,9 @@ class Cpu:
         self._current_word = self.fetch_word()
 
         opcode = Opcode(self._current_word)
-        operation = self.operation_mapper.find_operation(self._current_word)
+        self._current_operation = self.operation_mapper.find_operation(self._current_word)
 
-        operation.execute(opcode, self)
+        self._current_operation.execute(opcode, self)
         self.move_to_next_instruction()
         self.update_timers()
         
@@ -97,6 +98,10 @@ class Cpu:
         debug_strings.append(f"program counter: {self.program_counter:#06x}")
         debug_strings.append(f"index register: {self.index_register:#06x}")
         debug_strings.append(f"current opcode: {self._current_word:#06x}")
+        debug_strings.append(f"current operation: {self._current_operation.__class__.__name__}")
+        
+        for i in range(16):
+            debug_strings.append(f"register V{i}: {self.general_purpose_registers[i]:#06x}")
 
         return debug_strings
 

@@ -26,13 +26,13 @@ class ArithmeticTests(OperationTestCase):
         self._test_arithmetic(0x8124, AddYToX(), 2, 3, 5, 0)
 
     def test_take_y_from_x_underflow(self):
-        self._test_arithmetic(0x8124, TakeYFromX(), 1, 2, 255, 1)
+        self._test_arithmetic(0x8124, TakeYFromX(), 1, 2, 255, 0)
 
     def test_take_y_from_x_no_underflow(self):
-        self._test_arithmetic(0x8124, TakeYFromX(), 6, 4, 2, 0)
+        self._test_arithmetic(0x8124, TakeYFromX(), 6, 4, 2, 1)
 
     def test_take_x_from_y_underflow(self):
-        self._test_arithmetic(0x8127, TakeXFromY(), 5, 10, 5, 0)
+        self._test_arithmetic(0x8127, TakeXFromY(), 5, 10, 5, 1)
 
     def test_take_x_from_y_no_underflow(self):
-        self._test_arithmetic(0x8127, TakeXFromY(), 3, 1, 254, 1)
+        self._test_arithmetic(0x8127, TakeXFromY(), 3, 1, 254, 0)

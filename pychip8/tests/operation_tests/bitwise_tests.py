@@ -29,7 +29,7 @@ class BitwiseTests(OperationTestCase):
         self.cpu.general_purpose_registers[2] = byte(2)
         self._test_bitwise_operation(0x8123, BitwiseXor(), 1)
 
-    def test_shift_x_right(self):
+    def test_shift_x_left(self):
         opcode = Opcode(0x8106)
         operation = ShiftXLeft()
         self.cpu.general_purpose_registers[opcode.x] = byte(0xFF)
@@ -37,10 +37,10 @@ class BitwiseTests(OperationTestCase):
         self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
         self.assertEqual(self.cpu.general_purpose_registers[opcode.x], byte(254))
 
-    def test_shift_x_left(self):
+    def test_shift_x_right(self):
         opcode = Opcode(0x810E)
         operation = ShiftXRight()
-        self.cpu.general_purpose_registers[opcode.x] = byte(1)
+        self.cpu.general_purpose_registers[opcode.x] = byte(2)
         operation.execute(opcode, self.cpu)
-        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
-        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], byte(0))
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(0))
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], byte(1))
