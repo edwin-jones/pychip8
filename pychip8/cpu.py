@@ -36,6 +36,8 @@ class Cpu:
 
         self._load_font()
 
+        self._current_word = 0
+
     def key_down(self, key):
         self.keys.add(key)
     
@@ -59,10 +61,10 @@ class Cpu:
         self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 0
 
     def emulate_cycle(self):
-        word = self.fetch_word()
+        self._current_word = self.fetch_word()
 
-        opcode = Opcode(word)
-        operation = self.operation_mapper.find_operation(word)
+        opcode = Opcode(self._current_word)
+        operation = self.operation_mapper.find_operation(self._current_word)
 
         operation.execute(opcode, self)
         self.move_to_next_instruction()
@@ -89,6 +91,14 @@ class Cpu:
 
         if(self.sound_timer > 0):
             self.sound_timer -= 1
+
+    def get_debug_strings(self):
+        debug_strings = []
+        debug_strings.append(f"program counter: {self.program_counter:#06x}")
+        debug_strings.append(f"index register: {self.index_register:#06x}")
+        debug_strings.append(f"current opcode: {self._current_word:#06x}")
+
+        return debug_strings
 
     def _load_font(self):
         offset = 0x0

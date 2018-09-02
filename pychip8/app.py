@@ -37,11 +37,15 @@ class App:
 
         self.cpu.load_rom(self.rom_loader.get_rom())
 
+        pygame.font.init()
+
+        font = pygame.font.SysFont("Arial", 24)
+
         while self._running:
 
             self.input_handler.handle_input()
             self.cpu.emulate_cycle()
-            self.renderer.render(self.cpu.frame_buffer)
+            self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font)
 
             # delay until next frame.
             clock.tick(settings.TARGET_FPS)
