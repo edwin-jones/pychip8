@@ -15,9 +15,11 @@ class DrawSprite:
             new_pixels = cpu.ram[cpu.index_register + current_row_offset]
 
             for x_offset in range(8):
+
+                mask = 128 >> x_offset
                 
                 old_bit = cpu.frame_buffer[x + x_offset][y_line]
-                new_bit = bool(new_pixels >> (7 - x_offset))
+                new_bit = bool(new_pixels & mask)
                 bit_value = old_bit ^ new_bit
                 cpu.frame_buffer[x + x_offset][y_line] = True if bit_value else False
 
