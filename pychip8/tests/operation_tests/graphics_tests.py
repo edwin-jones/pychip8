@@ -34,40 +34,25 @@ class GraphicsTests(OperationTestCase):
         operation = DrawSprite()
         operation.execute(opcode, self.cpu)
 
-        self.assertEqual(self.cpu.frame_buffer[opcode.x][opcode.y], False)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 6][opcode.y], False)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 7][opcode.y], True)
-
-        self.assertEqual(self.cpu.frame_buffer[opcode.x][opcode.y], 0)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 5][opcode.y + 1], False)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 6][opcode.y + 1], True)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 7][opcode.y + 1], True)
-
-        self.assertEqual(self.cpu.frame_buffer[opcode.x][opcode.y], False)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 5][opcode.y + 2], True)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 6][opcode.y + 2], True)
-        self.assertEqual(self.cpu.frame_buffer[opcode.x + 7][opcode.y + 2], True)
+        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y, 0b1)
+        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y+1, 0b11)
+        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y+2, 0b111)
+        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y+3, 0b0)
 
     def test_draw_collision(self):
         opcode = Opcode(0xD113)
 
-        self.cpu.ram[self.cpu.index_register] = 0b1
-        self.cpu.ram[self.cpu.index_register + 1] = 0b11
-        self.cpu.ram[self.cpu.index_register + 2] = 0b101
+        self.cpu.ram[self.cpu.index_register] = 0b1111
 
         operation = DrawSprite()
         operation.execute(opcode, self.cpu)
 
         self.assertEqual(self.cpu.general_purpose_registers[self.cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 0)
 
-        self.cpu.ram[self.cpu.index_register] = 0b0
-        self.cpu.ram[self.cpu.index_register + 1] = 0b00
-        self.cpu.ram[self.cpu.index_register + 2] = 0b100
+        self.cpu.ram[self.cpu.index_register] = 0b0110
 
         operation.execute(opcode, self.cpu)
 
-        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y, 0b1)
-        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y+1, 0b11)
-        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y+2, 0b001)
-        
+        self._test_buffer_pixels_match_pattern(opcode.x, opcode.y, 0b1001)
+
         self.assertEqual(self.cpu.general_purpose_registers[self.cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 1)
