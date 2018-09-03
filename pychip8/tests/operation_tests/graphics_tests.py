@@ -41,7 +41,6 @@ class GraphicsTests(OperationTestCase):
 
     def test_draw_collision(self):
         opcode = Opcode(0xD113)
-
         self.cpu.ram[self.cpu.index_register] = 0b1111
 
         operation = DrawSprite()
@@ -50,9 +49,7 @@ class GraphicsTests(OperationTestCase):
         self.assertEqual(self.cpu.general_purpose_registers[self.cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 0)
 
         self.cpu.ram[self.cpu.index_register] = 0b0110
-
         operation.execute(opcode, self.cpu)
 
         self._test_buffer_pixels_match_pattern(opcode.x, opcode.y, 0b1001)
-
         self.assertEqual(self.cpu.general_purpose_registers[self.cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 1)
