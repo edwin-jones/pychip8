@@ -37,7 +37,7 @@ class App:
         pygame.init()
 
         clock = pygame.time.Clock()
-
+      
         fps = 0
 
         self.cpu.load_rom(self.rom_loader.get_rom())
@@ -67,10 +67,16 @@ class App:
                 if input[pygame.K_RETURN]:
                     run_cycle = True
 
-            if run_cycle: 
-                self.cpu.emulate_cycle()
-
-            if self.cpu.should_draw:
+            if run_cycle:
+                if __debug__:
+                    self.cpu.emulate_cycle()
+                else:
+                    for i in range(int(settings.OPERATIONS_PER_SECOND / settings.TARGET_FPS)): # hack to make sim speed ~500hz. TODO fix this
+                        self.cpu.emulate_cycle()
+                
+            self.cpu.update_timers()
+            
+            if True:
                 self.cpu.should_draw = False
                 self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font)
 

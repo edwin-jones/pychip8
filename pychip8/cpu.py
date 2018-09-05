@@ -73,8 +73,6 @@ class Cpu:
         # ignore jumps when moveing to the next instruction. TODO - fix this massive hack
         if not (opcode.a == 1 or opcode.a == 2):
             self.move_to_next_instruction()
-
-        self.update_timers()
         
     def fetch_word(self):
 
