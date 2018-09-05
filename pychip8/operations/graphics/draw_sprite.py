@@ -5,8 +5,8 @@ class DrawSprite:
     def execute(self, opcode, cpu):
         cpu.clear_arithmetic_flag()
 
-        x = opcode.x
-        y = opcode.y
+        x = cpu.general_purpose_registers[opcode.x]
+        y = cpu.general_purpose_registers[opcode.y]
         height = opcode.n
 
         for current_row_offset in range(height):

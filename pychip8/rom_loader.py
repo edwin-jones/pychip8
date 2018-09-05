@@ -7,7 +7,7 @@ class RomLoader():
         """A simple way to load the first rom in the roms folder"""
 
         folder = os.path.dirname(os.path.realpath(__file__))
-        rom_folder = os.path.join(folder, "rom")
+        rom_folder = os.path.join(folder, "roms")
         rom_file = next(filter(lambda file : file.endswith('.ch8'), os.listdir(rom_folder)))
         rom_file_path = os.path.join(rom_folder, rom_file)
         file_bytes = []
