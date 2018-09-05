@@ -70,7 +70,9 @@ class App:
             if run_cycle: 
                 self.cpu.emulate_cycle()
 
-            self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font)
+            if self.cpu.should_draw:
+                self.cpu.should_draw = False
+                self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font)
 
             # delay until next frame.
             clock.tick(settings.TARGET_FPS)

@@ -15,6 +15,8 @@ class Cpu:
 
     def __init__(self, operation_mapper):
 
+        self.should_draw = True
+
         self.operation_mapper = operation_mapper
 
         self.ram = [byte(0)] * 4096 # 4k of RAM
