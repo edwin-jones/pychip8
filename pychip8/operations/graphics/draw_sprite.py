@@ -20,8 +20,9 @@ class DrawSprite:
                 mask = 128 >> x_offset
 
                 new_x = x + x_offset
-                new_x %= 63
 
+                # make sure x and y wrap around and don't go out of bounds!
+                new_x %= 63
                 y_line %= 31
                 
                 old_bit = cpu.frame_buffer[new_x][y_line]

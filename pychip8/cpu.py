@@ -17,7 +17,6 @@ class Cpu:
 
         self.operation_mapper = operation_mapper
 
-        self.should_draw = False
         self.ram = [byte(0)] * 4096 # 4k of RAM
         self.program_counter = uint16(self.PROGRAM_START_ADDRESS)
 
@@ -72,7 +71,7 @@ class Cpu:
         # ignore jumps when moveing to the next instruction. TODO - fix this massive hack
         if not (opcode.a == 1 or opcode.a == 2):
             self.move_to_next_instruction()
-            
+
         self.update_timers()
         
     def fetch_word(self):
@@ -81,11 +80,7 @@ class Cpu:
         pc = int(self.program_counter) #indexes must be ints!
         word = uint16(self.ram[pc] << 8 | self.ram[pc + 1])
 
-        return word   
-
-    def draw_graphics(self):
-        if(self.should_draw):
-            pass
+        return word
 
     def set_keys(self):
         pass
