@@ -36,6 +36,6 @@ def run():
     while True:
         input_handler.handle_input()
         renderer.render(frame_buffer)
-        clock.tick(settings.TARGET_FPS)
+        clock.tick(settings.FRAMES_PER_SECOND)
 
 run()

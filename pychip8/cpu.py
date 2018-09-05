@@ -12,6 +12,8 @@ class Cpu:
     PROGRAM_START_ADDRESS = 512 # game ram begins at address 0x200 / 512
     WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
     ARITHMETIC_FLAG_REGISTER_ADDRESS = 0xF #V[15] is used as a carry/no borrow flag for certain ops
+    FRAME_BUFFER_WIDTH = 64
+    FRAME_BUFFER_HEIGHT = 32
 
     def __init__(self, operation_mapper):
 

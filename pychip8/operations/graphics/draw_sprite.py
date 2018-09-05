@@ -23,9 +23,9 @@ class DrawSprite:
 
                 column = x + x_offset
 
-                # make sure x and y wrap around and don't go out of bounds!
-                column %= 64
-                row %= 32
+                # make sure x and y don't go out of bounds!
+                if column >= cpu.FRAME_BUFFER_WIDTH or row >= cpu.FRAME_BUFFER_HEIGHT:
+                    continue
                 
                 old_bit = cpu.frame_buffer[column][row]
                 new_bit = bool(new_pixels & mask)
