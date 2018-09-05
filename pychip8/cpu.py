@@ -68,7 +68,11 @@ class Cpu:
         self._current_operation = self.operation_mapper.find_operation(self._current_word)
 
         self._current_operation.execute(opcode, self)
-        self.move_to_next_instruction()
+
+        # ignore jumps when moveing to the next instruction. TODO - fix this massive hack
+        if not (opcode.a == 1 or opcode.a == 2):
+            self.move_to_next_instruction()
+            
         self.update_timers()
         
     def fetch_word(self):
