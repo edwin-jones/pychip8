@@ -22,22 +22,21 @@ class Renderer:
         #self.FONT = pygame.font.SysFont(None, 48)
 
 
-    def _draw_debug_text(self, debug_strings=[], font=None): 
-        if __debug__:
-            padding = font.get_linesize()
-            current_y = 10
-            current_x = 10
-            for string in debug_strings:
-                text_surface = font.render(string, False, colors.YELLOW)
-                self.SCREEN.blit(text_surface, (current_x, current_y))
-                current_y += padding
+    def _draw_debug_text(self, debug_strings=[], font=None):
+        padding = font.get_linesize()
+        current_y = 10
+        current_x = 10
+        for string in debug_strings:
+            text_surface = font.render(string, False, colors.DARK_RED)
+            self.SCREEN.blit(text_surface, (current_x, current_y))
+            current_y += padding
 
-                if current_y > (32 * settings.SCREEN_SCALE) - padding:
-                    current_y = 10
-                    current_x = (64 * settings.SCREEN_SCALE) / 2 + padding
+            if current_y > (32 * settings.SCREEN_SCALE) - padding:
+                current_y = 10
+                current_x = (64 * settings.SCREEN_SCALE) / 2 + padding
 
 
-    def render(self, frame_buffer, debug_strings=[], font=None):
+    def render(self, frame_buffer, debug_strings=[], font=None, debug=False):
         """This method draws everything to the screen"""
         self.SCREEN.fill(colors.BLACK)
         scale = settings.SCREEN_SCALE
@@ -50,7 +49,8 @@ class Renderer:
                         colors.WHITE,
                         (x * scale, y * scale, scale, scale))
 
-        self._draw_debug_text(debug_strings, font)
+        if debug:
+            self._draw_debug_text(debug_strings, font)
 
         # Go ahead and update the screen with what we've drawn.
         # This MUST happen after all the other drawing commands.

@@ -7,6 +7,7 @@ from pygame.math import Vector2
 from pychip8 import colors
 from pychip8 import constants
 
-TARGET_FPS = 1 if __debug__ else 60
+FRAMES_PER_SECOND = 60
+OPERATIONS_PER_SECOND = 500
 
 SCREEN_SCALE = 10

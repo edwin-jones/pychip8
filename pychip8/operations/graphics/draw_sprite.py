@@ -14,23 +14,23 @@ class DrawSprite:
 
         for current_row_offset in range(height):
 
-            y_line = y + current_row_offset
+            row = y + current_row_offset
             new_pixels = cpu.ram[cpu.index_register + current_row_offset]
 
             for x_offset in range(8):
 
                 mask = 128 >> x_offset
 
-                new_x = x + x_offset
+                column = x + x_offset
 
-                # make sure x and y wrap around and don't go out of bounds!
-                new_x %= 64
-                y_line %= 32
+                # make sure x and y don't go out of bounds!
+                if column >= cpu.FRAME_BUFFER_WIDTH or row >= cpu.FRAME_BUFFER_HEIGHT:
+                    continue
                 
-                old_bit = cpu.frame_buffer[new_x][y_line]
+                old_bit = cpu.frame_buffer[column][row]
                 new_bit = bool(new_pixels & mask)
                 bit_value = old_bit ^ new_bit
-                cpu.frame_buffer[new_x][y_line] = True if bit_value else False
+                cpu.frame_buffer[column][row] = True if bit_value else False
 
                 if old_bit and new_bit:
                     cpu.set_arithmetic_flag()

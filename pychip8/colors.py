@@ -11,9 +11,11 @@ FLOOR_GRAY = Color(102, 102, 102)
 
 #standard colors
 WHITE = Color(255, 255, 255)
+GRAY = Color(128, 128, 128)
 BLACK = Color(0, 0, 0)
 YELLOW = Color(255, 255, 0)
 RED = Color(255, 0, 0)
+DARK_RED = Color(128, 0, 0)
 GREEN = Color(0, 255, 0)
 BLUE = Color(0, 0, 255)
 PURPLE = Color(255, 0, 255)
