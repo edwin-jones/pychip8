@@ -27,7 +27,7 @@ class Renderer:
         current_y = 10
         current_x = 10
         for string in debug_strings:
-            text_surface = font.render(string, False, colors.YELLOW)
+            text_surface = font.render(string, False, colors.DARK_RED)
             self.SCREEN.blit(text_surface, (current_x, current_y))
             current_y += padding
 
