@@ -3,6 +3,8 @@ from numpy import uint8 as byte
 class DrawSprite:
 
     def execute(self, opcode, cpu):
+
+        cpu.should_draw = True
         cpu.clear_arithmetic_flag()
 
         x = cpu.general_purpose_registers[opcode.x]
@@ -22,8 +24,8 @@ class DrawSprite:
                 new_x = x + x_offset
 
                 # make sure x and y wrap around and don't go out of bounds!
-                new_x %= 63
-                y_line %= 31
+                new_x %= 64
+                y_line %= 32
                 
                 old_bit = cpu.frame_buffer[new_x][y_line]
                 new_bit = bool(new_pixels & mask)
