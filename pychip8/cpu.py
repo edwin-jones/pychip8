@@ -100,6 +100,8 @@ class Cpu:
         debug_strings.append(f"index register: {self.index_register:#06x}")
         debug_strings.append(f"word: {self._current_word:#06x}")
         debug_strings.append(f"op: {self._current_operation.__class__.__name__}")
+        debug_strings.append(f"sound timer: {self.sound_timer:#06x}")
+        debug_strings.append(f"delay timer: {self.delay_timer:#06x}")
         
         for i in range(16):
             debug_strings.append(f"register V{i}: {self.general_purpose_registers[i]:#06x}")
