@@ -1,9 +1,7 @@
 """This module contains the keyboard input handler type"""
 
-import math
-import pygame
-import pychip8.settings
 import sys
+import pygame
 
 
 class KeyboardInputHandler:
@@ -38,7 +36,10 @@ class KeyboardInputHandler:
     _keys[pygame.K_f] = 0xF
 
     def handle_input(self, cpu):
-        """This function handles control input for this program. Returns false if exit button is pressed"""
+        """
+        This function handles control input for this program.
+        It returns a sequence of bools for all currently pressed keys.
+        """
 
          # quit if user presses exit or closes the window
         for event in pygame.event.get():
@@ -48,7 +49,7 @@ class KeyboardInputHandler:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
-                
+
                 if event.key in self._keys:
                     cpu.key_down(self._keys[event.key])
 

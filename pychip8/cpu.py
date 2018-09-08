@@ -1,14 +1,16 @@
+"this module defines the chip 8 cpu"
+
 # see https://en.wikipedia.org/wiki/CHIP-8 for the chip 8 spec
 
 from numpy import uint8 as byte
 from numpy import uint16
-import numpy
 
 from pychip8.opcode import Opcode
 import pychip8.font as Font
 
 class Cpu:
-    """This class represents the CHIP 8 cpu"""
+    """this class represents the CHIP 8 cpu"""
+
     PROGRAM_START_ADDRESS = 0x200 # game ram begins at address 0x200 / 512
     WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
     ARITHMETIC_FLAG_REGISTER_ADDRESS = 0xF #V[15] is used as a carry/no borrow flag for certain ops
@@ -16,9 +18,6 @@ class Cpu:
     FRAME_BUFFER_HEIGHT = 32
 
     def __init__(self, operation_mapper):
-
-        self.should_draw = True
-
         self.operation_mapper = operation_mapper
 
         self.ram = [byte(0)] * 4096 # 4k of RAM
@@ -61,10 +60,10 @@ class Cpu:
            self.ram[Cpu.PROGRAM_START_ADDRESS + i] = byte_value
 
     def set_arithmetic_flag(self):
-        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 1
+        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(1)
 
     def clear_arithmetic_flag(self):
-        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 0
+        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(0)
 
     def emulate_cycle(self):
         self._current_word = self.fetch_word()
@@ -85,9 +84,6 @@ class Cpu:
         word = uint16(self.ram[pc] << 8 | self.ram[pc + 1])
 
         return word
-
-    def set_keys(self):
-        pass
 
     def update_timers(self):
         if(self.delay_timer > 0):
@@ -115,3 +111,4 @@ class Cpu:
         for item in Font.DATA:
              self.ram[offset] = byte(item)
              offset += 1
+

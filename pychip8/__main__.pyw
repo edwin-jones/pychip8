@@ -18,5 +18,5 @@ if __name__ == "__main__":
     beeper = Beeper()
 
     app = App(cpu, rom_loader, renderer, input_handler, beeper)
-    
+
     app.run()

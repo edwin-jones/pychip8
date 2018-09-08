@@ -1,3 +1,5 @@
+"This modules defines to opcode class for parsing raw words into instructions and data"
+
 from numpy import uint8 as byte
 from numpy import uint16
 
@@ -23,4 +25,4 @@ class Opcode:
         self.y = byte((word & 0x00F0) >> 4) # Eg. we want 0x4 not 0x40
 
     def __str__(self):
-        return hex(self._word)
+        return hex(self.word)

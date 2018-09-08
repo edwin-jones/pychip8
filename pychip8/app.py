@@ -23,29 +23,13 @@ class App:
 
         # main app loop
         while True:
+            self._run_cycle()
 
-            keys = self.input_handler.handle_input(self.cpu)
-
-            # allow super basic debugging by holding down return
-            if not __debug__ or keys[pygame.K_RETURN]:
-                for i in range(settings.OPERATIONS_PER_FRAME):
-                    self.cpu.emulate_cycle()
-
-            debug_strings = self.cpu.get_debug_strings()
-            debug_strings.append(f'FPS: {self.fps:02}')
-
-            self.renderer.render(self.cpu.frame_buffer, debug_strings, self.font)
-
-            if self.cpu.sound_timer > 0:
-                self.beeper.beep()
-
-            self.cpu.update_timers()
-
-            # delay until next frame.
-            self.clock.tick(settings.FRAMES_PER_SECOND)
-            self.fps = round(self.clock.get_fps())
-
-        pygame.quit()
+    def _runto(self):
+        if __debug__:
+            target_address = settings.RUNTO
+            while self.cpu.program_counter < target_address:
+                self.cpu.emulate_cycle()
 
     def _setup(self):
         pygame.display.set_caption(settings.APP_NAME)
@@ -62,8 +46,25 @@ class App:
         # allow us to run to line n while debugging
         self._runto()
 
-    def _runto(self):
-        if __debug__:
-            target_address = settings.RUNTO
-            while self.cpu.program_counter < target_address:
+    def _run_cycle(self):
+        keys = self.input_handler.handle_input(self.cpu)
+
+        # allow super basic debugging by holding down return
+        if not __debug__ or keys[pygame.K_RETURN]:
+            for i in range(settings.OPERATIONS_PER_FRAME):
                 self.cpu.emulate_cycle()
+
+        debug_strings = self.cpu.get_debug_strings()
+        debug_strings.append(f'FPS: {self.fps:02}')
+
+        self.renderer.render(self.cpu.frame_buffer, debug_strings, self.font)
+
+        if self.cpu.sound_timer > 0:
+            self.beeper.beep()
+
+        self.cpu.update_timers()
+
+        # delay until next frame.
+        self.clock.tick(settings.FRAMES_PER_SECOND)
+        self.fps = round(self.clock.get_fps())
+
