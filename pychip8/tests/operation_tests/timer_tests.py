@@ -22,4 +22,3 @@ class TimerTests(OperationTestCase):
         self.cpu.delay_timer = byte(0xA)
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.general_purpose_registers[opcode.x], self.cpu.delay_timer)
-

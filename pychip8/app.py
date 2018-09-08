@@ -6,90 +6,58 @@ import math
 import time
 
 import pygame
-from pygame.math import Vector2
-
-from pychip8 import settings
 
 from pychip8.cpu import Cpu
 from pychip8.rom_loader import RomLoader
 from pychip8.operation_mapper import OperationMapper
-
 from numpy import uint8 as byte
 import numpy
 
-import argparse
+
 
 
 class App:
     """primary application class"""
 
-    def __init__(self, cpu, rom_loader, renderer, input_handler, beeper):
+    def __init__(self, settings, cpu, rom_loader, renderer, input_handler, beeper):
+        self.settings = settings
         self.rom_loader = rom_loader
         self.cpu = cpu
         self.renderer = renderer
         self.input_handler = input_handler
-        self._running = True
-        self._parser = argparse.ArgumentParser()
-        self._parser.add_argument('--runto', dest='runto', help='this is a address for the program counter to run to in hex (debug mode only)')
-        self.debug = __debug__
         self.beeper = beeper
 
     def run(self):
-        """Run the game with this method"""
-        pygame.display.set_caption(settings.APP_NAME)
+        """Run the app with this method"""
+        pygame.display.set_caption(self.settings.APP_NAME)
         pygame.init()
-        self.beeper.beep()
-        
 
         clock = pygame.time.Clock()
       
         fps = 0
 
-        self.cpu.load_rom(self.rom_loader.get_rom())
+        self.cpu.load_rom(self.rom_loader.get_rom_bytes(self.settings.ROM_NAME))
 
         pygame.font.init()
 
-        font = pygame.font.SysFont("Arial", 24)
+        font = pygame.font.SysFont("Arial", int(self.settings.SCREEN_SCALE * 2))
 
         # allow us to run to line n while debugging
-        if self.debug:
-            runto = self._parser.parse_args().runto
-            if runto is not None:
-                target_address = int(runto, 0)
-                while self.cpu.program_counter < target_address:
-                    self.cpu.emulate_cycle()
+        self._runto()
 
-        while self._running:
+        while True:
 
             input = self.input_handler.handle_input(self.cpu)
 
-            run_cycle = True
-
             # allow super basic debugging by holding down return
-            # to advance cycles (FPS will be dropped to 1 in debug mode)
-            
-            if self.debug:
-                settings.FRAMES_PER_SECOND = 1
-                run_cycle = False
-                if input[pygame.K_RETURN]:
-                    run_cycle = True
-
-            if input[pygame.K_RETURN]:
-                self.debug = True
-                settings.FRAMES_PER_SECOND = 1
-
-            if run_cycle:
-                if self.debug:
+            if not __debug__ or input[pygame.K_RETURN]:
+                for i in range(self.settings.OPERATIONS_PER_FRAME):
                     self.cpu.emulate_cycle()
-                else:
-                    for i in range(settings.OPERATIONS_PER_FRAME): # hack to make sim speed ~500hz. TODO fix this
-                        self.cpu.emulate_cycle()
-                
-            
-            
-            if True:
-                self.cpu.should_draw = False
-                self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font, self.debug)
+
+            debug_strings = self.cpu.get_debug_strings()
+            debug_strings.append(f'FPS: {fps:02}')
+
+            self.renderer.render(self.cpu.frame_buffer, debug_strings, font)
 
             if self.cpu.sound_timer > 0:
                 self.beeper.beep()
@@ -97,10 +65,13 @@ class App:
             self.cpu.update_timers()
 
             # delay until next frame.
-            clock.tick(settings.FRAMES_PER_SECOND)
-            fps = math.floor(clock.get_fps())
-
-            # allow a rudimentary step by step debugger
-           
+            clock.tick(self.settings.FRAMES_PER_SECOND)
+            fps = math.ceil(clock.get_fps())
 
         pygame.quit()
+
+    def _runto(self):
+        if __debug__:
+            target_address = int(self.settings.RUNTO, 0)
+            while self.cpu.program_counter < target_address:
+                self.cpu.emulate_cycle()

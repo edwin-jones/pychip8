@@ -4,7 +4,6 @@ import math
 import os
 
 import pygame
-from pygame.math import Vector2
 
 #import asset_loader
 import pychip8.colors as colors
@@ -15,8 +14,9 @@ from numpy import uint8 as byte
 class Renderer:
     """The default renderer of the app"""
 
-    def __init__(self):
-        screen_size = (64 * settings.SCREEN_SCALE, 32 * settings.SCREEN_SCALE)
+    def __init__(self, settings):
+        self.settings = settings
+        screen_size = (64 * self.settings.SCREEN_SCALE, 32 * self.settings.SCREEN_SCALE)
         self.SCREEN = pygame.display.set_mode(screen_size)
         #self.FONT = pygame.font.SysFont(None, 48)
 
@@ -30,15 +30,15 @@ class Renderer:
             self.SCREEN.blit(text_surface, (current_x, current_y))
             current_y += padding
 
-            if current_y > (32 * settings.SCREEN_SCALE) - padding:
+            if current_y > (32 * self.settings.SCREEN_SCALE) - padding:
                 current_y = 10
-                current_x = (64 * settings.SCREEN_SCALE) / 2 + padding
+                current_x = (64 * self.settings.SCREEN_SCALE) / 2 + padding
 
 
-    def render(self, frame_buffer, debug_strings=[], font=None, debug=False):
+    def render(self, frame_buffer, debug_strings=[], font=None):
         """This method draws everything to the screen"""
         self.SCREEN.fill(colors.BLACK)
-        scale = settings.SCREEN_SCALE
+        scale = self.settings.SCREEN_SCALE
 
         for x in range(64):
             for y in range(32):
@@ -48,7 +48,7 @@ class Renderer:
                         colors.WHITE,
                         (x * scale, y * scale, scale, scale))
 
-        if debug:
+        if __debug__:
             self._draw_debug_text(debug_strings, font)
 
         # Go ahead and update the screen with what we've drawn.
