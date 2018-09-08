@@ -7,21 +7,16 @@ from pychip8.app import App
 from pychip8.renderer import Renderer
 from pychip8.keyboard_input_handler import KeyboardInputHandler
 from pychip8.beeper import Beeper
-from pychip8.settings import Settings
 
 if __name__ == "__main__":
 
-    settings = Settings()
-    settings.parse_arguments()
-    
     rom_loader = RomLoader()
     operation_mapper = OperationMapper()
     cpu = Cpu(operation_mapper)
-    renderer = Renderer(settings)
+    renderer = Renderer()
     input_handler = KeyboardInputHandler()
-  
     beeper = Beeper()
 
-    app = App(settings, cpu, rom_loader, renderer, input_handler, beeper)
+    app = App(cpu, rom_loader, renderer, input_handler, beeper)
     
     app.run()
