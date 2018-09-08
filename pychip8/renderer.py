@@ -3,6 +3,7 @@
 
 import pygame
 
+from pychip8.cpu import Cpu
 import pychip8.colors as colors
 import pychip8.settings as settings
 
@@ -10,7 +11,7 @@ class Renderer:
     """The default renderer of the app"""
 
     def __init__(self):
-        screen_size = (64 * settings.SCREEN_SCALE, 32 * settings.SCREEN_SCALE)
+        screen_size = (Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE, Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE)
         self.screen = pygame.display.set_mode(screen_size)
 
 
@@ -24,9 +25,9 @@ class Renderer:
             self.screen.blit(text_surface, (current_x, current_y))
             current_y += padding
 
-            if current_y > (32 * settings.SCREEN_SCALE) - padding:
+            if current_y > (Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE) - padding:
                 current_y = 10
-                current_x = (64 * settings.SCREEN_SCALE) / 2 + padding
+                current_x = (Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE) / 2 + padding
 
 
     def render(self, frame_buffer, debug_strings=None, font=None):
@@ -35,8 +36,8 @@ class Renderer:
         self.screen.fill(colors.BLACK)
         scale = settings.SCREEN_SCALE
 
-        for x in range(64):
-            for y in range(32):
+        for x in range(Cpu.FRAME_BUFFER_WIDTH):
+            for y in range(Cpu.FRAME_BUFFER_HEIGHT):
                 if frame_buffer[x][y]:
                     pygame.draw.rect(
                         self.screen,
