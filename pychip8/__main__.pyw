@@ -6,6 +6,7 @@ from pychip8.cpu import Cpu
 from pychip8.app import App
 from pychip8.renderer import Renderer
 from pychip8.keyboard_input_handler import KeyboardInputHandler
+from pychip8.beeper import Beeper
 
 if __name__ == "__main__":
 
@@ -14,6 +15,6 @@ if __name__ == "__main__":
     cpu = Cpu(operation_mapper)
     renderer = Renderer()
     input_handler = KeyboardInputHandler()
-    app = App(cpu, rom_loader, renderer, input_handler)
+    app = App(cpu, rom_loader, renderer, input_handler, Beeper)
     
     app.run()

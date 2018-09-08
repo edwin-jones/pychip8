@@ -23,7 +23,7 @@ import argparse
 class App:
     """primary application class"""
 
-    def __init__(self, cpu, rom_loader, renderer, input_handler):
+    def __init__(self, cpu, rom_loader, renderer, input_handler, beeper):
         self.rom_loader = rom_loader
         self.cpu = cpu
         self.renderer = renderer
@@ -32,10 +32,14 @@ class App:
         self._parser = argparse.ArgumentParser()
         self._parser.add_argument('--runto', dest='runto', help='this is a address for the program counter to run to in hex (debug mode only)')
         self.debug = __debug__
+        self.beeper = beeper
 
     def run(self):
         """Run the game with this method"""
+        pygame.display.set_caption(settings.APP_NAME)
         pygame.init()
+        self.beeper.beep()
+        
 
         clock = pygame.time.Clock()
       
@@ -57,7 +61,7 @@ class App:
 
         while self._running:
 
-            input = self.input_handler.handle_input()
+            input = self.input_handler.handle_input(self.cpu)
 
             run_cycle = True
 
@@ -78,14 +82,19 @@ class App:
                 if self.debug:
                     self.cpu.emulate_cycle()
                 else:
-                    for i in range(int(settings.OPERATIONS_PER_SECOND / settings.FRAMES_PER_SECOND)): # hack to make sim speed ~500hz. TODO fix this
+                    for i in range(settings.OPERATIONS_PER_FRAME): # hack to make sim speed ~500hz. TODO fix this
                         self.cpu.emulate_cycle()
                 
-            self.cpu.update_timers()
+            
             
             if True:
                 self.cpu.should_draw = False
                 self.renderer.render(self.cpu.frame_buffer, self.cpu.get_debug_strings(), font, self.debug)
+
+            if self.cpu.sound_timer > 0:
+                self.beeper.beep()
+
+            self.cpu.update_timers()
 
             # delay until next frame.
             clock.tick(settings.FRAMES_PER_SECOND)

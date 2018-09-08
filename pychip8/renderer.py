@@ -8,7 +8,6 @@ from pygame.math import Vector2
 
 #import asset_loader
 import pychip8.colors as colors
-import pychip8.constants as constants
 import pychip8.settings as settings
 
 from numpy import uint8 as byte
