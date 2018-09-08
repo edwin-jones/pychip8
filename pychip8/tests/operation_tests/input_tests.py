@@ -9,9 +9,10 @@ from numpy import uint16
 class InputTests(OperationTestCase):
 
     def test_skip_if_key_down(self):
-        opcode = Opcode(0xEF9E)
-        operation = SkipIfKeyPressed()
+        opcode = Opcode(0xE09E)
+        self.cpu.general_purpose_registers[opcode.x] = 0xF
 
+        operation = SkipIfKeyPressed()
         operation.execute(opcode, self.cpu)
 
         self.assertEqual(self.cpu.program_counter, self.cpu.PROGRAM_START_ADDRESS)
@@ -22,7 +23,8 @@ class InputTests(OperationTestCase):
         self.assertEqual(self.cpu.program_counter, self.cpu.PROGRAM_START_ADDRESS + self.cpu.WORD_SIZE_IN_BYTES)
 
     def test_skip_if_key_not_down(self):
-        opcode = Opcode(0xEFA1)
+        opcode = Opcode(0xE4A1)
+        self.cpu.general_purpose_registers[opcode.x] = 0xF
         operation = SkipIfKeyNotPressed()
 
         self.cpu.key_down(0xF)
@@ -45,10 +47,10 @@ class InputTests(OperationTestCase):
         self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 0x0)
         self.assertEqual(self.cpu.program_counter, program_address)
 
-        self.cpu.key_down(0xF)
+        self.cpu.key_down(0xE)
         operation.execute(opcode, self.cpu)
         self.cpu.move_to_next_instruction()
 
-        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 0xF)
+        self.assertEqual(self.cpu.general_purpose_registers[opcode.x], 0xE)
         self.assertGreater(self.cpu.program_counter, program_address)
         self.assertEqual(self.cpu.program_counter - program_address, self.cpu.WORD_SIZE_IN_BYTES)
