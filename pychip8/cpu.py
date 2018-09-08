@@ -43,10 +43,12 @@ class Cpu:
         self._current_operation = None
 
     def key_down(self, key):
-        self.keys.add(key)
+        if key not in self.keys:
+            self.keys.add(key)
     
     def key_up(self, key):
-        self.keys.remove(key)
+        if key in self.keys:
+            self.keys.remove(key)
 
     def move_to_next_instruction(self):
         self.program_counter += Cpu.WORD_SIZE_IN_BYTES
