@@ -1,6 +1,8 @@
 # pychip8
 A simple CHIP-8 emulator created in Python 3 and Pygame. 
 
+![preview](https://media.giphy.com/media/5WfOGIAqptoooERlKQ/giphy.gif)
+
 ## Setup
 To run the project please make sure you have Python 3 installed. Make sure to enable the _configure PATH_ option if installing on Windows. Open the directory you have downloaded or git cloned the project into in a terminal and run:
 ```
@@ -13,7 +15,7 @@ You will can then run the project with:
 python -O -m pychip8
 ```
 
-If you want to play a rom other than the default, make sure it exists in the `roms` folder and change the name of the default rom in the `settings` module.
+If you want to play a rom other than the default debug rom (*which just prints the default font characters*), make sure it exists in the `roms` folder and change the name of the default rom in the `settings` module.
 
 ## Debugging
 If you want to debug the application, run it without the optimise flag like so:
