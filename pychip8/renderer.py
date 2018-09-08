@@ -11,7 +11,10 @@ class Renderer:
     """The default renderer of the app"""
 
     def __init__(self):
-        screen_size = (Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE, Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE)
+        screen_size = (
+            Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE, 
+            Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE)
+
         self.screen = pygame.display.set_mode(screen_size)
 
 
