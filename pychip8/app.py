@@ -67,4 +67,3 @@ class App:
         # delay until next frame.
         self.clock.tick(settings.FRAMES_PER_SECOND)
         self.fps = round(self.clock.get_fps())
-

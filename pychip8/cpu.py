@@ -109,6 +109,5 @@ class Cpu:
     def _load_font(self):
         offset = 0x0
         for item in Font.DATA:
-             self.ram[offset] = byte(item)
-             offset += 1
-
+            self.ram[offset] = byte(item)
+            offset += 1

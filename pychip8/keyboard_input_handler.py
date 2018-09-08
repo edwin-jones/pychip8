@@ -40,9 +40,9 @@ class KeyboardInputHandler:
         This function handles control input for this program.
         It returns a sequence of bools for all currently pressed keys.
         """
-
-         # quit if user presses exit or closes the window
         for event in pygame.event.get():
+
+            # quit if user presses exit or closes the window
             if event.type == pygame.QUIT:
                 sys.exit()
 
