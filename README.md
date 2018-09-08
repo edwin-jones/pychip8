@@ -15,7 +15,7 @@ You will can then run the project with:
 python -O -m pychip8
 ```
 
-If you want to play a rom other than the default, make sure it exists in the `roms` folder and change the name of the default rom in the `settings` module.
+If you want to play a rom other than the default debug rom (*which just prints the default font characters*), make sure it exists in the `roms` folder and change the name of the default rom in the `settings` module.
 
 ## Debugging
 If you want to debug the application, run it without the optimise flag like so:
