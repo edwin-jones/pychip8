@@ -42,57 +42,65 @@ class Cpu:
         self._current_operation = None
 
     def key_down(self, key):
+        "This method sets a key as pressed"
         if key not in self.keys:
             self.keys.add(key)
-    
+
     def key_up(self, key):
+        "This method sets a key as released"
         if key in self.keys:
             self.keys.remove(key)
 
     def move_to_next_instruction(self):
+        "this method will move the program counter forward to the next instruction"
         self.program_counter += Cpu.WORD_SIZE_IN_BYTES
 
     def move_to_previous_instruction(self):
+        "this method will move the program counter backward to the previous instruction"
         self.program_counter -= Cpu.WORD_SIZE_IN_BYTES
 
     def load_rom(self, rom_bytes):
+        "this will load rom bytes intom main memory/RAM"
         for i, byte_value in enumerate(rom_bytes):
-           self.ram[Cpu.PROGRAM_START_ADDRESS + i] = byte_value
+            self.ram[Cpu.PROGRAM_START_ADDRESS + i] = byte_value
 
     def set_arithmetic_flag(self):
+        "this method will set the arithmetic flag to 1"
         self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(1)
 
     def clear_arithmetic_flag(self):
+        "this method will set the arithmetic flag to 0"
         self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(0)
 
     def emulate_cycle(self):
+        "this method will run one cpu cycle"
         self._current_word = self.fetch_word()
 
         opcode = Opcode(self._current_word)
         self._current_operation = self.operation_mapper.find_operation(self._current_word)
 
+        self.move_to_next_instruction()
         self._current_operation.execute(opcode, self)
 
-        # ignore jumps when moveing to the next instruction. TODO - fix this massive hack
-        if not (opcode.a == 1 or opcode.a == 2):
-            self.move_to_next_instruction()
-        
     def fetch_word(self):
-
-        # load the next two bytes of ram into one 16 bit value - the current opcode.
-        pc = int(self.program_counter) #indexes must be ints!
-        word = uint16(self.ram[pc] << 8 | self.ram[pc + 1])
+        "this method will load the next two bytes of ram into one 16 bit value - the current opcode"
+        word = uint16(self.ram[self.program_counter] << 8 | self.ram[self.program_counter + 1])
 
         return word
 
     def update_timers(self):
-        if(self.delay_timer > 0):
+        "this method will decrement any timers that are above 0 by 1"
+        if self.delay_timer > 0:
             self.delay_timer -= 1
 
-        if(self.sound_timer > 0):
+        if self.sound_timer > 0:
             self.sound_timer -= 1
 
     def get_debug_strings(self):
+        """
+        this method will get a list of strings containing
+        current register values and other debug info
+        """
         debug_strings = []
         debug_strings.append(f"program counter: {self.program_counter:#06x}")
         debug_strings.append(f"index register: {self.index_register:#06x}")
@@ -100,7 +108,7 @@ class Cpu:
         debug_strings.append(f"op: {self._current_operation.__class__.__name__}")
         debug_strings.append(f"sound timer: {self.sound_timer:#06x}")
         debug_strings.append(f"delay timer: {self.delay_timer:#06x}")
-        
+
         for i in range(16):
             debug_strings.append(f"register V{i}: {self.general_purpose_registers[i]:#06x}")
 
