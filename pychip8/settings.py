@@ -4,13 +4,15 @@ You can change values here to play different roms or to help you debug the appli
 """
 from pychip8.cpu import Cpu
 
-# The fps is also the default internal cycle speed of the emulator.
-# The CHIP-8 timers expect to be run at this speed
-# so be careful if you change this
-FRAMES_PER_SECOND = 60
+# The fps is also the internal cycle speed of the emulator.
+FRAMES_PER_SECOND = 30
 
 # The CHIP-8 is reported to run best at arround 500hz
 OPERATIONS_PER_SECOND = 500
+
+# The CHIP-8 timers expect to be run at
+# 60 fps, we should keep to this as much as possible
+TIMER_UPDATES_PER_SECOND = int(60 / FRAMES_PER_SECOND)
 
 # This will evaluate to 480 by default - not quite 500hz but close enough
 OPERATIONS_PER_FRAME = int(OPERATIONS_PER_SECOND / FRAMES_PER_SECOND)

@@ -41,7 +41,7 @@ class App:
         self._runto()
 
     def _render(self):
-
+        self.fps = round(self.clock.get_fps())
         debug_strings = None
 
         if __debug__:
@@ -57,14 +57,15 @@ class App:
         if not __debug__ or keys[pygame.K_RETURN]:
             for i in range(settings.OPERATIONS_PER_FRAME):
                 self.cpu.emulate_cycle()
-
-        self._render()
-
         if self.cpu.sound_timer > 0:
             self.beeper.beep()
 
-        self.cpu.update_timers()
+        # the CHIP-8 timers were locked at 60 hz.
+        # we should try to keep this rate no matter the actual fps/update speed
+        for i in range(settings.TIMER_UPDATES_PER_SECOND):
+            self.cpu.update_timers()
+
+        self._render()
 
         # delay until next frame.
         self.clock.tick(settings.FRAMES_PER_SECOND)
-        self.fps = round(self.clock.get_fps())
