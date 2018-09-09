@@ -11,7 +11,6 @@ class RomLoader():
         folder = os.path.dirname(os.path.realpath(__file__))
         rom_folder = os.path.join(folder, "roms")
         rom_file_path = os.path.join(rom_folder, rom_name)
-        file_bytes = []
 
         with open(rom_file_path, "rb") as file:
             file_bytes = file.read()

@@ -7,21 +7,20 @@ import pychip8.settings as settings
 class App:
     """primary application class"""
 
-    def __init__(self, cpu, rom_loader, renderer, input_handler, beeper):
+    def __init__(self, cpu, rom_loader, renderer, input_handler, beeper, clock):
         self.rom_loader = rom_loader
         self.cpu = cpu
         self.renderer = renderer
         self.input_handler = input_handler
         self.beeper = beeper
         self.fps = 0
-        self.clock = pygame.time.Clock()
-        self.font = None
+        self.clock = clock
 
     def run(self):
         """Run the app with this method"""
         self._setup()
 
-        # main app loop
+        # main loop
         while True:
             self._run_cycle()
 
@@ -35,29 +34,31 @@ class App:
         pygame.display.set_caption(settings.APP_NAME)
         pygame.init()
 
-        self.cpu.load_rom(self.rom_loader.get_rom_bytes(settings.ROM_NAME))
-
-        # we cannot inject the font as pygame init takes place inside
-        # this function
-        pygame.font.init()
-
-        self.font = pygame.font.SysFont("Arial", int(settings.SCREEN_SCALE * 2))
+        rom_bytes = self.rom_loader.get_rom_bytes(settings.ROM_NAME)
+        self.cpu.load_rom(rom_bytes)
 
         # allow us to run to line n while debugging
         self._runto()
 
+    def _render(self):
+
+        debug_strings = None
+
+        if __debug__:
+            debug_strings = self.cpu.get_debug_strings()
+            debug_strings.append(f'FPS: {self.fps:02}')
+
+        self.renderer.render(self.cpu.frame_buffer, debug_strings)
+
     def _run_cycle(self):
         keys = self.input_handler.handle_input(self.cpu)
 
-        # allow super basic debugging by holding down return
+        # allow basic debugging by holding down return
         if not __debug__ or keys[pygame.K_RETURN]:
             for i in range(settings.OPERATIONS_PER_FRAME):
                 self.cpu.emulate_cycle()
 
-        debug_strings = self.cpu.get_debug_strings()
-        debug_strings.append(f'FPS: {self.fps:02}')
-
-        self.renderer.render(self.cpu.frame_buffer, debug_strings, self.font)
+        self._render()
 
         if self.cpu.sound_timer > 0:
             self.beeper.beep()
