@@ -57,6 +57,7 @@ class App:
         if not __debug__ or keys[pygame.K_RETURN]:
             for i in range(settings.OPERATIONS_PER_FRAME):
                 self.cpu.emulate_cycle()
+
         if self.cpu.sound_timer > 0:
             self.beeper.beep()
 
