@@ -35,7 +35,7 @@ class KeyboardInputHandler:
     _keys[pygame.K_e] = 0xE
     _keys[pygame.K_f] = 0xF
 
-    def handle_input(self, cpu):
+    def handle_input(self, cpu=None):
         """
         This function handles control input for this program.
         It returns a sequence of bools for all currently pressed keys.
@@ -46,16 +46,17 @@ class KeyboardInputHandler:
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    sys.exit()
+            if cpu:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        sys.exit()
 
-                if event.key in self._keys:
-                    cpu.key_down(self._keys[event.key])
+                    if event.key in self._keys:
+                        cpu.key_down(self._keys[event.key])
 
-            if event.type == pygame.KEYUP:
-                if event.key in self._keys:
-                    cpu.key_up(self._keys[event.key])
+                if event.type == pygame.KEYUP:
+                    if event.key in self._keys:
+                        cpu.key_up(self._keys[event.key])
 
         pressed = pygame.key.get_pressed()
 

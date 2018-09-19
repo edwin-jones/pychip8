@@ -10,7 +10,7 @@ import pychip8.settings as settings
 class Renderer:
     """The default renderer of the app"""
 
-    def __init__(self, font):
+    def __init__(self, font=None):
         self.font = font
 
         screen_size = (
@@ -21,18 +21,19 @@ class Renderer:
 
 
     def _draw_debug_text(self, debug_strings):
-        padding = self.font.get_linesize()
-        current_y = 10
-        current_x = 10
+        if self.font:
+            padding = self.font.get_linesize()
+            current_y = 10
+            current_x = 10
 
-        for string in debug_strings:
-            text_surface = self.font.render(string, False, colors.DARK_RED)
-            self.screen.blit(text_surface, (current_x, current_y))
-            current_y += padding
+            for string in debug_strings:
+                text_surface = self.font.render(string, False, colors.YELLOW)
+                self.screen.blit(text_surface, (current_x, current_y))
+                current_y += padding
 
-            if current_y > (Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE) - padding:
-                current_y = 10
-                current_x = (Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE) / 2 + padding
+                if current_y > (Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE) - padding:
+                    current_y = 10
+                    current_x = (Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE) / 2 + padding
 
 
     def render(self, frame_buffer, debug_strings=None):
