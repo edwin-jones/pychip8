@@ -1,4 +1,4 @@
-"This modules defines to opcode class for parsing raw words into instructions and data"
+"This modules defines an opcode class for parsing raw words into instructions and data"
 
 from numpy import uint8 as byte
 from numpy import uint16
