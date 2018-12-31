@@ -1,5 +1,6 @@
 from pychip8.cpu import Cpu
 
+
 class ShiftXLeft():
     def execute(self, opcode, cpu):
         most_significant_bit = (cpu.general_purpose_registers[opcode.x] >> 7)

@@ -4,6 +4,7 @@ import pygame
 
 import pychip8.settings as settings
 
+
 class App:
     """primary application class"""
 

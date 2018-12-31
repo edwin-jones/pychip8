@@ -1,4 +1,5 @@
 class WaitForKeyPress():
+    
     def execute(self, opcode, cpu):
         if not cpu.keys:
             cpu.move_to_previous_instruction()
