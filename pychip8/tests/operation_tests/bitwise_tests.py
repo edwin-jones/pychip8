@@ -3,6 +3,7 @@ from pychip8.opcode import Opcode
 from pychip8.cpu import Cpu
 from pychip8.operations import *
 
+
 class BitwiseTests(OperationTestCase):
 
     def _test_bitwise_operation(self, word, operation, expected_value):

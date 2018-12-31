@@ -3,6 +3,7 @@ from pychip8.opcode import Opcode
 from pychip8.cpu import Cpu
 from pychip8.operations import *
 
+
 class ArithmeticTests(OperationTestCase):
 
     def _test_arithmetic(self, word, operation, x, y, expected_result, expected_flag_value):

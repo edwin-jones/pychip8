@@ -1,5 +1,6 @@
 from pychip8.cpu import Cpu
 
+
 class ShiftXRight():
     def execute(self, opcode, cpu):
         least_significant_bit = cpu.general_purpose_registers[opcode.x] & 0x01

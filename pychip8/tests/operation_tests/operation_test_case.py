@@ -5,6 +5,7 @@ from pychip8.cpu import Cpu
 
 import unittest
 
+
 class OperationTestCase(ABC, unittest.TestCase):
 
     def _test_cpu_attribute_equals_value_after_execution(self, word, operation, cpu_attribute_name, value):
