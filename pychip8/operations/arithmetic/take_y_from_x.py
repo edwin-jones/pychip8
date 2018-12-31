@@ -1,4 +1,5 @@
 class TakeYFromX():
+
     def execute(self, opcode, cpu):
 
         cpu.set_arithmetic_flag()
@@ -13,3 +14,4 @@ class TakeYFromX():
             cpu.clear_arithmetic_flag()
 
         cpu.general_purpose_registers[opcode.x] = result
+

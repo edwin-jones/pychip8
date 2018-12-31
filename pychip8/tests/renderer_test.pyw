@@ -6,6 +6,7 @@ from pychip8.keyboard_input_handler import KeyboardInputHandler
 import pychip8.settings as settings
 import pygame
 
+
 def _get_test_buffer():
     # test buffer with debug pattern
     # should draw an x with a 1 px thick

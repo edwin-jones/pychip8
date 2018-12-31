@@ -1,5 +1,5 @@
 class TakeXFromY():
-    
+
     def execute(self, opcode, cpu):
         
         cpu.set_arithmetic_flag()

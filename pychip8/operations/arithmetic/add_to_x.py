@@ -1,5 +1,3 @@
-"""This operation adds the value of 'nn' to the register 'x'"""
-
 class AddToX():
 
     def execute(self, opcode, cpu):

@@ -7,6 +7,7 @@ from pychip8.cpu import Cpu
 import pychip8.colors as colors
 import pychip8.settings as settings
 
+
 class Renderer:
     """The default renderer of the app"""
 

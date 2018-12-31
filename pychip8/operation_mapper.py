@@ -6,6 +6,7 @@ mapping a 16 bit opcode value to an operation object
 from pychip8.operations import *
 from pychip8.opcode import Opcode
 
+
 class OperationMapper():
     "This class handles mapping a 16 bit opcode value to an operation object"
 
