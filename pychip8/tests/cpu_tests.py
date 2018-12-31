@@ -1,7 +1,8 @@
 from pychip8.cpu import Cpu
 
 import unittest
- 
+
+
 class CpuTests(unittest.TestCase):
 
     def setUp(self):

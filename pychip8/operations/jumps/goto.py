@@ -1,5 +1,4 @@
-from numpy import uint16
-
 class Goto():
     def execute(self, opcode, cpu):
-        cpu.program_counter = uint16(opcode.nnn)
+        cpu.program_counter = opcode.nnn
+        cpu.program_counter &= 0xFFFF # restrict the PC value to two bytes or less

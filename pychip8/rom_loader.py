@@ -2,6 +2,7 @@
 
 import os
 
+
 class RomLoader():
     "This class handles loading roms"
 

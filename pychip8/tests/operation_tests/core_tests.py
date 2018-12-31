@@ -3,10 +3,7 @@ from pychip8.tests.operation_tests.operation_test_case import OperationTestCase
 from pychip8.cpu import Cpu
 from pychip8.operations import *
 
-from numpy import uint8 as byte
-from numpy import uint16
 
- 
 class CoreTests(OperationTestCase):
 
     def test_set_index_register(self):
@@ -21,7 +18,7 @@ class CoreTests(OperationTestCase):
     def test_incremement_general_purpose_register(self):
         opcode = Opcode(0x71CD)
         operation = AddToX()
-        self.cpu.general_purpose_registers[1] = byte(1)
+        self.cpu.general_purpose_registers[1] = 1
         operation.execute(opcode, self.cpu)     
         self.assertEqual(self.cpu.general_purpose_registers[1], 0xCD + 1)
 
@@ -35,11 +32,11 @@ class CoreTests(OperationTestCase):
     def test_add_x_to_i(self):
         opcode = Opcode(0xF11E)
         operation = AddXToI()
-        self.cpu.index_register = byte(128)
-        self.cpu.general_purpose_registers[opcode.x] = byte(129)
+        self.cpu.index_register = 0xFFFF
+        self.cpu.general_purpose_registers[opcode.x] = 2
         operation.execute(opcode, self.cpu)
         self.assertEqual(self.cpu.index_register, 1)
-        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], byte(1))
+        self.assertEqual(self.cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS], 1)
 
     def test_random(self):
         opcode = Opcode(0xC10F)

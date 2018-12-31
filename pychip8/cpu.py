@@ -1,12 +1,9 @@
 "this module defines the chip 8 cpu"
 
 # see https://en.wikipedia.org/wiki/CHIP-8 for the chip 8 spec
-
-from numpy import uint8 as byte
-from numpy import uint16
-
 from pychip8.opcode import Opcode
 import pychip8.font as Font
+
 
 class Cpu:
     """this class represents the CHIP 8 cpu"""
@@ -20,17 +17,17 @@ class Cpu:
     def __init__(self, operation_mapper):
         self.operation_mapper = operation_mapper
 
-        self.ram = [byte(0)] * 4096 # 4k of RAM
-        self.program_counter = uint16(self.PROGRAM_START_ADDRESS)
+        self.ram = [0] * 4096 # 4k of RAM
+        self.program_counter = self.PROGRAM_START_ADDRESS
 
         self.index_register = 0
-        self.general_purpose_registers = [byte(0)] * 16
+        self.general_purpose_registers = [0] * 16
 
-        self.delay_timer = byte(0)
-        self.sound_timer = byte(0)
+        self.delay_timer = 0
+        self.sound_timer = 0
 
         self.stack = []
-        self.stack_pointer = uint16(0)
+        self.stack_pointer = 0
 
         self.keys = set()
 
@@ -66,11 +63,11 @@ class Cpu:
 
     def set_arithmetic_flag(self):
         "this method will set the arithmetic flag to 1"
-        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(1)
+        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 1
 
     def clear_arithmetic_flag(self):
         "this method will set the arithmetic flag to 0"
-        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = byte(0)
+        self.general_purpose_registers[self.ARITHMETIC_FLAG_REGISTER_ADDRESS] = 0
 
     def emulate_cycle(self):
         "this method will run one cpu cycle"
@@ -84,7 +81,7 @@ class Cpu:
 
     def fetch_word(self):
         "this method will load the next two bytes of ram into one 16 bit value - the current opcode"
-        word = uint16(self.ram[self.program_counter] << 8 | self.ram[self.program_counter + 1])
+        word = self.ram[self.program_counter] << 8 | self.ram[self.program_counter + 1]
 
         return word
 
@@ -117,5 +114,5 @@ class Cpu:
     def _load_font(self):
         offset = 0x0
         for item in Font.DATA:
-            self.ram[offset] = byte(item)
+            self.ram[offset] = item
             offset += 1

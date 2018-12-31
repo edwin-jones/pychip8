@@ -1,7 +1,8 @@
 from pychip8.opcode import Opcode
 
 import unittest
- 
+
+
 class OpcodeTests(unittest.TestCase):
 
     def setUp(self):
