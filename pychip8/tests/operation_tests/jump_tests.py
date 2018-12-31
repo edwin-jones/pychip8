@@ -3,7 +3,6 @@ from pychip8.opcode import Opcode
 from pychip8.cpu import Cpu
 from pychip8.operations import *
 
-
 class JumpTests(OperationTestCase):
 
     def _test_skip(self, word, operation):

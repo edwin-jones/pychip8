@@ -13,7 +13,11 @@ class Opcode:
         """
 
         # We use bitwise-and with a mask to extract specific nibbles.
+<<<<<<< HEAD
         self.word = word & 0xFFFF # A word should be no larger than 16 bits.
+=======
+        self.word = word & 0xFFFF # we only care about 16 bit values
+>>>>>>> master
         self.a = (word & 0xF000) >> 12 # we just want the most significant bits/nibble here so we bitshift right
         self.nnn = word & 0x0FFF
         self.nn = word & 0x00FF
