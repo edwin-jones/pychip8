@@ -3,8 +3,6 @@ from pychip8.opcode import Opcode
 from pychip8.cpu import Cpu
 from pychip8.operations import *
 
-from numpy import uint8 as byte
-from numpy import uint16
 
 class GraphicsTests(OperationTestCase):
 

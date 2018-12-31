@@ -3,16 +3,13 @@ from pychip8.opcode import Opcode
 from pychip8.cpu import Cpu
 from pychip8.operations import *
 
-from numpy import uint8 as byte
-from numpy import uint16
-
 class ArithmeticTests(OperationTestCase):
 
     def _test_arithmetic(self, word, operation, x, y, expected_result, expected_flag_value):
         opcode = Opcode(word)
 
-        self.cpu.general_purpose_registers[opcode.x] = byte(x)
-        self.cpu.general_purpose_registers[opcode.y] = byte(y)
+        self.cpu.general_purpose_registers[opcode.x] = x
+        self.cpu.general_purpose_registers[opcode.y] = y
 
         operation.execute(opcode, self.cpu)
 

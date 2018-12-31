@@ -1,5 +1,5 @@
 # pychip8
-A simple CHIP-8 emulator created in Python 3 using [Pygame](https://www.pygame.org/wiki/about) and [Numpy](http://www.numpy.org/).
+A simple CHIP-8 emulator created in Python 3 using [Pygame](https://www.pygame.org/wiki/about).
 
 ![preview](https://media.giphy.com/media/5WfOGIAqptoooERlKQ/giphy.gif)
 

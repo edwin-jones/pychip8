@@ -1,7 +1,9 @@
-from numpy import uint8 as byte
-import numpy
+"""This operation adds the value of 'nn' to the register 'x'"""
 
 class AddToX():
+
     def execute(self, opcode, cpu):
-        with numpy.errstate(over='ignore'):
-            cpu.general_purpose_registers[opcode.x] += byte(opcode.nn)
+        cpu.general_purpose_registers[opcode.x] += opcode.nn
+
+        # restrict the value to one byte or less
+        cpu.general_purpose_registers[opcode.x] &= 0xFF
