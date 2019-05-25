@@ -1,0 +1,4 @@
+A very simple program that draws the internal font of the chip 8 to screen.
+Used primarily for testing purposes.
+
+Author: Edwin Jones - http://edwinjones.me.uk
