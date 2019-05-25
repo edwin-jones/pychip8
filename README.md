@@ -26,7 +26,7 @@ python -O -m pychip8 --rom "Airplane.ch8"
 ```
 
 ## Debugging
-If you want to debug the application, run it without the [optimize](https://docs.python.org/3/using/cmdline.html#cmdoption-o) flag like so:
+If you want to debug the application, run it without the [optimize](https://docs.python.org/3/using/cmdline.html#cmdoption-o) flag:
 
 ```
 python -m pychip8
