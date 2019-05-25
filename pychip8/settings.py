@@ -29,5 +29,5 @@ SCREEN_SCALE = 10
 # rather than waiting normally. Useful for debugging.
 RUNTO = Cpu.PROGRAM_START_ADDRESS
 
-# Change this to load up a different rom in the roms folder
-ROM_NAME = "draw_chars.ch8"
+# the default rom the emulator will load
+DEFAULT_ROM_NAME = "draw chars.ch8"

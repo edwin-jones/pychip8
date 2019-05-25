@@ -35,7 +35,7 @@ class App:
         pygame.display.set_caption(settings.APP_NAME)
         pygame.init()
 
-        rom_bytes = self.rom_loader.get_rom_bytes(settings.ROM_NAME)
+        rom_bytes = self.rom_loader.get_rom_bytes()
         self.cpu.load_rom(rom_bytes)
 
         # allow us to run to line n while debugging

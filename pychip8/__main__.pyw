@@ -1,5 +1,7 @@
 """This is the main entry point for the program"""
 
+import argparse
+
 import pygame
 import pychip8.settings as settings
 
@@ -13,7 +15,11 @@ from pychip8.beeper import Beeper
 
 if __name__ == "__main__":
 
-    rom_loader = RomLoader()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--rom", type=str, help=" the name of the rom to run in the emulator")
+    args = parser.parse_args()
+
+    rom_loader = RomLoader(args.rom if args.rom else settings.DEFAULT_ROM_NAME)
     operation_mapper = OperationMapper()
     cpu = Cpu(operation_mapper)
     input_handler = KeyboardInputHandler()
