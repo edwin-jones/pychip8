@@ -1,5 +1,4 @@
 
 **/*.pyc
 .vscode/*
-pychip8/roms/*
 !pychip8/roms/README.md
