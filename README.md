@@ -1,6 +1,5 @@
 # pychip8
 A simple CHIP-8 emulator created in Python 3 using [Pygame](https://www.pygame.org/wiki/about).
-A small selection of roms are included inside the `roms` folder.
 
 ![preview](https://media.giphy.com/media/5WfOGIAqptoooERlKQ/giphy.gif)
 
@@ -14,14 +13,17 @@ pip install -r requirements.txt
 
 ## Running
 
-You will can run the project with:
+You can run the project like so:
 
 ```
 python -O -m pychip8
 ```
+A small selection of roms are included inside the `roms` folder. If you want to play a rom other than the default debug rom (*which just prints the default font characters*), make sure it exists in the `roms` folder and pass the exact name of the rom with the
+`--rom` selection argument, e.g. 
 
-If you want to play a rom other than the default debug rom (*which just prints the default font characters*), make sure it exists in the `roms` folder and pass the exact name of the rom with the
-`--rom` selection argument, e.g. `python -O -m pychip8 --rom "Airplane.ch8"`
+```
+python -O -m pychip8 --rom "Airplane.ch8"
+```
 
 ## Debugging
 If you want to debug the application, run it without the [optimize](https://docs.python.org/3/using/cmdline.html#cmdoption-o) flag like so:
