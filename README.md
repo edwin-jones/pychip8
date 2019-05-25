@@ -11,9 +11,9 @@ To run the project please make sure you have Python 3 installed. Make sure to en
 pip install -r requirements.txt
 ```
 
-## Running
+## Running the emulator
 
-You can run the project like so:
+You can run the emulator like so:
 
 ```
 python -O -m pychip8
