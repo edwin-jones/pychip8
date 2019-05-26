@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 ## Running the emulator
 
-You can run the emulator from it's install folder like so:
+You can run the emulator from its install folder like so:
 
 ```
 python -O -m pychip8
