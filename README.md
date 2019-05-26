@@ -13,16 +13,23 @@ pip install -r requirements.txt
 
 ## Running the emulator
 
-You can run the emulator like so:
+You can run the emulator from it's install folder like so:
 
 ```
 python -O -m pychip8
 ```
 A small selection of roms are included inside the `roms` folder. If you want to play a rom other than the default debug rom (*which just prints the default font characters*), make sure it exists in the `roms` folder and pass the exact name of the rom with the
-`--rom` selection argument, e.g. 
+`--rom` selection argument, e.g.
 
 ```
 python -O -m pychip8 --rom "Airplane.ch8"
+```
+
+The other runtime options are as follows:
+
+```
+ -m, --mute    pass this flag to turn audio off
+ -s, --scale   the scale to apply to the CHIP-8's 64x32 video output - defaults to 10 for 640x320 pixels
 ```
 
 ## Debugging

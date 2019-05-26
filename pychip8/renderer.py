@@ -11,12 +11,13 @@ import pychip8.settings as settings
 class Renderer:
     """The default renderer of the app"""
 
-    def __init__(self, font=None):
+    def __init__(self, font=None, scale=settings.SCREEN_SCALE):
         self.font = font
+        self.scale = scale
 
         screen_size = (
-            Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE, 
-            Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE)
+            Cpu.FRAME_BUFFER_WIDTH * self.scale,
+            Cpu.FRAME_BUFFER_HEIGHT * self.scale)
 
         self.screen = pygame.display.set_mode(screen_size)
 
@@ -32,16 +33,15 @@ class Renderer:
                 self.screen.blit(text_surface, (current_x, current_y))
                 current_y += padding
 
-                if current_y > (Cpu.FRAME_BUFFER_HEIGHT * settings.SCREEN_SCALE) - padding:
+                if current_y > (Cpu.FRAME_BUFFER_HEIGHT * self.scale) - padding:
                     current_y = 10
-                    current_x = (Cpu.FRAME_BUFFER_WIDTH * settings.SCREEN_SCALE) / 2 + padding
+                    current_x = (Cpu.FRAME_BUFFER_WIDTH * self.scale) / 2 + padding
 
 
     def render(self, frame_buffer, debug_strings=None):
         """This method draws everything to the screen"""
 
         self.screen.fill(colors.BLACK)
-        scale = settings.SCREEN_SCALE
 
         for x in range(Cpu.FRAME_BUFFER_WIDTH):
             for y in range(Cpu.FRAME_BUFFER_HEIGHT):
@@ -49,7 +49,7 @@ class Renderer:
                     pygame.draw.rect(
                         self.screen,
                         colors.WHITE,
-                        (x * scale, y * scale, scale, scale))
+                        (x *  self.scale, y *  self.scale,  self.scale,  self.scale))
 
         if debug_strings:
             self._draw_debug_text(debug_strings)
