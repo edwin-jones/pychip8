@@ -9,4 +9,4 @@ class Beeper:
     def beep(self):
         "This method will make a single beep sound"
         if not self.mute:
-            print('\a')
+            print('\a\b', end='')
