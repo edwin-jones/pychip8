@@ -8,12 +8,11 @@ import pychip8.settings as settings
 class App:
     """primary application class"""
 
-    def __init__(self, cpu, rom_loader, renderer, input_handler, beeper, clock):
+    def __init__(self, cpu, rom_loader, renderer, input_handler, clock):
         self.rom_loader = rom_loader
         self.cpu = cpu
         self.renderer = renderer
         self.input_handler = input_handler
-        self.beeper = beeper
         self.fps = 0
         self.clock = clock
 
@@ -58,9 +57,6 @@ class App:
         if not __debug__ or keys[pygame.K_RETURN]:
             for i in range(settings.OPERATIONS_PER_FRAME):
                 self.cpu.emulate_cycle()
-
-        if self.cpu.sound_timer > 0:
-            self.beeper.beep()
 
         # the CHIP-8 timers were locked at 60 hz.
         # we should try to keep this rate no matter the actual fps/update speed

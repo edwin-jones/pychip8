@@ -25,10 +25,11 @@ A small selection of roms are included inside the `roms` folder. If you want to 
 python -O -m pychip8 --rom "Airplane.ch8"
 ```
 
+_NB: On some systems, you may need to type `python3` instead of `python`._
+
 The other runtime options are as follows:
 
 ```
- -m, --mute    pass this flag to turn audio off
  -s, --scale   the scale to apply to the CHIP-8's 64x32 video output - defaults to 10 for 640x320 pixels
 ```
 
