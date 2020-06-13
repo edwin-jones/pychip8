@@ -77,7 +77,7 @@ class Cpu:
         self._current_operation = self.operation_mapper.find_operation(self._current_word)
 
         self.move_to_next_instruction()
-        self._current_operation.execute(opcode, self)
+        self._current_operation(opcode, self)
 
     def fetch_word(self):
         "this method will load the next two bytes of ram into one 16 bit value - the current opcode"
