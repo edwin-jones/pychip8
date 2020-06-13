@@ -3,20 +3,19 @@
 import argparse
 
 import pygame
-import pychip8.settings as settings
+import settings
 
-from pychip8.rom_loader import RomLoader
-from pychip8.operation_mapper import OperationMapper
-from pychip8.cpu import Cpu
-from pychip8.app import App
-from pychip8.renderer import Renderer
-from pychip8.keyboard_input_handler import KeyboardInputHandler
+from rom_loader import RomLoader
+from operation_mapper import OperationMapper
+from cpu import Cpu
+from app import App
+from renderer import Renderer
+from keyboard_input_handler import KeyboardInputHandler
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--rom", type=str, help="the name of the rom to run in the emulator")
-    parser.add_argument("-s", "--scale", type=int, help="the scale to apply to the CHIP-8's 64x32 video output defaults to 10 for 640x320 pixels")
     args = parser.parse_args()
 
     rom_loader = RomLoader(args.rom if args.rom else settings.DEFAULT_ROM_NAME)
@@ -24,9 +23,7 @@ if __name__ == "__main__":
     cpu = Cpu(operation_mapper)
     input_handler = KeyboardInputHandler()
     clock = pygame.time.Clock()
-
-    scale = args.scale if args.scale else settings.SCREEN_SCALE
-    scale = max(min(scale, 100), 1)
+    scale = max(min(settings.SCREEN_SCALE, 100), 1)
 
     pygame.font.init()
     font = pygame.font.SysFont("Arial", int(scale * 2))

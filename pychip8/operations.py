@@ -1,5 +1,5 @@
-from pychip8.cpu import Cpu
-import pychip8.font as font
+from cpu import Cpu
+import font
 import random
 
 def add_to_x(opcode, cpu):

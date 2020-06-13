@@ -2,7 +2,7 @@
 This module contains settings and configuration data for the application.
 You can change values here to play different roms or to help you debug the application.
 """
-from pychip8.cpu import Cpu
+from cpu import Cpu
 
 # The fps is also the internal cycle speed of the emulator.
 FRAMES_PER_SECOND = 30

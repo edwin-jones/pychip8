@@ -1,9 +1,8 @@
 "this module defines the chip 8 cpu"
 
 # see https://en.wikipedia.org/wiki/CHIP-8 for the chip 8 spec
-from pychip8.opcode import Opcode
-import pychip8.font as Font
-
+from operation_code import Opcode
+import font
 
 class Cpu:
     """this class represents the CHIP 8 cpu"""
@@ -93,26 +92,8 @@ class Cpu:
         if self.sound_timer > 0:
             self.sound_timer -= 1
 
-    def get_debug_strings(self):
-        """
-        this method will get a list of strings containing
-        current register values and other debug info
-        """
-        debug_strings = []
-        debug_strings.append(f"program counter: {self.program_counter:#06x}")
-        debug_strings.append(f"index register: {self.index_register:#06x}")
-        debug_strings.append(f"word: {self._current_word:#06x}")
-        debug_strings.append(f"op: {self._current_operation.__class__.__name__}")
-        debug_strings.append(f"sound timer: {self.sound_timer:#06x}")
-        debug_strings.append(f"delay timer: {self.delay_timer:#06x}")
-
-        for i in range(16):
-            debug_strings.append(f"register V{i}: {self.general_purpose_registers[i]:#06x}")
-
-        return debug_strings
-
     def _load_font(self):
         offset = 0x0
-        for item in Font.DATA:
+        for item in font.DATA:
             self.ram[offset] = item
             offset += 1

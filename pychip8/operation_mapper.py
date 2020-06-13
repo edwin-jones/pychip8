@@ -2,8 +2,8 @@
 This module defines a class that handles
 mapping a 16 bit opcode value to an operation object
 """
-from pychip8.opcode import Opcode
-import pychip8.operations as operations
+from operation_code import Opcode
+import operations as operations
 
 
 class OperationMapper():

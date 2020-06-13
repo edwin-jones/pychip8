@@ -1,9 +1,7 @@
 """This module defines the main application """
 
 import pygame
-
-import pychip8.settings as settings
-
+import settings
 
 class App:
     """primary application class"""
@@ -24,12 +22,6 @@ class App:
         while True:
             self._run_cycle()
 
-    def _runto(self):
-        if __debug__:
-            target_address = settings.RUNTO
-            while self.cpu.program_counter < target_address:
-                self.cpu.emulate_cycle()
-
     def _setup(self):
         pygame.display.set_caption(settings.APP_NAME)
         pygame.init()
@@ -37,30 +29,18 @@ class App:
         rom_bytes = self.rom_loader.get_rom_bytes()
         self.cpu.load_rom(rom_bytes)
 
-        # allow us to run to line n while debugging
-        self._runto()
-
     def _render(self):
         self.fps = round(self.clock.get_fps())
-        debug_strings = None
-
-        if __debug__:
-            debug_strings = self.cpu.get_debug_strings()
-            debug_strings.append(f'FPS: {self.fps:02}')
-
-        self.renderer.render(self.cpu.frame_buffer, debug_strings)
+        self.renderer.render(self.cpu.frame_buffer)
 
     def _run_cycle(self):
-        keys = self.input_handler.handle_input(self.cpu)
-
-        # allow basic debugging by holding down return
-        if not __debug__ or keys[pygame.K_RETURN]:
-            for i in range(settings.OPERATIONS_PER_FRAME):
-                self.cpu.emulate_cycle()
+        self.input_handler.handle_input(self.cpu)
+        for _ in range(settings.OPERATIONS_PER_FRAME):
+            self.cpu.emulate_cycle()
 
         # the CHIP-8 timers were locked at 60 hz.
         # we should try to keep this rate no matter the actual fps/update speed
-        for i in range(settings.TIMER_UPDATES_PER_SECOND):
+        for _ in range(settings.TIMER_UPDATES_PER_SECOND):
             self.cpu.update_timers()
 
         self._render()
