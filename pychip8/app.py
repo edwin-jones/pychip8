@@ -1,7 +1,6 @@
 """This module defines the main application """
 
 import pygame
-import settings
 
 class App:
     """primary application class"""
@@ -23,7 +22,7 @@ class App:
             self._run_cycle()
 
     def _setup(self):
-        pygame.display.set_caption(settings.APP_NAME)
+        pygame.display.set_caption("pychip8")
         pygame.init()
 
         rom_bytes = self.rom_loader.get_rom_bytes()
@@ -35,15 +34,15 @@ class App:
 
     def _run_cycle(self):
         self.input_handler.handle_input(self.cpu)
-        for _ in range(settings.OPERATIONS_PER_FRAME):
+
+        # The CHIP-8 is reported to run best at arround 500 hz
+        # The update loop runs at 60 fps - 60 * 8 = 480, which is close enough.
+        for _ in range(8):
             self.cpu.emulate_cycle()
 
-        # the CHIP-8 timers were locked at 60 hz.
-        # we should try to keep this rate no matter the actual fps/update speed
-        for _ in range(settings.TIMER_UPDATES_PER_SECOND):
-            self.cpu.update_timers()
+        self.cpu.update_timers()
 
         self._render()
 
         # delay until next frame.
-        self.clock.tick(settings.FRAMES_PER_SECOND)
+        self.clock.tick(60)

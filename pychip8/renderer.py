@@ -4,15 +4,17 @@ import pygame
 
 from cpu import Cpu
 import colors
-import settings
 
 
 class Renderer:
     """The default renderer of the app"""
 
-    def __init__(self, font=None, scale=settings.SCREEN_SCALE):
-        self.font = font
-        self.scale = scale
+    def __init__(self):
+
+        # The CHIP-8 display ran at only 64 * 32 pixels.
+        # this value scales the framebuffer
+        # so it's easier to view the emulator on modern displays
+        self.scale = 10
 
         screen_size = (
             Cpu.FRAME_BUFFER_WIDTH * self.scale,
