@@ -3,8 +3,7 @@ This module defines a class that handles
 mapping a 16 bit opcode value to an operation object
 """
 from operation_code import Opcode
-import operations as operations
-
+import operations
 
 class OperationMapper():
     "This class handles mapping a 16 bit opcode value to an operation object"

@@ -1,6 +1,12 @@
-from cpu import Cpu
-import font
+"""
+This module defines methods that define the different operations the CHIP-8
+CPU could perform.
+"""
 import random
+import font
+
+# V[15] is used as a carry/no borrow flag for certain ops
+CARRY_FLAG_ADDRESS = 0xF
 
 def add_to_x(opcode, cpu):
     cpu.general_purpose_registers[opcode.x] += opcode.nn
@@ -25,7 +31,8 @@ def add_y_to_x(opcode, cpu):
     cpu.clear_arithmetic_flag()
 
     original_value = cpu.general_purpose_registers[opcode.x]
-    result = cpu.general_purpose_registers[opcode.x] + cpu.general_purpose_registers[opcode.y]
+    result = cpu.general_purpose_registers[opcode.x] + \
+        cpu.general_purpose_registers[opcode.y]
 
     # restrict the value to one byte or less
     result &= 0xFF
@@ -39,7 +46,8 @@ def take_x_from_y(opcode, cpu):
     cpu.set_arithmetic_flag()
 
     original_value = cpu.general_purpose_registers[opcode.x]
-    result = cpu.general_purpose_registers[opcode.y] - cpu.general_purpose_registers[opcode.x]
+    result = cpu.general_purpose_registers[opcode.y] - \
+        cpu.general_purpose_registers[opcode.x]
 
     # restrict the value to one byte or less
     result &= 0xFF
@@ -53,7 +61,8 @@ def take_y_from_x(opcode, cpu):
     cpu.set_arithmetic_flag()
 
     original_value = cpu.general_purpose_registers[opcode.x]
-    result = cpu.general_purpose_registers[opcode.x] - cpu.general_purpose_registers[opcode.y]
+    result = cpu.general_purpose_registers[opcode.x] - \
+        cpu.general_purpose_registers[opcode.y]
 
     # restrict the value to one byte or less
     result &= 0xFF
@@ -74,13 +83,16 @@ def bitwise_xor(opcode, cpu):
 
 def shift_x_left(opcode, cpu):
     most_significant_bit = (cpu.general_purpose_registers[opcode.x] >> 7)
-    cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS] = most_significant_bit
-    cpu.general_purpose_registers[opcode.x] = (cpu.general_purpose_registers[opcode.x] << 1) & 0xFF # restrict the shifted value to one byte or less
+    cpu.general_purpose_registers[CARRY_FLAG_ADDRESS] = most_significant_bit
+    # restrict the shifted value to one byte or less
+    cpu.general_purpose_registers[opcode.x] = (
+        cpu.general_purpose_registers[opcode.x] << 1) & 0xFF
 
 def shift_x_right(opcode, cpu):
     least_significant_bit = cpu.general_purpose_registers[opcode.x] & 0x01
-    cpu.general_purpose_registers[Cpu.ARITHMETIC_FLAG_REGISTER_ADDRESS] = least_significant_bit
-    cpu.general_purpose_registers[opcode.x] = cpu.general_purpose_registers[opcode.x] >> 1 # restrict the shifted value to one byte or less
+    cpu.general_purpose_registers[CARRY_FLAG_ADDRESS] = least_significant_bit
+    # restrict the shifted value to one byte or less
+    cpu.general_purpose_registers[opcode.x] = cpu.general_purpose_registers[opcode.x] >> 1
 
 def clear_display(opcode, cpu):
     for x in range(cpu.FRAME_BUFFER_WIDTH):
@@ -141,11 +153,11 @@ def call_function(opcode, cpu):
 
 def goto_plus(opcode, cpu):
     cpu.program_counter = cpu.general_purpose_registers[0] + opcode.nnn
-    cpu.program_counter &= 0xFFFF # restrict the PC value to two bytes or less
+    cpu.program_counter &= 0xFFFF  # restrict the PC value to two bytes or less
 
 def goto(opcode, cpu):
     cpu.program_counter = opcode.nnn
-    cpu.program_counter &= 0xFFFF # restrict the PC value to two bytes or less
+    cpu.program_counter &= 0xFFFF  # restrict the PC value to two bytes or less
 
 def return_from_function(opcode, cpu):
     address = cpu.stack.pop()
@@ -168,7 +180,8 @@ def skip_if_x_y_not_equal(opcode, cpu):
         cpu.move_to_next_instruction()
 
 def load_character_address(opcode, cpu):
-    cpu.index_register = cpu.general_purpose_registers[opcode.x] * font.CHAR_SIZE_IN_BYTES
+    cpu.index_register = cpu.general_purpose_registers[opcode.x] * \
+        font.CHAR_SIZE_IN_BYTES
 
 def load_registers_zero_to_x(opcode, cpu):
     for i in range(opcode.x + 1):
@@ -184,9 +197,12 @@ def save_registers_zero_to_x(opcode, cpu):
 
 def save_x_as_bcd(opcode, cpu):
     value = cpu.general_purpose_registers[opcode.x]
-    cpu.ram[cpu.index_register] = int(value / 100) & 0xFF # store the most significant digit as a byte
-    cpu.ram[cpu.index_register + 1] = int((value / 10) % 10) & 0xFF # store the middle digit as a byte
-    cpu.ram[cpu.index_register + 2] = int(value % 10) & 0xFF # store the least significant digit as a byte
+    # store the most significant digit as a byte
+    cpu.ram[cpu.index_register] = int(value / 100) & 0xFF
+    # store the middle digit as a byte
+    cpu.ram[cpu.index_register + 1] = int((value / 10) % 10) & 0xFF
+    # store the least significant digit as a byte
+    cpu.ram[cpu.index_register + 2] = int(value % 10) & 0xFF
 
 def set_i(opcode, cpu):
     cpu.index_register = opcode.nnn
@@ -201,7 +217,7 @@ def set_delay_timer(opcode, cpu):
     cpu.delay_timer = cpu.general_purpose_registers[opcode.x]
 
 def set_sound_timer(opcode, cpu):
-    cpu.sound_timer = cpu.general_purpose_registers[opcode.x]
+    pass # sound is not implemented
 
 def set_x_to_delay_timer(opcode, cpu):
     cpu.general_purpose_registers[opcode.x] = cpu.delay_timer

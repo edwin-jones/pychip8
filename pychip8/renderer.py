@@ -1,10 +1,10 @@
 """This module defines the renderer object and related methods"""
 
 import pygame
-
 from cpu import Cpu
-import colors
 
+WHITE = pygame.Color(255, 255, 255)
+BLACK = pygame.Color(0, 0, 0)
 
 class Renderer:
     """The default renderer of the app"""
@@ -26,15 +26,15 @@ class Renderer:
     def render(self, frame_buffer):
         """This method draws everything to the screen"""
 
-        self.screen.fill(colors.BLACK)
+        self.screen.fill(BLACK)
 
         for x in range(Cpu.FRAME_BUFFER_WIDTH):
             for y in range(Cpu.FRAME_BUFFER_HEIGHT):
                 if frame_buffer[x][y]:
                     pygame.draw.rect(
                         self.screen,
-                        colors.WHITE,
-                        (x *  self.scale, y *  self.scale,  self.scale,  self.scale))
+                        WHITE,
+                        (x *  self.scale, y * self.scale, self.scale, self.scale))
 
         # Go ahead and update the screen with what we've drawn.
         # This MUST happen after all the other drawing commands.

@@ -1,15 +1,12 @@
 """This is the main entry point for the program"""
 
 import argparse
-
+import rom_loader
 import pygame
 
-from rom_loader import RomLoader
-from operation_mapper import OperationMapper
 from cpu import Cpu
-from app import App
-from renderer import Renderer
 from keyboard_input_handler import KeyboardInputHandler
+from renderer import Renderer
 
 if __name__ == "__main__":
 
@@ -17,16 +14,27 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--rom", type=str, help="the name of the rom to run in the emulator")
     args = parser.parse_args()
 
-    rom_loader = RomLoader(args.rom if args.rom else "draw chars.ch8")
-    operation_mapper = OperationMapper()
-    cpu = Cpu(operation_mapper)
+    cpu = Cpu()
+    renderer = Renderer()
     input_handler = KeyboardInputHandler()
     clock = pygame.time.Clock()
+    rom_bytes = rom_loader.get_rom_bytes(args.rom if args.rom else "draw chars.ch8")
+    cpu.load_rom(rom_bytes)
 
-    pygame.font.init()
+    pygame.display.set_caption("pychip8")
+    pygame.init()
 
-    renderer = Renderer()
+    # main loop
+    while True:
+        input_handler.handle_input(cpu)
 
-    app = App(cpu, rom_loader, renderer, input_handler, clock)
+        # The CHIP-8 is reported to run best at around 500 hz
+        # The update loop runs at 60 fps. 60 * 8 = 480, which is close enough.
+        for _ in range(8):
+            cpu.emulate_cycle()
 
-    app.run()
+        cpu.update_timers()
+        renderer.render(cpu.frame_buffer)
+
+        # delay until next frame.
+        clock.tick(60)

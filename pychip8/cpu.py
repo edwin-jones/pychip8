@@ -2,6 +2,7 @@
 
 # see https://en.wikipedia.org/wiki/CHIP-8 for the chip 8 spec
 from operation_code import Opcode
+import operation_mapper
 import font
 
 class Cpu:
@@ -13,8 +14,8 @@ class Cpu:
     FRAME_BUFFER_WIDTH = 64
     FRAME_BUFFER_HEIGHT = 32
 
-    def __init__(self, operation_mapper):
-        self.operation_mapper = operation_mapper
+    def __init__(self):
+        self.operation_mapper = operation_mapper.OperationMapper()
 
         self.ram = [0] * 4096 # 4k of RAM
         self.program_counter = self.PROGRAM_START_ADDRESS
@@ -23,7 +24,6 @@ class Cpu:
         self.general_purpose_registers = [0] * 16
 
         self.delay_timer = 0
-        self.sound_timer = 0
 
         self.stack = []
         self.stack_pointer = 0
@@ -88,9 +88,6 @@ class Cpu:
         "this method will decrement any timers that are above 0 by 1"
         if self.delay_timer > 0:
             self.delay_timer -= 1
-
-        if self.sound_timer > 0:
-            self.sound_timer -= 1
 
     def _load_font(self):
         offset = 0x0
