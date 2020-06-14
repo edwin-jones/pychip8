@@ -8,13 +8,13 @@ from pychip8.cpu import Cpu
 FRAMES_PER_SECOND = 30
 
 # The CHIP-8 is reported to run best at arround 500 hz
-OPERATIONS_PER_SECOND = 500
+# 480 is close enough, and easier to divide.
+OPERATIONS_PER_SECOND = 480
 
 # The CHIP-8 timers expect to be run at
 # 60 fps, we should keep to this as much as possible
 TIMER_UPDATES_PER_SECOND = int(60 / FRAMES_PER_SECOND)
 
-# This will evaluate to 480 by default - not quite 500 hz but close enough
 OPERATIONS_PER_FRAME = int(OPERATIONS_PER_SECOND / FRAMES_PER_SECOND)
 
 # This is the string used for the window title
