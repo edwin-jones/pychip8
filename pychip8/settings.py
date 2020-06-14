@@ -7,7 +7,7 @@ from pychip8.cpu import Cpu
 # The fps is also the internal cycle speed of the emulator.
 FRAMES_PER_SECOND = 30
 
-# The CHIP-8 is reported to run best at arround 500 hz
+# The CHIP-8 is reported to run best at around 500 hz
 # 480 is close enough, and easier to divide.
 OPERATIONS_PER_SECOND = 480
 
