@@ -15,8 +15,6 @@ class Cpu:
     FRAME_BUFFER_HEIGHT = 32
 
     def __init__(self):
-        self.operation_mapper = operation_mapper.OperationMapper()
-
         self.ram = [0] * 4096 # 4k of RAM
         self.program_counter = self.PROGRAM_START_ADDRESS
 
@@ -73,7 +71,7 @@ class Cpu:
         self._current_word = self.fetch_word()
 
         opcode = Opcode(self._current_word)
-        self._current_operation = self.operation_mapper.find_operation(self._current_word)
+        self._current_operation = operation_mapper.find_operation(self._current_word)
 
         self.move_to_next_instruction()
         self._current_operation(opcode, self)

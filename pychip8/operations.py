@@ -10,17 +10,13 @@ CARRY_FLAG_ADDRESS = 0xF
 
 def add_to_x(opcode, cpu):
     cpu.general_purpose_registers[opcode.x] += opcode.nn
-
-    # restrict the value to one byte or less
-    cpu.general_purpose_registers[opcode.x] &= 0xFF
+    cpu.general_purpose_registers[opcode.x] &= 0xFF  # restrict the value to one byte or less
 
 def add_x_to_i(opcode, cpu):
     cpu.clear_arithmetic_flag()
     original_value = cpu.index_register
     result = cpu.index_register + cpu.general_purpose_registers[opcode.x]
-
-    # restrict the value to two bytes or less
-    result &= 0xFFFF
+    result &= 0xFFFF  # restrict the value to two bytes or less
 
     if result < original_value:
         cpu.set_arithmetic_flag()
@@ -34,8 +30,7 @@ def add_y_to_x(opcode, cpu):
     result = cpu.general_purpose_registers[opcode.x] + \
         cpu.general_purpose_registers[opcode.y]
 
-    # restrict the value to one byte or less
-    result &= 0xFF
+    result &= 0xFF # restrict the value to one byte or less
 
     if result < original_value:
         cpu.set_arithmetic_flag()
@@ -49,8 +44,7 @@ def take_x_from_y(opcode, cpu):
     result = cpu.general_purpose_registers[opcode.y] - \
         cpu.general_purpose_registers[opcode.x]
 
-    # restrict the value to one byte or less
-    result &= 0xFF
+    result &= 0xFF # restrict the value to one byte or less
 
     if result > original_value:
         cpu.clear_arithmetic_flag()
@@ -64,8 +58,7 @@ def take_y_from_x(opcode, cpu):
     result = cpu.general_purpose_registers[opcode.x] - \
         cpu.general_purpose_registers[opcode.y]
 
-    # restrict the value to one byte or less
-    result &= 0xFF
+    result &= 0xFF # restrict the value to one byte or less
 
     if result > original_value:
         cpu.clear_arithmetic_flag()
