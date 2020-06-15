@@ -8,67 +8,97 @@ import operations
 class OperationMapper():
     "This class handles mapping a 16 bit opcode value to an operation object"
 
-    def __init__(self):
-        self._operations = {}
-
-        # opcode 0NNN (call RCA 1802 program) is NOT SUPPORTED!
-        self._operations[0x00E0] = operations.clear_display
-        self._operations[0x00EE] = operations.return_from_function
-        self._operations[0x1] = operations.goto
-        self._operations[0x2] = operations.call_function
-        self._operations[0x3] = operations.skip_if_equal
-
-        self._operations[0x4] = operations.skip_if_not_equal
-        self._operations[0x6] = operations.set_x
-        self._operations[0x7] = operations.add_to_x
-        self._operations[0xA] = operations.set_i
-        self._operations[0xB] = operations.goto_plus
-
-        self._operations[0xC] = operations.generate_random
-        self._operations[0xD] = operations.draw_sprite
-        self._operations[0x50] = operations.skip_if_x_y_equal
-        self._operations[0x80] = operations.set_x_to_y
-        self._operations[0x81] = operations.bitwise_or
-        self._operations[0x82] = operations.bitwise_and
-        self._operations[0x83] = operations.bitwise_xor
-        self._operations[0x84] = operations.add_y_to_x
-        self._operations[0x85] = operations.take_y_from_x
-        self._operations[0x86] = operations.shift_x_right
-
-        self._operations[0x87] = operations.take_x_from_y
-        self._operations[0x8E] = operations.shift_x_left
-        self._operations[0x90] = operations.skip_if_not_equal
-        self._operations[0xE9E] = operations.skip_if_key_pressed
-        self._operations[0xEA1] = operations.skip_if_key_not_pressed
-
-        self._operations[0xF07] = operations.set_x_to_delay_timer
-        self._operations[0xF0A] = operations.wait_for_key_press
-        self._operations[0xF15] = operations.set_delay_timer
-        self._operations[0xF18] = operations.set_sound_timer
-        self._operations[0xF1E] = operations.add_x_to_i
-
-        self._operations[0xF29] = operations.load_character_address
-        self._operations[0xF33] = operations.save_x_as_bcd
-        self._operations[0xF55] = operations.save_registers_zero_to_x
-        self._operations[0xF65] = operations.load_registers_zero_to_x
-
     def find_operation(self, word):
         "This method takes a 16 bit value representing an opcode and returns the related operation"
 
         opcode = Opcode(word)
 
-        # make a key of a + n + n so that 0xA123 becomes 0xA23
-        twelve_bit_key = int((opcode.a << 8) + opcode.nn)
-        if twelve_bit_key in self._operations:
-            return self._operations[twelve_bit_key]
+        if word == 0x00E0:
+            return operations.clear_display
 
-        # make a key of a + n so that 0xA123 becomes 0xA3
-        eight_bit_key = int((opcode.a << 4) + opcode.n)
-        if eight_bit_key in self._operations:
-            return self._operations[eight_bit_key]
+        if word == 0x00EE:
+            return operations.return_from_function
 
-        four_bit_key = opcode.a
-        if four_bit_key in self._operations:
-            return self._operations[four_bit_key]
+        if opcode.a == 0x1:
+            return operations.goto
+
+        if opcode.a == 0x2:
+            return operations.call_function
+        
+        if opcode.a == 0x3:
+            return operations.skip_if_equal
+
+        if opcode.a == 0x4:
+            return operations.skip_if_not_equal
+
+        if opcode.a == 0x5:
+            return operations.skip_if_x_y_equal
+
+        if opcode.a == 0x6:
+            return operations.set_x
+
+        if opcode.a == 0x7:
+            return operations.add_to_x
+
+        if opcode.a == 0x8:
+            if opcode.n == 0x0:
+                return operations.set_x_to_y
+            if opcode.n == 0x1:
+                return operations.bitwise_or
+            if opcode.n == 0x2:
+                return operations.bitwise_and
+            if opcode.n == 0x3:
+                return operations.bitwise_xor
+            if opcode.n == 0x4:
+                return operations.add_y_to_x
+            if opcode.n == 0x5:
+                return operations.take_y_from_x
+            if opcode.n == 0x6:
+                return operations.shift_x_right
+            if opcode.n == 0x7:
+                return operations.take_x_from_y
+            if opcode.n == 0xE:
+                return operations.shift_x_left
+
+        if opcode.a == 0x9:
+            return operations.skip_if_x_y_not_equal
+
+        if opcode.a == 0xA:
+            return operations.set_i
+
+        if opcode.a == 0xB:
+            return operations.goto_plus
+
+        if opcode.a == 0xC:
+            return operations.generate_random
+
+        if opcode.a == 0xD:
+            return operations.draw_sprite
+
+        if opcode.a == 0xE:
+            if opcode.nn == 0x9E:
+                return operations.skip_if_key_pressed
+            if opcode.nn == 0xA1:
+                return operations.skip_if_key_not_pressed
+
+        if opcode.a == 0xF:
+            if opcode.nn == 0x07:
+                return operations.set_x_to_delay_timer
+            if opcode.nn == 0x0A:
+                return operations.wait_for_key_press
+            if opcode.nn == 0x15:
+                return operations.set_delay_timer
+            if opcode.nn == 0x18:
+                return operations.set_sound_timer
+            if opcode.nn == 0x1E:
+                return operations.add_x_to_i
+            if opcode.nn == 0x29:
+                return operations.load_character_address
+            if opcode.nn == 0x33:
+                return operations.save_x_as_bcd
+            if opcode.nn == 0x55:
+                return operations.save_registers_zero_to_x
+            if opcode.nn == 0x65:
+                return operations.load_registers_zero_to_x
 
         raise KeyError(f"Opcode {word:#06x} not present in list of valid operations")
