@@ -54,7 +54,7 @@ class Cpu:
         self.program_counter -= Cpu.WORD_SIZE_IN_BYTES
 
     def load_rom(self, rom_bytes):
-        "this will load rom bytes intom main memory/RAM"
+        "this will load rom bytes into main memory/RAM"
         for i, byte_value in enumerate(rom_bytes):
             self.ram[Cpu.PROGRAM_START_ADDRESS + i] = byte_value
 
@@ -88,6 +88,7 @@ class Cpu:
             self.delay_timer -= 1
 
     def _load_font(self):
+        "this method loads the font data into main memory/RAM"
         offset = 0x0
         for item in font.DATA:
             self.ram[offset] = item
