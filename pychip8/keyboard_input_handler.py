@@ -1,63 +1,46 @@
-"""This module contains the keyboard input handler type"""
+"""This module contains the keyboard input handling logic"""
 
 import sys
 import pygame
 
+keys = {}
+keys[pygame.K_0] = 0x0
+keys[pygame.K_1] = 0x1
+keys[pygame.K_2] = 0x2
+keys[pygame.K_3] = 0x3
+keys[pygame.K_4] = 0x4
+keys[pygame.K_5] = 0x5
+keys[pygame.K_6] = 0x6
+keys[pygame.K_7] = 0x7
+keys[pygame.K_8] = 0x8
+keys[pygame.K_9] = 0x9
+keys[pygame.K_a] = 0xA
+keys[pygame.K_b] = 0xB
+keys[pygame.K_c] = 0xC
+keys[pygame.K_d] = 0xD
+keys[pygame.K_e] = 0xE
+keys[pygame.K_f] = 0xF
 
-class KeyboardInputHandler:
-    """A basic keyboard input handler class"""
+def handle_input(cpu=None):
+    """
+    This function handles control input for this program.
+    It returns a sequence of bools for all currently pressed keys.
+    """
+    for event in pygame.event.get():
 
-    _keys = {}
-    _keys[pygame.K_KP0] = 0x0
-    _keys[pygame.K_KP1] = 0x1
-    _keys[pygame.K_KP2] = 0x2
-    _keys[pygame.K_KP3] = 0x3
-    _keys[pygame.K_KP4] = 0x4
-    _keys[pygame.K_KP5] = 0x5
-    _keys[pygame.K_KP6] = 0x6
-    _keys[pygame.K_KP7] = 0x7
-    _keys[pygame.K_KP8] = 0x8
-    _keys[pygame.K_KP9] = 0x9
-    _keys[pygame.K_0] = 0x0
-    _keys[pygame.K_1] = 0x1
-    _keys[pygame.K_2] = 0x2
-    _keys[pygame.K_3] = 0x3
-    _keys[pygame.K_4] = 0x4
-    _keys[pygame.K_5] = 0x5
-    _keys[pygame.K_6] = 0x6
-    _keys[pygame.K_7] = 0x7
-    _keys[pygame.K_8] = 0x8
-    _keys[pygame.K_9] = 0x9
-    _keys[pygame.K_a] = 0xA
-    _keys[pygame.K_b] = 0xB
-    _keys[pygame.K_c] = 0xC
-    _keys[pygame.K_d] = 0xD
-    _keys[pygame.K_e] = 0xE
-    _keys[pygame.K_f] = 0xF
+        # quit if user presses exit or closes the window
+        if event.type == pygame.QUIT:
+            sys.exit()
 
-    def handle_input(self, cpu=None):
-        """
-        This function handles control input for this program.
-        It returns a sequence of bools for all currently pressed keys.
-        """
-        for event in pygame.event.get():
+        # check cpu registers and inject key input
+        if cpu:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    sys.exit()
 
-            # quit if user presses exit or closes the window
-            if event.type == pygame.QUIT:
-                sys.exit()
+                if event.key in keys:
+                    cpu.key_down(keys[event.key])
 
-            if cpu:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        sys.exit()
-
-                    if event.key in self._keys:
-                        cpu.key_down(self._keys[event.key])
-
-                if event.type == pygame.KEYUP:
-                    if event.key in self._keys:
-                        cpu.key_up(self._keys[event.key])
-
-        pressed = pygame.key.get_pressed()
-
-        return pressed
+            if event.type == pygame.KEYUP:
+                if event.key in keys:
+                    cpu.key_up(keys[event.key])
