@@ -2,7 +2,7 @@
 
 # see https://en.wikipedia.org/wiki/CHIP-8 for the chip 8 spec
 from operation_code import Opcode
-import operation_mapper
+import operation_mapping
 import font
 
 class Cpu:
@@ -71,7 +71,7 @@ class Cpu:
         self._current_word = self.fetch_word()
 
         opcode = Opcode(self._current_word)
-        self._current_operation = operation_mapper.find_operation(self._current_word)
+        self._current_operation = operation_mapping.find_operation(self._current_word)
 
         self.move_to_next_instruction()
         self._current_operation(opcode, self)

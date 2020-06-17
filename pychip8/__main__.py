@@ -3,7 +3,7 @@
 import argparse
 import rom_loader
 import pygame
-import keyboard_input_handler
+import keyboard_input
 
 from cpu import Cpu
 from renderer import Renderer
@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     # main loop
     while True:
-        keyboard_input_handler.handle_input(cpu)
+        keyboard_input.handle_input(cpu)
 
         # The CHIP-8 is reported to run best at around 500 hz
         # The update loop runs at 60 fps. 60 * 8 = 480, which is close enough.
