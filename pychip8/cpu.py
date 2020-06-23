@@ -8,14 +8,18 @@ import font
 class Cpu:
     """this class represents the CHIP 8 cpu"""
 
-    PROGRAM_START_ADDRESS = 0x200 # game ram begins at address 0x200 / 512
-    WORD_SIZE_IN_BYTES = 2 # the chip 8 works with 16 bit/2 byte opcodes
-    ARITHMETIC_FLAG_REGISTER_ADDRESS = 0xF #V[15] is used as a carry/no borrow flag for certain ops
+    # game ram begins at address 0x200 / 512
+    PROGRAM_START_ADDRESS = 0x200
+    # the chip 8 works with 16 bit/2 byte opcodes
+    WORD_SIZE_IN_BYTES = 2
+    # V[15/0xF] is used as a carry/no borrow flag for certain ops
+    ARITHMETIC_FLAG_REGISTER_ADDRESS = 0xF
     FRAME_BUFFER_WIDTH = 64
     FRAME_BUFFER_HEIGHT = 32
 
     def __init__(self):
-        self.ram = [0] * 4096 # 4k of RAM
+        # 4k of RAM
+        self.ram = [0] * 4096 
         self.program_counter = self.PROGRAM_START_ADDRESS
 
         self.index_register = 0

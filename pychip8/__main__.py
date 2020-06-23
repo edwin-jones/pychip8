@@ -11,12 +11,12 @@ from cpu import Cpu
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--rom", type=str, help="the name of the rom to run in the emulator")
+    parser.add_argument("-r", "--rom", required=True, type=str, help="the name of the rom to run in the emulator")
     args = parser.parse_args()
 
     cpu = Cpu()
     clock = pygame.time.Clock()
-    rom_bytes = rom_loader.get_rom_bytes(args.rom if args.rom else "draw chars.ch8")
+    rom_bytes = rom_loader.get_rom_bytes(args.rom)
     cpu.load_rom(rom_bytes)
 
     pygame.display.set_caption("pychip8")

@@ -24,7 +24,6 @@ keys[pygame.K_f] = 0xF
 def handle_input(cpu=None):
     """
     This function handles control input for this program.
-    It returns a sequence of bools for all currently pressed keys.
     """
     for event in pygame.event.get():
 
