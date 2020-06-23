@@ -1,12 +1,12 @@
 """This is the main entry point for the program"""
 
 import argparse
+import keyboard_input
+import renderer
 import rom_loader
 import pygame
-import keyboard_input
 
 from cpu import Cpu
-from renderer import Renderer
 
 if __name__ == "__main__":
 
@@ -15,7 +15,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     cpu = Cpu()
-    renderer = Renderer()
     clock = pygame.time.Clock()
     rom_bytes = rom_loader.get_rom_bytes(args.rom if args.rom else "draw chars.ch8")
     cpu.load_rom(rom_bytes)

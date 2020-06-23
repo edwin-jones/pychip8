@@ -31,6 +31,3 @@ class Opcode:
 
         # Eg. we want 0x4 not 0x40
         self.y = (word & 0x00F0) >> 4
-
-    def __str__(self):
-        return hex(self.word)
