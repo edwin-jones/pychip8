@@ -17,7 +17,7 @@ class App:
         self.input_handler = input_handler
         self.fps = 0
         self.clock = clock
-        self.color_switching = False
+        self.color_switching = True
 
     def run(self):
         """Run the app with this method"""
@@ -62,18 +62,17 @@ class App:
                 self.cpu.emulate_cycle()
         
         # allow color cycling
-        if keys[pygame.K_F1] and self.color_switching is False:
-            self.renderer.foreground_color_index = (self.renderer.foreground_color_index + 1) % len(FOREGROUND_COLORS)
-            print("here")
+        if keys[pygame.K_F1]:
+            if self.color_switching is False:
+                self.renderer.foreground_color_index = (self.renderer.foreground_color_index + 1) % len(FOREGROUND_COLORS)
             self.color_switching = True
 
-        elif keys[pygame.K_F2] and self.color_switching is False:
-            self.renderer.background_color_index = (self.renderer.background_color_index + 1) % len(BACKGROUND_COLORS)
-            print("here2")
+        elif keys[pygame.K_F2]:
+            if self.color_switching is False:
+                self.renderer.background_color_index = (self.renderer.background_color_index + 1) % len(BACKGROUND_COLORS)
             self.color_switching = True
         else:
             self.color_switching = False
-            print("here3")
 
         # the CHIP-8 timers were locked at 60 hz.
         # we should try to keep this rate no matter the actual fps/update speed
