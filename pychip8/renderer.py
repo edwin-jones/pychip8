@@ -14,6 +14,8 @@ class Renderer:
     def __init__(self, font=None, scale=settings.SCREEN_SCALE):
         self.font = font
         self.scale = scale
+        self.foreground_color_index = 0
+        self.background_color_index = 0
 
         screen_size = (
             Cpu.FRAME_BUFFER_WIDTH * self.scale,
@@ -41,14 +43,14 @@ class Renderer:
     def render(self, frame_buffer, debug_strings=None):
         """This method draws everything to the screen"""
 
-        self.screen.fill(colors.BLACK)
+        self.screen.fill(colors.BACKGROUND_COLORS[self.background_color_index])
 
         for x in range(Cpu.FRAME_BUFFER_WIDTH):
             for y in range(Cpu.FRAME_BUFFER_HEIGHT):
                 if frame_buffer[x][y]:
                     pygame.draw.rect(
                         self.screen,
-                        colors.WHITE,
+                        colors.FOREGROUND_COLORS[self.foreground_color_index],
                         (x *  self.scale, y *  self.scale,  self.scale,  self.scale))
 
         if debug_strings:

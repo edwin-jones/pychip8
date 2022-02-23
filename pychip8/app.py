@@ -1,6 +1,8 @@
 """This module defines the main application """
 
 import pygame
+from pychip8.colors import FOREGROUND_COLORS
+from pychip8.colors import BACKGROUND_COLORS
 
 import pychip8.settings as settings
 
@@ -15,6 +17,7 @@ class App:
         self.input_handler = input_handler
         self.fps = 0
         self.clock = clock
+        self.color_switching = False
 
     def run(self):
         """Run the app with this method"""
@@ -57,6 +60,20 @@ class App:
         if not __debug__ or keys[pygame.K_RETURN]:
             for i in range(settings.OPERATIONS_PER_FRAME):
                 self.cpu.emulate_cycle()
+        
+        # allow color cycling
+        if keys[pygame.K_F1] and self.color_switching is False:
+            self.renderer.foreground_color_index = (self.renderer.foreground_color_index + 1) % len(FOREGROUND_COLORS)
+            print("here")
+            self.color_switching = True
+
+        elif keys[pygame.K_F2] and self.color_switching is False:
+            self.renderer.background_color_index = (self.renderer.background_color_index + 1) % len(BACKGROUND_COLORS)
+            print("here2")
+            self.color_switching = True
+        else:
+            self.color_switching = False
+            print("here3")
 
         # the CHIP-8 timers were locked at 60 hz.
         # we should try to keep this rate no matter the actual fps/update speed
